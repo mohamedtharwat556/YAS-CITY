@@ -2427,11 +2427,6 @@ html[dir="ltr"] .data-table th {
     transition: background 0.4s ease;
 }
 
-.step-indicator.active ~ .step-line,
-.step-indicator.active ~ .step-indicator {
-    /* No change needed as active is progressive */
-}
-
 /* Steps Transition */
 .estimator-step {
     display: none;
@@ -4359,6 +4354,7 @@ body.dark-mode .compare-select-box select {
     font-weight: 900;
     margin-bottom: 15px;
     background: linear-gradient(135deg, #fff 0%, var(--soft-pink) 100%);
+    background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     text-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
