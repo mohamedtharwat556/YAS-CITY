@@ -187,17 +187,19 @@ function toggleFaq(element) {
     // Close all other FAQs
     document.querySelectorAll('.faq-item').forEach(item => {
         if (item !== faqItem) {
-            item.querySelector('.faq-answer').style.display = 'none';
-            item.querySelector('.faq-question i').style.transform = 'rotate(0deg)';
+            const otherAnswer = item.querySelector('.faq-answer');
+            const otherIcon = item.querySelector('.faq-question i');
+            if (otherAnswer) otherAnswer.classList.remove('active');
+            if (otherIcon) otherIcon.style.transform = 'rotate(0deg)';
         }
     });
     
     // Toggle current FAQ
-    if (answer.style.display === 'block') {
-        answer.style.display = 'none';
+    if (answer.classList.contains('active')) {
+        answer.classList.remove('active');
         icon.style.transform = 'rotate(0deg)';
     } else {
-        answer.style.display = 'block';
+        answer.classList.add('active');
         icon.style.transform = 'rotate(180deg)';
     }
 }
