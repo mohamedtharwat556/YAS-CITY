@@ -6058,6 +6058,20 @@ html[dir="ltr"] .ai-verdict-box {
     }
 }
 
+@media (min-width: 769px) {
+    .mobile-menu-btn {
+        display: none !important;
+    }
+    
+    .mobile-sidebar {
+        display: none !important;
+    }
+    
+    .sidebar-overlay {
+        display: none !important;
+    }
+}
+
 .mobile-sidebar {
     position: fixed;
     top: 0;

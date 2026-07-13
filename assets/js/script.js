@@ -994,10 +994,12 @@ window.handleSidebarSearch = function(query) {
         { title: 'اتصل بنا', link: '#contact', description: 'تواصل معنا' }
     ];
     
-    // Filter results
-    const results = searchData.filter(item => 
-        item.title.includes(query) || item.description.includes(query)
-    );
+    // Filter results with better matching
+    const results = searchData.filter(item => {
+        const titleMatch = item.title.toLowerCase().includes(query.toLowerCase());
+        const descMatch = item.description.toLowerCase().includes(query.toLowerCase());
+        return titleMatch || descMatch;
+    });
     
     // Display results
     if (results.length > 0) {
@@ -1010,6 +1012,6 @@ window.handleSidebarSearch = function(query) {
         `).join('');
     } else {
         resultsContainer.style.display = 'block';
-        resultsContainer.innerHTML = '<div class="search-result-item"><h4>لا توجد نتائج</h4></div>';
+        resultsContainer.innerHTML = '<div class="search-result-item"><h4>لا توجد نتائج</h4><p>جرب البحث بكلمات أخرى</p></div>';
     }
 };
