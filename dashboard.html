@@ -12,6 +12,7 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     <script src="config.js"></script>
+    <script src="cms.js"></script>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Tajawal', sans-serif; }
 
@@ -416,6 +417,107 @@
         ::-webkit-scrollbar { width: 6px; }
         ::-webkit-scrollbar-track { background: #0b0f19; }
         ::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 10px; }
+        
+        /* CMS Panel Styles */
+        .cms-panel {
+            padding: 30px;
+            background: rgba(30, 41, 59, 0.5);
+            border-radius: 20px;
+        }
+        
+        .cms-section {
+            background: rgba(17, 24, 39, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 25px;
+        }
+        
+        .cms-section h3 {
+            color: #d4af37;
+            margin-bottom: 20px;
+            font-size: 1.3rem;
+            font-weight: 700;
+        }
+        
+        .cms-form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .cms-form input,
+        .cms-form textarea {
+            background: #0f172a;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: #f8fafc;
+            padding: 12px 15px;
+            border-radius: 8px;
+            font-family: inherit;
+            font-size: 0.95rem;
+            transition: border-color 0.3s;
+        }
+        
+        .cms-form input:focus,
+        .cms-form textarea:focus {
+            outline: none;
+            border-color: #d4af37;
+        }
+        
+        .services-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .service-item {
+            background: rgba(15, 23, 42, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        
+        .service-item input,
+        .service-item textarea {
+            background: #0f172a;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: #f8fafc;
+            padding: 10px 12px;
+            border-radius: 6px;
+            font-family: inherit;
+            font-size: 0.9rem;
+        }
+        
+        .service-item textarea {
+            resize: vertical;
+            min-height: 60px;
+        }
+        
+        .service-item {
+            display: grid;
+            grid-template-columns: 1fr 1fr auto auto;
+            gap: 10px;
+            align-items: start;
+        }
+        
+        .btn-delete {
+            background: rgba(239, 68, 68, 0.1);
+            color: #ef4444;
+            border: 1px solid rgba(239, 68, 68, 0.2);
+            padding: 10px 15px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        
+        .btn-delete:hover {
+            background: #ef4444;
+            color: white;
+        }
     </style>
 </head>
 
@@ -442,6 +544,11 @@
             <li>
                 <div class="nav-link" onclick="switchSection('laptop_sale', this)">
                     <i class="fas fa-shopping-cart"></i> مبيعات الأجهزة
+                </div>
+            </li>
+            <li>
+                <div class="nav-link" onclick="switchSection('cms', this)">
+                    <i class="fas fa-edit"></i> إدارة المحتوى
                 </div>
             </li>
         </ul>
@@ -660,9 +767,150 @@
             currentFilter = filter;
             document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
             el.classList.add('active');
-            const titles = { all: 'كافة الطلبات', repair: '🛠️ قسم الصيانة', laptop_sale: '🛒 المبيعات' };
+            const titles = { all: 'كافة الطلبات', repair: '🛠️ قسم الصيانة', laptop_sale: '🛒 المبيعات', cms: '📝 إدارة المحتوى' };
             document.getElementById('panel-title').innerText = titles[filter];
-            renderTable();
+            
+            if (filter === 'cms') {
+                showCMSPanel();
+            } else {
+                renderTable();
+            }
+        }
+
+        // ---- CMS Panel ----
+        function showCMSPanel() {
+            const tbody = document.getElementById('table-body');
+            const cms = window.yasCMS;
+            const content = cms.content;
+            
+            tbody.innerHTML = `
+                <tr>
+                    <td colspan="6">
+                        <div class="cms-panel">
+                            <div class="cms-section">
+                                <h3>🏠 قسم الرئيسية (Hero)</h3>
+                                <div class="cms-form">
+                                    <input type="text" id="cms-hero-title" placeholder="العنوان الرئيسي" value="${content.hero.title}">
+                                    <input type="text" id="cms-hero-subtitle" placeholder="العنوان الفرعي" value="${content.hero.subtitle}">
+                                    <input type="text" id="cms-hero-button" placeholder="نص الزر" value="${content.hero.buttonText}">
+                                    <button onclick="saveHeroSection()" class="btn-primary">حفظ التغييرات</button>
+                                </div>
+                            </div>
+                            
+                            <div class="cms-section">
+                                <h3>ℹ️ قسم من نحن</h3>
+                                <div class="cms-form">
+                                    <textarea id="cms-about-p1" rows="3" placeholder="الفقرة الأولى">${content.about.paragraph1}</textarea>
+                                    <textarea id="cms-about-p2" rows="3" placeholder="الفقرة الثانية">${content.about.paragraph2}</textarea>
+                                    <button onclick="saveAboutSection()" class="btn-primary">حفظ التغييرات</button>
+                                </div>
+                            </div>
+                            
+                            <div class="cms-section">
+                                <h3>🛠️ إدارة الخدمات</h3>
+                                <div class="services-list">
+                                    ${content.services.map((service, index) => `
+                                        <div class="service-item">
+                                            <input type="text" value="${service.title}" id="service-title-${index}" placeholder="اسم الخدمة">
+                                            <textarea rows="2" id="service-desc-${index}" placeholder="وصف الخدمة">${service.description}</textarea>
+                                            <button onclick="updateService(${index})" class="btn-primary">تحديث</button>
+                                            <button onclick="deleteService(${index})" class="btn-delete">حذف</button>
+                                        </div>
+                                    `).join('')}
+                                    <button onclick="addNewService()" class="btn-primary" style="margin-top: 15px;">+ إضافة خدمة جديدة</button>
+                                </div>
+                            </div>
+                            
+                            <div class="cms-section">
+                                <h3>📞 معلومات التواصل</h3>
+                                <div class="cms-form">
+                                    <input type="text" id="cms-contact-address" placeholder="العنوان" value="${content.contact.address}">
+                                    <input type="text" id="cms-contact-phone" placeholder="الهاتف" value="${content.contact.phone}">
+                                    <input type="text" id="cms-contact-email" placeholder="الإيميل" value="${content.contact.email}">
+                                    <button onclick="saveContactSection()" class="btn-primary">حفظ التغييرات</button>
+                                </div>
+                            </div>
+                            
+                            <div class="cms-section">
+                                <h3>🔗 روابط التواصل الاجتماعي</h3>
+                                <div class="cms-form">
+                                    <input type="text" id="cms-social-facebook" placeholder="فيسبوك" value="${content.social.facebook}">
+                                    <input type="text" id="cms-social-whatsapp" placeholder="واتساب" value="${content.social.whatsapp}">
+                                    <button onclick="saveSocialSection()" class="btn-primary">حفظ التغييرات</button>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            `;
+        }
+        
+        async function saveHeroSection() {
+            const cms = window.yasCMS;
+            const result = await cms.updateHero({
+                title: document.getElementById('cms-hero-title').value,
+                subtitle: document.getElementById('cms-hero-subtitle').value,
+                buttonText: document.getElementById('cms-hero-button').value
+            });
+            alert(result.message);
+        }
+        
+        async function saveAboutSection() {
+            const cms = window.yasCMS;
+            const result = await cms.updateAbout({
+                paragraph1: document.getElementById('cms-about-p1').value,
+                paragraph2: document.getElementById('cms-about-p2').value
+            });
+            alert(result.message);
+        }
+        
+        async function updateService(index) {
+            const cms = window.yasCMS;
+            const serviceId = cms.content.services[index].id;
+            const result = await cms.updateService(serviceId, {
+                title: document.getElementById(`service-title-${index}`).value,
+                description: document.getElementById(`service-desc-${index}`).value
+            });
+            alert(result.message);
+            if (result.success) showCMSPanel();
+        }
+        
+        async function deleteService(index) {
+            if (!confirm('هل أنت متأكد من حذف هذه الخدمة؟')) return;
+            const cms = window.yasCMS;
+            const serviceId = cms.content.services[index].id;
+            const result = await cms.deleteService(serviceId);
+            alert(result.message);
+            if (result.success) showCMSPanel();
+        }
+        
+        async function addNewService() {
+            const title = prompt('اسم الخدمة الجديدة:');
+            if (!title) return;
+            const description = prompt('وصف الخدمة:');
+            const cms = window.yasCMS;
+            const result = await cms.addService({ title, description, icon: '🛠️' });
+            alert(result.message);
+            if (result.success) showCMSPanel();
+        }
+        
+        async function saveContactSection() {
+            const cms = window.yasCMS;
+            const result = await cms.updateContact({
+                address: document.getElementById('cms-contact-address').value,
+                phone: document.getElementById('cms-contact-phone').value,
+                email: document.getElementById('cms-contact-email').value
+            });
+            alert(result.message);
+        }
+        
+        async function saveSocialSection() {
+            const cms = window.yasCMS;
+            const result = await cms.updateSocial({
+                facebook: document.getElementById('cms-social-facebook').value,
+                whatsapp: document.getElementById('cms-social-whatsapp').value
+            });
+            alert(result.message);
         }
 
         // ---- Render Table with Status Flow ----
