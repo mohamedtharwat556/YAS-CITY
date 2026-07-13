@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>خدمة العملاء - YAS CITY</title>
+    <meta name="description" content="خدمة عملاء احترافية مع شات بوت ذكي ومساعدة فورية">
+    <link rel="stylesheet" href="style.css?v=2.3">
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="icon" type="image/jpeg" href="logo.jpeg">
+</head>
+<body class="light-mode">
+    <!-- Header -->
+    <header class="header">
+        <nav class="navbar">
+            <div class="nav-container">
+                <div class="logo">
+                    <a href="index.html">
+                        <img src="logo.jpeg" alt="YAS Logo" style="height: 50px; display: block;">
+                    </a>
+                </div>
+                <div class="nav-actions">
+                    <ul class="nav-menu">
+                        <li class="nav-item"><a href="index.html#home" class="nav-link">الرئيسية</a></li>
+                        <li class="nav-item"><a href="index.html#about" class="nav-link">من نحن</a></li>
+                        <li class="nav-item"><a href="index.html#services" class="nav-link">أقسامنا</a></li>
+                        <li class="nav-item"><a href="index.html#contact" class="nav-link">اتصل بنا</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Customer Service Hero -->
+    <section class="customer-service-hero">
+        <div class="container">
+            <div class="customer-hero-content">
+                <div class="customer-hero-text">
+                    <h1>خدمة العملاء الذكية 🤖</h1>
+                    <p>مساعدة فورية على مدار الساعة مع شات بوت ذكي وفريق دعم متخصص</p>
+                    <div class="customer-features">
+                        <div class="customer-feature">
+                            <i class="fas fa-clock"></i>
+                            <span>متاح 24/7</span>
+                        </div>
+                        <div class="customer-feature">
+                            <i class="fas fa-robot"></i>
+                            <span>شات بوت ذكي</span>
+                        </div>
+                        <div class="customer-feature">
+                            <i class="fas fa-headset"></i>
+                            <span>دعم بشري</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="customer-hero-image">
+                    <div class="chatbot-illustration">
+                        <i class="fas fa-comments"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Chatbot Section -->
+    <section class="chatbot-section">
+        <div class="container">
+            <div class="chatbot-container">
+                <div class="chatbot-header">
+                    <div class="chatbot-avatar">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <div class="chatbot-info">
+                        <h3>مساعد YAS الذكي</h3>
+                        <p>متاح الآن • شات بوت ذكي</p>
+                    </div>
+                    <div class="chatbot-status online"></div>
+                </div>
+                
+                <div class="chatbot-messages" id="chat-messages">
+                    <div class="message bot">
+                        <div class="message-content">
+                            <p>مرحباً! 👋 أنا مساعد YAS الذكي. كيف يمكنني مساعدتك اليوم؟</p>
+                            <div class="quick-replies">
+                                <button class="quick-reply" onclick="sendQuickReply('مشاكل اللابتوب')">مشاكل اللابتوب</button>
+                                <button class="quick-reply" onclick="sendQuickReply('أسعار الصيانة')">أسعار الصيانة</button>
+                                <button class="quick-reply" onclick="sendQuickReply('شراء جهاز جديد')">شراء جهاز جديد</button>
+                                <button class="quick-reply" onclick="sendQuickReply('التواصل مع موظف')">التواصل مع موظف</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="chatbot-input">
+                    <input type="text" id="user-input" placeholder="اكتب رسالتك هنا..." onkeypress="handleKeyPress(event)">
+                    <button class="send-btn" onclick="sendMessage()">
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Customer Service Manager -->
+    <section class="manager-section">
+        <div class="container">
+            <div class="manager-card">
+                <div class="manager-avatar">
+                    <i class="fas fa-user-tie"></i>
+                </div>
+                <div class="manager-info">
+                    <h3>أدم فاروق</h3>
+                    <p class="manager-role">مسؤول خدمة العملاء</p>
+                    <div class="manager-contact">
+                        <a href="tel:01559684422" class="contact-btn">
+                            <i class="fas fa-phone"></i>
+                            <span>01559684422</span>
+                        </a>
+                        <a href="https://wa.me/201559684422" class="contact-btn whatsapp">
+                            <i class="fab fa-whatsapp"></i>
+                            <span>واتساب</span>
+                        </a>
+                    </div>
+                    <p class="manager-hours">
+                        <i class="fas fa-clock"></i>
+                        متاح من الساعة 9 صباحاً حتى 9 مساءً
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq-section">
+        <div class="container">
+            <h2 class="section-title">الأسئلة الشائعة</h2>
+            <div class="faq-container">
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this)">
+                        <h3>ما هي أوقات عمل خدمة العملاء؟</h3>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>خدمة العملاء متاحة على مدار الساعة عبر الشات بوت الذكي. للتواصل مع موظف بشري، نحن متاحون من الساعة 9 صباحاً حتى 9 مساءً.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this)">
+                        <h3>كم تكلفة صيانة اللابتوب؟</h3>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>تعتمد تكلفة الصيانة على نوع المشكلة والقطع المطلوبة. يمكنك استخدام مركز YAS التقني الذكي للحصول على تقدير مجاني للتكلفة.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this)">
+                        <h3>هل تقدمون ضمان على الصيانة؟</h3>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>نعم، نقدم ضمان على جميع خدمات الصيانة يتراوح بين 3-6 أشهر حسب نوع الخدمة والقطع المستخدمة.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this)">
+                        <h3>كم تستغرق عملية الصيانة؟</h3>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>تتراوح مدة الصيانة بين 1-3 أيام حسب نوع المشكلة وتوفر القطع. سنخبرك بالمدة المقدرة عند استلام الجهاز.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <a href="index.html">
+                        <img src="logo.jpeg" alt="YAS Logo" style="height: 60px; display: block;">
+                    </a>
+                    <p>شركة رائدة في مجالها</p>
+                </div>
+                <div class="footer-links">
+                    <h3>روابط سريعة</h3>
+                    <ul>
+                        <li><a href="index.html#home">الرئيسية</a></li>
+                        <li><a href="index.html#about">من نحن</a></li>
+                        <li><a href="index.html#services">أقسامنا</a></li>
+                        <li><a href="index.html#contact">اتصل بنا</a></li>
+                    </ul>
+                </div>
+                <div class="footer-contact">
+                    <h3>تواصل معنا</h3>
+                    <p><i class="fas fa-phone"></i> 01147800144</p>
+                    <p><i class="fas fa-envelope"></i> info@yascity.com</p>
+                    <p><i class="fas fa-map-marker-alt"></i> دمياط - الزرقا - كفر المياسرة</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 YAS CITY. جميع الحقوق محفوظة.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="customer-service.js"></script>
+</body>
+</html>

@@ -110,6 +110,7 @@
                         <li class="nav-item"><a href="#team" class="nav-link">الفريق</a></li>
                         <li class="nav-item"><a href="#gallery" class="nav-link" data-tr="nav_gallery">معرض الصور</a></li>
                         <li class="nav-item"><a href="#tech-counselor" class="nav-link">المستشار التقني</a></li>
+                        <li class="nav-item"><a href="customer-service.html" class="nav-link">خدمة العملاء</a></li>
                         <li class="nav-item"><a href="#contact" class="nav-link" data-tr="nav_contact">اتصل بنا</a></li>
                     </ul>
                     <div class="interface-controls">
@@ -595,69 +596,109 @@
                     <!-- Comparison View (New) -->
                     <div id="compare-view" class="quiz-step" style="display: none;">
                         <h3 class="step-title"><i class="fas fa-balance-scale"></i> قارن بين أي جهازين لابتوب في العالم</h3>
+                        <p class="step-subtitle">أدخل أسماء الأجهزة للحصول على مقارنة تفصيلية مع تحليل احترافي</p>
+                        
                         <div class="compare-selector-grid ai-mode">
                             <div class="compare-select-box">
-                                <label>ادخل اسم الجهاز الأول</label>
+                                <label><i class="fas fa-laptop"></i> الجهاز الأول</label>
                                 <input type="text" id="compare-1-ai" placeholder="مثلاً: HP ProBook 450 G8" class="ai-input">
+                                <div class="device-suggestions" id="suggestions-1"></div>
                             </div>
-                            <div class="vs-divider ai-pulse">VS</div>
+                            <div class="vs-divider ai-pulse">
+                                <span>VS</span>
+                            </div>
                             <div class="compare-select-box">
-                                <label>ادخل اسم الجهاز الثاني</label>
+                                <label><i class="fas fa-laptop"></i> الجهاز الثاني</label>
                                 <input type="text" id="compare-2-ai" placeholder="مثلاً: Dell Latitude 5420" class="ai-input">
+                                <div class="device-suggestions" id="suggestions-2"></div>
                             </div>
                         </div>
+                        
                         <div class="ai-loader-container" id="ai-comparison-loader" style="display: none;">
                             <div class="ai-scanner"></div>
                             <p>جاري تحليل المواصفات بالذكاء الاصطناعي...</p>
                         </div>
 
-                        <div class="comparison-table-wrapper">
+                        <div class="comparison-table-wrapper" id="comparison-result" style="display: none;">
+                            <div class="comparison-summary">
+                                <div class="winner-badge" id="winner-badge">
+                                    <i class="fas fa-trophy"></i>
+                                    <span id="winner-name">الأفضل للعمل</span>
+                                </div>
+                            </div>
+                            
                             <table class="comparison-table" id="comparison-table">
                                 <thead>
                                     <tr>
                                         <th>المواصفات</th>
-                                        <th id="th-name-1">HP Engine</th>
-                                        <th id="th-name-2">Dell Power</th>
+                                        <th id="th-name-1" class="device-1-header">
+                                            <div class="device-header-content">
+                                                <span class="device-name">HP Engine</span>
+                                                <span class="device-score" id="score-1">8.5/10</span>
+                                            </div>
+                                        </th>
+                                        <th id="th-name-2" class="device-2-header">
+                                            <div class="device-header-content">
+                                                <span class="device-name">Dell Power</span>
+                                                <span class="device-score" id="score-2">9.0/10</span>
+                                            </div>
+                                        </th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <td>المعالج</td>
-                                        <td id="td-cpu-1">Intel i5-11th</td>
-                                        <td id="td-cpu-2">Intel i5-11th</td>
+                                        <td><i class="fas fa-microchip"></i> المعالج</td>
+                                        <td id="td-cpu-1"><span class="spec-value">Intel i5-11th</span><span class="spec-rating">⭐⭐⭐⭐</span></td>
+                                        <td id="td-cpu-2"><span class="spec-value">Intel i5-11th</span><span class="spec-rating">⭐⭐⭐⭐</span></td>
                                     </tr>
                                     <tr>
-                                        <td>الرام</td>
-                                        <td id="td-ram-1">8GB DDR4</td>
-                                        <td id="td-ram-2">8GB DDR4</td>
+                                        <td><i class="fas fa-memory"></i> الرام</td>
+                                        <td id="td-ram-1"><span class="spec-value">8GB DDR4</span><span class="spec-rating">⭐⭐⭐</span></td>
+                                        <td id="td-ram-2"><span class="spec-value">8GB DDR4</span><span class="spec-rating">⭐⭐⭐</span></td>
                                     </tr>
                                     <tr>
-                                        <td>التخزين</td>
-                                        <td id="td-storage-1">256GB SSD</td>
-                                        <td id="td-storage-2">512GB SSD</td>
+                                        <td><i class="fas fa-hdd"></i> التخزين</td>
+                                        <td id="td-storage-1"><span class="spec-value">256GB SSD</span><span class="spec-rating">⭐⭐⭐</span></td>
+                                        <td id="td-storage-2"><span class="spec-value">512GB SSD</span><span class="spec-rating">⭐⭐⭐⭐</span></td>
                                     </tr>
                                     <tr>
-                                        <td>الشاشة</td>
-                                        <td id="td-screen-1">15.6" FHD</td>
-                                        <td id="td-screen-2">14" FHD</td>
+                                        <td><i class="fas fa-desktop"></i> الشاشة</td>
+                                        <td id="td-screen-1"><span class="spec-value">15.6" FHD</span><span class="spec-rating">⭐⭐⭐⭐</span></td>
+                                        <td id="td-screen-2"><span class="spec-value">14" FHD</span><span class="spec-rating">⭐⭐⭐⭐</span></td>
                                     </tr>
                                     <tr>
-                                        <td>مؤشر الأداء (YAS Score)</td>
-                                        <td>
-                                            <span class="performance-label" id="lbl-score-1">0%</span>
-                                            <div class="perf-bar-container"><div class="perf-bar-fill" id="bar-score-1"></div></div>
-                                        </td>
-                                        <td>
-                                            <span class="performance-label" id="lbl-score-2">0%</span>
-                                            <div class="perf-bar-container"><div class="perf-bar-fill" id="bar-score-2"></div></div>
-                                        </td>
+                                        <td><i class="fas fa-gamepad"></i> الكرت الشاشة</td>
+                                        <td id="td-gpu-1"><span class="spec-value">Integrated</span><span class="spec-rating">⭐⭐</span></td>
+                                        <td id="td-gpu-2"><span class="spec-value">NVIDIA MX450</span><span class="spec-rating">⭐⭐⭐⭐</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td><i class="fas fa-battery-full"></i> البطارية</td>
+                                        <td id="td-battery-1"><span class="spec-value">3-cell 41Wh</span><span class="spec-rating">⭐⭐</span></td>
+                                        <td id="td-battery-2"><span class="spec-value">3-cell 52Wh</span><span class="spec-rating">⭐⭐⭐</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td><i class="fas fa-weight-hanging"></i> الوزن</td>
+                                        <td id="td-weight-1"><span class="spec-value">1.8 kg</span><span class="spec-rating">⭐⭐⭐</span></td>
+                                        <td id="td-weight-2"><span class="spec-value">1.3 kg</span><span class="spec-rating">⭐⭐⭐⭐⭐</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td><i class="fas fa-tag"></i> السعر المقدر</td>
+                                        <td id="td-price-1"><span class="spec-value price">EGP 15,000</span><span class="spec-rating value">قيمة عالية</span></td>
+                                        <td id="td-price-2"><span class="spec-value price">EGP 18,000</span><span class="spec-rating value">متوسط</span></td>
                                     </tr>
                                 </tbody>
                             </table>
+                            
+                            <div class="comparison-verdict">
+                                <h4><i class="fas fa-lightbulb"></i> التوصية</h4>
+                                <p id="comparison-verdict-text">بناءً على التحليل، الجهاز الثاني (Dell Power) يقدم أداءً أفضل للعمل مع وزن أخف وسعة تخزين أكبر، مما يجعله الخيار الأنسب للمهام المكتبية والتنقل.</p>
+                            </div>
                         </div>
+                        
                         <div class="compare-actions">
                             <button class="cta-button ai-btn" onclick="startAIComparison()"><i class="fas fa-brain"></i> ابدأ التحليل الذكي</button>
                             <button class="cta-button" onclick="contactCompare()"><i class="fab fa-whatsapp"></i> استفسر عن الأسعار</button>
+                            <button class="cta-button secondary" onclick="resetComparison()"><i class="fas fa-redo"></i> مقارنة جديدة</button>
                         </div>
                     </div>
                 </div>
@@ -748,14 +789,39 @@
     <!-- Smart Tech Center (Merged Section) -->
     <section id="tech-counselor" class="smart-tech-center-section">
         <div class="container">
-            <h2 class="section-title text-center" data-aos="fade-up">مركز YAS التقني الذكي 🧠</h2>
-            <p class="section-subtitle text-center" data-aos="fade-up">كل ما يحتاجه جهازك من تشخيص، تحديث، وعروض حصرية في مكان واحد</p>
+            <div class="tech-center-hero" data-aos="fade-up">
+                <div class="tech-center-icon">
+                    <i class="fas fa-brain"></i>
+                </div>
+                <h2 class="section-title">مركز YAS التقني الذكي 🧠</h2>
+                <p class="section-subtitle">تشخيص احترافي، تحليل ذكي، وحلول فورية لأجهزتك</p>
+                <div class="tech-center-features">
+                    <div class="feature-badge">
+                        <i class="fas fa-bolt"></i>
+                        <span>تحليل فوري</span>
+                    </div>
+                    <div class="feature-badge">
+                        <i class="fas fa-shield-alt"></i>
+                        <span>دقة عالية</span>
+                    </div>
+                    <div class="feature-badge">
+                        <i class="fas fa-tools"></i>
+                        <span>حلول عملية</span>
+                    </div>
+                </div>
+            </div>
 
             <div class="smart-center-wrapper glass-card-3d neon-glow" data-aos="zoom-in">
                 <!-- Main Tab Controls -->
                 <div class="smart-tabs">
-                    <button class="s-tab active" onclick="switchSmartTab('diagnosis')"><i class="fas fa-microchip"></i> تشخيص ذكي</button>
-                    <button class="s-tab" onclick="switchSmartTab('upgrade')"><i class="fas fa-rocket"></i> مسار التحديث</button>
+                    <button class="s-tab active" onclick="switchSmartTab('diagnosis')">
+                        <i class="fas fa-microchip"></i>
+                        <span>تشخيص ذكي</span>
+                    </button>
+                    <button class="s-tab" onclick="switchSmartTab('upgrade')">
+                        <i class="fas fa-rocket"></i>
+                        <span>مسار التحديث</span>
+                    </button>
                 </div>
 
                 <div class="smart-content-box">
@@ -763,8 +829,10 @@
                     <!-- Tab 1: AI Diagnosis (Upgraded with Speedometer) -->
                     <div id="view-diagnosis" class="smart-view active">
                         <div class="view-header">
-                            <h3 style="color: var(--accent-gold); font-weight: 900;">لوحة التحكم الذكية (Smart Dashboard)</h3>
-                            <p>تحليل فني عميق لمكونات جهازك وأدائه الفعلي.</p>
+                            <h3 style="color: var(--accent-gold); font-weight: 900;">
+                                <i class="fas fa-chart-line"></i> لوحة التحكم الذكية
+                            </h3>
+                            <p>تحليل فني عميق لمكونات جهازك وأدائه الفعلي</p>
                         </div>
                         
                         <div class="diagnosis-unified-container">
