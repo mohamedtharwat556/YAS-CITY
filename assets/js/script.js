@@ -560,25 +560,113 @@ const vrScenes = {
 
 window.runTechScan = function() {
     const overlay = document.getElementById('scan-overlay'), status = document.getElementById('scan-status'), bar = document.getElementById('progress-bar-fill'), result = document.getElementById('scan-result');
+    const stepsContainer = document.getElementById('scan-steps');
     if (!overlay || !status) return;
     result.style.display = 'none'; overlay.style.display = 'flex'; if(bar) bar.style.width = '0%';
-    const steps = [{ text: "INITIALIZING...", delay: 800, progress: 20 }, { text: "SCANNING CPU...", delay: 1500, progress: 50 }, { text: "ANALYZING...", delay: 2500, progress: 80 }, { text: "DONE", delay: 3500, progress: 100 }];
-    steps.forEach(step => setTimeout(() => { status.innerText = step.text; if(bar) bar.style.width = step.progress + '%'; }, step.delay));
-    setTimeout(() => { overlay.style.display = 'none'; calculateScanScore(); }, 4000);
+    
+    // Reset steps
+    if(stepsContainer) {
+        const steps = stepsContainer.querySelectorAll('.step');
+        steps.forEach(step => step.classList.remove('active'));
+    }
+    
+    const steps = [
+        { text: "جاري التهيئة...", delay: 800, progress: 20, stepIndex: 0 },
+        { text: "فحص المعالج...", delay: 1500, progress: 50, stepIndex: 1 },
+        { text: "تحليل الرامات...", delay: 2500, progress: 70, stepIndex: 2 },
+        { text: "فحص التخزين...", delay: 3200, progress: 85, stepIndex: 3 },
+        { text: "تم التحليل", delay: 4000, progress: 100, stepIndex: 3 }
+    ];
+    
+    steps.forEach(step => setTimeout(() => { 
+        status.innerText = step.text; 
+        if(bar) bar.style.width = step.progress + '%';
+        if(stepsContainer) {
+            const stepElements = stepsContainer.querySelectorAll('.step');
+            if(stepElements[step.stepIndex]) {
+                stepElements[step.stepIndex].classList.add('active');
+            }
+        }
+    }, step.delay));
+    
+    setTimeout(() => { overlay.style.display = 'none'; calculateScanScore(); }, 4500);
 };
 
 function calculateScanScore() {
-    const cpu = parseInt(document.getElementById('scan-cpu').value), ram = parseInt(document.getElementById('scan-ram').value), storage = document.getElementById('scan-storage').value, age = parseInt(document.getElementById('scan-age').value);
-    let score = (cpu * 4) + (ram * 1.5); score += (storage === 'nvme' ? 15 : (storage === 'ssd' ? 10 : -10)); score -= (age * 5); score = Math.min(Math.max(Math.round(score), 10), 99);
-    document.getElementById('scan-result').style.display = 'block'; document.getElementById('v-score').innerText = score + '%';
-    let verdict = score > 85 ? "أداء خارق (Legendary)" : (score > 60 ? "أداء جيد (Solid)" : (score > 35 ? "يحتاج تطوير" : "أداء ضعيف"));
+    const cpu = parseInt(document.getElementById('scan-cpu').value);
+    const ram = parseInt(document.getElementById('scan-ram').value);
+    const storage = document.getElementById('scan-storage').value;
+    const age = parseInt(document.getElementById('scan-age').value);
+    const gpu = parseInt(document.getElementById('scan-gpu').value);
+    const temp = parseInt(document.getElementById('scan-temp').value);
+    
+    // Calculate individual component scores
+    const cpuScore = Math.min(cpu * 5, 100);
+    const ramScore = Math.min(ram * 3, 100);
+    const storageScore = storage === 'nvme' ? 100 : (storage === 'ssd' ? 80 : (storage === 'hybrid' ? 60 : 30));
+    const gpuScore = Math.min(gpu * 6, 100);
+    const tempScore = temp * 10;
+    
+    // Calculate overall score
+    let score = (cpuScore * 0.3) + (ramScore * 0.2) + (storageScore * 0.2) + (gpuScore * 0.2) + (tempScore * 0.1);
+    score -= (age * 3);
+    score = Math.min(Math.max(Math.round(score), 10), 99);
+    
+    // Display results
+    document.getElementById('scan-result').style.display = 'block';
+    document.getElementById('v-score').innerText = score + '%';
+    
+    // Update charts
+    updateChart('cpu-chart', 'cpu-value', cpuScore);
+    updateChart('ram-chart', 'ram-value', ramScore);
+    updateChart('storage-chart', 'storage-value', storageScore);
+    updateChart('gpu-chart', 'gpu-value', gpuScore);
+    
+    // Verdict and advice
+    let verdict = score > 85 ? "أداء خارق (Legendary)" : (score > 70 ? "أداء ممتاز (Excellent)" : (score > 50 ? "أداء جيد (Good)" : (score > 35 ? "يحتاج تطوير (Fair)" : "أداء ضعيف (Poor)")));
     document.getElementById('v-verdict').innerText = verdict;
     
     const advice = document.getElementById('v-advice');
+    const recommendationsList = document.getElementById('recommendations-list');
+    
     if (advice) {
-        if (score < 40) advice.innerText = "جهازك يحتاج لتحديث فوري (SSD/RAM) ليعمل بشكل طبيعي.";
-        else if (score < 70) advice.innerText = "الأداء متوسط، ننصح بعمل صيانة دورية وتغيير المعجون الحراري.";
-        else advice.innerText = "جهازك في حالة ممتازة! حافظ عليه بالصيانة الدورية كل 6 أشهر.";
+        if (score < 40) advice.innerText = "جهازك يحتاج لتحديث فوري ليعمل بشكل طبيعي.";
+        else if (score < 60) advice.innerText = "الأداء متوسط، ننصح بعمل صيانة دورية وتحسين بعض القطع.";
+        else if (score < 80) advice.innerText = "الأداء جيد، مع بعض التحسينات البسيطة سيكون ممتازاً.";
+        else advice.innerText = "جهازك في حالة ممتازة! حافظ عليه بالصيانة الدورية.";
+    }
+    
+    // Generate recommendations
+    if(recommendationsList) {
+        recommendationsList.innerHTML = '';
+        const recommendations = [];
+        
+        if(cpuScore < 60) recommendations.push("ترقية المعالج لتحسين الأداء العام");
+        if(ramScore < 60) recommendations.push("زيادة الرامات لتسريع تعدد المهام");
+        if(storageScore < 70) recommendations.push("ترقية التخزين إلى NVMe SSD");
+        if(gpuScore < 50) recommendations.push("ترقية كارت الشاشة للألعاب والرسوميات");
+        if(tempScore < 60) recommendations.push("تحسين التبريد وتغيير المعجون الحراري");
+        if(age > 5) recommendations.push("ننصح بعمل صيانة شاملة للجهاز القديم");
+        if(score > 80) recommendations.push("الحفاظ على الصيانة الدورية كل 6 أشهر");
+        
+        recommendations.forEach(rec => {
+            const li = document.createElement('li');
+            li.textContent = rec;
+            recommendationsList.appendChild(li);
+        });
+    }
+}
+
+function updateChart(chartId, valueId, percentage) {
+    const chart = document.getElementById(chartId);
+    const value = document.getElementById(valueId);
+    if(chart) {
+        setTimeout(() => {
+            chart.style.width = percentage + '%';
+        }, 100);
+    }
+    if(value) {
+        value.textContent = percentage + '%';
     }
 }
 
@@ -684,7 +772,7 @@ window.selectQuizOption = function(key, value) {
     const currentStepId = quizHistory[quizHistory.length - 1];
     const stepNum = parseInt(currentStepId.split('-').pop());
 
-    if (stepNum < 3) {
+    if (stepNum < 6) {
         goToQuizStep(`q-step-${stepNum + 1}`);
     } else {
         goToQuizStep('q-step-analyzing');
@@ -707,7 +795,7 @@ function goToQuizStep(stepId) {
 }
 
 function updateQuizStepper(stepId) {
-    const stepMap = { 'q-step-1': 1, 'q-step-2': 2, 'q-step-3': 3, 'q-step-analyzing': 4, 'quiz-result': 4 };
+    const stepMap = { 'q-step-1': 1, 'q-step-2': 2, 'q-step-3': 3, 'q-step-4': 4, 'q-step-5': 5, 'q-step-6': 6, 'q-step-analyzing': 7, 'quiz-result': 7 };
     const num = stepMap[stepId] || 1;
     document.querySelectorAll('.q-step').forEach((ind, idx) => {
         ind.classList.toggle('active', idx + 1 === num);
@@ -734,20 +822,83 @@ window.resetQuiz = function() {
 
 function showQuizResult() {
     const recommendations = {
+        // Student + Economy + High Portability
         'student_economy_high': { name: 'Dell Latitude 7480', power: 65, gaming: 30, battery: 85, img: 'laptop1.png', specs: ['Core i5-7th Gen', '8GB RAM', '256GB SSD', 'Ultra Portable'] },
+        // Student + Economy + Mid Portability
+        'student_economy_mid': { name: 'HP ProBook 450 G7', power: 70, gaming: 35, battery: 80, img: 'laptop2.png', specs: ['Core i5-10th Gen', '8GB RAM', '512GB SSD', '15.6" FHD'] },
+        // Student + Economy + Low Portability
+        'student_economy_low': { name: 'Lenovo ThinkPad E15', power: 72, gaming: 38, battery: 78, img: 'laptop3.png', specs: ['Core i5-11th Gen', '8GB RAM', '512GB SSD', '15.6" IPS'] },
+        
+        // Gaming + Premium + Low Portability
         'gaming_premium_low': { name: 'HP Victus 15', power: 95, gaming: 92, battery: 60, img: 'laptop2.png', specs: ['Core i7-12th Gen', '16GB RAM', 'RTX 3050', '144Hz Screen'] },
+        // Gaming + Premium + Mid Portability
+        'gaming_premium_mid': { name: 'ASUS ROG Strix G15', power: 98, gaming: 95, battery: 55, img: 'laptop1.png', specs: ['Ryzen 7 5800H', '16GB RAM', 'RTX 3060', '165Hz Screen'] },
+        // Gaming + Ultra + Low Portability
+        'gaming_ultra_low': { name: 'Alienware m15 R7', power: 100, gaming: 98, battery: 50, img: 'laptop3.png', specs: ['Core i9-12th Gen', '32GB RAM', 'RTX 3080', '240Hz OLED'] },
+        
+        // Business + Mid + High Portability
         'business_mid_high': { name: 'Dell Latitude 7420', power: 88, gaming: 55, battery: 90, img: 'laptop3.png', specs: ['Core i7-11th Gen', '16GB RAM', 'Iris Xe Graphics', 'Long Battery'] },
+        // Business + Premium + High Portability
+        'business_premium_high': { name: 'MacBook Pro 14"', power: 92, gaming: 60, battery: 95, img: 'laptop1.png', specs: ['M2 Pro Chip', '16GB RAM', '512GB SSD', 'Liquid Retina XDR'] },
+        // Business + Premium + Mid Portability
+        'business_premium_mid': { name: 'ThinkPad X1 Carbon', power: 90, gaming: 45, battery: 92, img: 'laptop2.png', specs: ['Core i7-12th Gen', '16GB RAM', '1TB SSD', 'Carbon Fiber'] },
+        
+        // Design + Premium + Mid Portability
+        'design_premium_mid': { name: 'MacBook Pro 16"', power: 98, gaming: 65, battery: 88, img: 'laptop1.png', specs: ['M2 Max Chip', '32GB RAM', '1TB SSD', '16.2" Liquid Retina'] },
+        // Design + Ultra + Low Portability
+        'design_ultra_low': { name: 'MSI Creator Z17', power: 100, gaming: 85, battery: 70, img: 'laptop3.png', specs: ['Core i9-13th Gen', '64GB RAM', 'RTX 4080', '17.3" 4K Touch'] },
+        
+        // Programming + Mid + High Portability
+        'programming_mid_high': { name: 'MacBook Air M2', power: 85, gaming: 40, battery: 95, img: 'laptop2.png', specs: ['M2 Chip', '16GB RAM', '512GB SSD', '13.6" Liquid Retina'] },
+        // Programming + Premium + Mid Portability
+        'programming_premium_mid': { name: 'Framework Laptop 16"', power: 92, gaming: 70, battery: 75, img: 'laptop1.png', specs: ['Ryzen 7 7840HS', '32GB RAM', '1TB SSD', 'Upgradeable'] },
+        
+        // Default fallback
         'default': { name: 'HP EliteBook 840 G6', power: 75, gaming: 40, battery: 80, img: 'laptop1.png', specs: ['Core i5-8th Gen', '16GB RAM', '512GB SSD', 'Metal Body'] }
     };
 
+    // Create recommendation key based on all selected parameters
     const key = `${quizSelected.usage}_${quizSelected.budget}_${quizSelected.portability}`;
-    const match = recommendations[key] || recommendations['default'];
+    let match = recommendations[key];
+    
+    // If no exact match, try partial matches
+    if (!match) {
+        const partialKey = `${quizSelected.usage}_${quizSelected.budget}`;
+        match = recommendations[partialKey + '_mid'] || recommendations[partialKey + '_high'] || recommendations[partialKey + '_low'];
+    }
+    
+    // Final fallback
+    if (!match) {
+        match = recommendations['default'];
+    }
+
+    // Adjust scores based on additional preferences
+    let adjustedPower = match.power;
+    let adjustedGaming = match.gaming;
+    let adjustedBattery = match.battery;
+    
+    if (quizSelected.performance === 'speed') {
+        adjustedPower = Math.min(match.power + 10, 100);
+    } else if (quizSelected.performance === 'battery') {
+        adjustedBattery = Math.min(match.battery + 10, 100);
+    } else if (quizSelected.performance === 'graphics') {
+        adjustedGaming = Math.min(match.gaming + 10, 100);
+    }
+    
+    // OS preference adjustment
+    if (quizSelected.os === 'mac' && !match.name.includes('Mac')) {
+        // Suggest MacBook if user prefers macOS
+        match = recommendations['business_premium_high'];
+    } else if (quizSelected.os === 'linux' && match.name.includes('Mac')) {
+        // Suggest Linux-compatible alternative
+        match = recommendations['programming_premium_mid'];
+    }
 
     if(document.getElementById('match-name')) document.getElementById('match-name').innerText = match.name;
-    if(document.getElementById('score-power')) document.getElementById('score-power').style.width = match.power + '%';
-    if(document.getElementById('score-gaming')) document.getElementById('score-gaming').style.width = match.gaming + '%';
-    if(document.getElementById('score-battery')) document.getElementById('score-battery').style.width = match.battery + '%';
-    if(document.getElementById('match-img')) document.getElementById('match-img').src = match.img;
+    if(document.getElementById('score-power')) document.getElementById('score-power').style.width = adjustedPower + '%';
+    if(document.getElementById('score-gaming')) document.getElementById('score-gaming').style.width = adjustedGaming + '%';
+    if(document.getElementById('score-battery')) document.getElementById('score-battery').style.width = adjustedBattery + '%';
+    if(document.getElementById('match-img')) document.getElementById('match-img').src = 'assets/images/' + match.img;
     if(document.getElementById('match-specs')) {
         document.getElementById('match-specs').innerHTML = match.specs.map(s => `<li><i class="fas fa-check"></i> ${s}</li>`).join('');
     }
@@ -799,4 +950,66 @@ window.contactCompare = function() {
     const d2 = document.getElementById('th-name-2').innerText;
     const msg = encodeURIComponent(`مرحباً YAS CITY، أود الاستفسار عن أسعار الأجهزة التالية: (${d1}) و (${d2})`);
     window.open(`https://wa.me/201158986999?text=${msg}`, '_blank');
+};
+
+// Mobile Sidebar Functions
+window.toggleMobileMenu = function() {
+    const sidebar = document.getElementById('mobileSidebar');
+    const overlay = document.getElementById('sidebarOverlay');
+    
+    if (sidebar && overlay) {
+        sidebar.classList.toggle('active');
+        overlay.classList.toggle('active');
+        
+        // Prevent body scroll when sidebar is open
+        if (sidebar.classList.contains('active')) {
+            document.body.style.overflow = 'hidden';
+        } else {
+            document.body.style.overflow = '';
+        }
+    }
+};
+
+window.handleSidebarSearch = function(query) {
+    const resultsContainer = document.getElementById('sidebarSearchResults');
+    
+    if (!resultsContainer) return;
+    
+    if (query.length < 2) {
+        resultsContainer.style.display = 'none';
+        resultsContainer.innerHTML = '';
+        return;
+    }
+    
+    // Search data
+    const searchData = [
+        { title: 'الرئيسية', link: '#home', description: 'الصفحة الرئيسية' },
+        { title: 'من نحن', link: '#about', description: 'تعرف على شركة YAS' },
+        { title: 'أقسامنا', link: '#services', description: 'خدماتنا ومنتجاتنا' },
+        { title: 'مقدّر الإصلاح', link: '#estimator', description: 'تقدير تكلفة الصيانة' },
+        { title: 'اختر جهازك', link: '#pc-quiz', description: 'اختر اللابتوب المناسب' },
+        { title: 'مركز YAS التقني', link: '#tech-counselor', description: 'فحص وتشخيص الأجهزة' },
+        { title: 'معرض الصور', link: '#gallery', description: 'صور الشركة والمنتجات' },
+        { title: 'خدمة العملاء', link: 'customer-service.html', description: 'مساعدة ودعم فني' },
+        { title: 'اتصل بنا', link: '#contact', description: 'تواصل معنا' }
+    ];
+    
+    // Filter results
+    const results = searchData.filter(item => 
+        item.title.includes(query) || item.description.includes(query)
+    );
+    
+    // Display results
+    if (results.length > 0) {
+        resultsContainer.style.display = 'block';
+        resultsContainer.innerHTML = results.map(item => `
+            <div class="search-result-item" onclick="window.location.href='${item.link}'; toggleMobileMenu();">
+                <h4>${item.title}</h4>
+                <p>${item.description}</p>
+            </div>
+        `).join('');
+    } else {
+        resultsContainer.style.display = 'block';
+        resultsContainer.innerHTML = '<div class="search-result-item"><h4>لا توجد نتائج</h4></div>';
+    }
 };
