@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YAS CITY - تسجيل الدخول للإدارة</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="icon" type="image/jpeg" href="logo.jpeg">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Tajawal', sans-serif;
+        }
+
+        body {
+            background-color: #0b0f19;
+            background-image: 
+                radial-gradient(at 0% 0%, rgba(59, 130, 246, 0.15) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(212, 175, 55, 0.1) 0px, transparent 50%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            color: #f8fafc;
+        }
+
+        .login-container {
+            background: rgba(17, 24, 39, 0.7);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 50px 40px;
+            border-radius: 24px;
+            width: 100%;
+            max-width: 420px;
+            text-align: center;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            animation: slideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(40px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .logo {
+            width: 80px;
+            height: 80px;
+            border-radius: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.3);
+            border: 2px solid var(--accent-gold);
+        }
+
+        .title {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: #d4af37;
+            margin-bottom: 5px;
+        }
+
+        .subtitle {
+            color: #64748b;
+            font-size: 0.95rem;
+            margin-bottom: 35px;
+        }
+
+        .input-group {
+            position: relative;
+            margin-bottom: 25px;
+            text-align: right;
+        }
+
+        .input-group i {
+            position: absolute;
+            right: 18px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #64748b;
+        }
+
+        .input-group input {
+            width: 100%;
+            background: rgba(15, 23, 42, 0.6);
+            border: 2px solid rgba(255, 255, 255, 0.05);
+            color: #fff;
+            padding: 16px 20px 16px 45px;
+            border-radius: 14px;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+
+        .input-group input:focus {
+            outline: none;
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1);
+        }
+
+        .input-group input::placeholder {
+            color: #475569;
+        }
+
+        .toggle-password {
+            position: absolute;
+            left: 18px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            color: #64748b;
+            transition: 0.3s;
+        }
+        
+        .toggle-password:hover {
+            color: #d4af37;
+        }
+
+        .error-msg {
+            color: #ef4444;
+            font-size: 0.9rem;
+            margin-bottom: 20px;
+            background: rgba(239, 68, 68, 0.1);
+            padding: 10px;
+            border-radius: 10px;
+            display: none;
+        }
+
+        .login-btn {
+            background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+            color: white;
+            border: none;
+            width: 100%;
+            padding: 16px;
+            border-radius: 14px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 10px 20px rgba(59, 130, 246, 0.3);
+        }
+
+        .login-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 25px rgba(59, 130, 246, 0.4);
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 25px;
+            color: #64748b;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: 0.3s;
+        }
+        
+        .back-link:hover {
+            color: #94a3b8;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="login-container">
+        <img src="logo.jpeg" alt="YAS Logo" class="logo">
+        <h1 class="title">YAS CITY</h1>
+        <p class="subtitle">تسجيل الدخول لمركز العمليات الذكي</p>
+
+        <div class="error-msg" id="errorMsg">
+            <i class="fas fa-exclamation-circle"></i> الرمز السري غير صحيح
+        </div>
+
+        <form id="loginForm" onsubmit="handleLogin(event)">
+            <div class="input-group">
+                <i class="fas fa-lock"></i>
+                <input type="password" id="password" placeholder="أدخل رمز الدخول للإدارة..." required>
+                <i class="fas fa-eye toggle-password" onclick="togglePassword()" id="eyeIcon"></i>
+            </div>
+
+            <button type="submit" class="login-btn">
+                دخول للوحة التحكم <i class="fas fa-arrow-left" style="margin-right: 8px;"></i>
+            </button>
+        </form>
+
+        <a href="index.html" class="back-link">
+            العودة للموقع الرئيسي
+        </a>
+    </div>
+
+    <script>
+        // Check if already logged in
+        if(sessionStorage.getItem('yas_admin_auth') === 'true') {
+            window.location.href = 'dashboard.html';
+        }
+
+        function togglePassword() {
+            const input = document.getElementById('password');
+            const icon = document.getElementById('eyeIcon');
+            if (input.type === 'password') {
+                input.type = 'text';
+                icon.classList.remove('fa-eye');
+                icon.classList.add('fa-eye-slash');
+            } else {
+                input.type = 'password';
+                icon.classList.remove('fa-eye-slash');
+                icon.classList.add('fa-eye');
+            }
+        }
+
+        function handleLogin(e) {
+            e.preventDefault();
+            const password = document.getElementById('password').value;
+            const errorMsg = document.getElementById('errorMsg');
+
+            // --- Admin Code ---
+            // يمكنك تغيير هذا الرمز السري في أي وقت
+            const ADMIN_CODE = "Yas2026";
+
+            if (password === ADMIN_CODE) {
+                // Success
+                sessionStorage.setItem('yas_admin_auth', 'true');
+                
+                // Add tiny success animation
+                const btn = document.querySelector('.login-btn');
+                btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> جاري الدخول...';
+                btn.style.background = '#10b981';
+                
+                setTimeout(() => {
+                    window.location.href = 'dashboard.html';
+                }, 800);
+            } else {
+                // Error
+                errorMsg.style.display = 'block';
+                document.getElementById('password').value = '';
+                
+                // Shake effect
+                const container = document.querySelector('.login-container');
+                container.style.animation = 'none';
+                container.offsetHeight; /* trigger reflow */
+                container.style.animation = 'shake 0.4s';
+            }
+        }
+
+        // Inject shake animation
+        const style = document.createElement('style');
+        style.innerHTML = `
+            @keyframes shake {
+                0%, 100% { transform: translateX(0); }
+                25% { transform: translateX(-10px); }
+                75% { transform: translateX(10px); }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>

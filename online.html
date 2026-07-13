@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>قسم الأونلاين - YAS CITY</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/jpeg" href="logo.jpeg">
+    <style>
+        body {
+            background: linear-gradient(-45deg, #b76e79, #f4c2c2, #8e4585, #1e293b);
+            background-size: 400% 400%;
+            animation: mesh-gradient 15s ease infinite;
+            min-height: 100vh;
+            margin: 0;
+            padding: 40px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        .online-header {
+            text-align: center;
+            color: white;
+            margin-bottom: 40px;
+            z-index: 10;
+        }
+
+        .online-header h1 {
+            font-size: 3.5rem;
+            font-weight: 900;
+            margin-bottom: 15px;
+            background: linear-gradient(135deg, #fff 0%, #f4c2c2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .slogan {
+            font-size: 1.5rem;
+            color: white;
+            font-weight: 500;
+            background: rgba(183, 110, 121, 0.2);
+            padding: 12px 35px;
+            border-radius: 50px;
+            display: inline-block;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(244, 194, 194, 0.5);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .sales-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 40px;
+            max-width: 1400px;
+            width: 100%;
+            margin-top: 50px;
+        }
+
+        .sales-row {
+            display: flex;
+            justify-content: center;
+            width: 100%;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+
+        .fem-profile-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(25px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 40px;
+            padding: 40px;
+            width: 400px;
+            text-align: center;
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            z-index: 1;
+        }
+
+        .fem-profile-card:hover {
+            transform: translateY(-20px) scale(1.02);
+            border-color: #f4c2c2;
+            background: rgba(255, 255, 255, 0.15);
+            box-shadow: 0 30px 60px rgba(183, 110, 121, 0.3);
+        }
+
+        .fem-icon-box {
+            width: 120px;
+            height: 120px;
+            background: linear-gradient(135deg, #b76e79, #f4c2c2);
+            border-radius: 50%;
+            margin: 0 auto 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: white;
+            box-shadow: 0 15px 35px rgba(183, 110, 121, 0.4);
+            border: 5px solid rgba(255, 255, 255, 0.5);
+        }
+
+        .fem-name {
+            font-size: 1.8rem;
+            font-weight: 900;
+            color: white;
+            margin-bottom: 20px;
+            text-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .fem-role {
+            font-size: 1.1rem;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 12px 25px;
+            border-radius: 20px;
+            color: white;
+            font-weight: 600;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .online-cta {
+            margin-top: 80px;
+            text-align: center;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 50px 80px;
+            border-radius: 40px;
+            box-shadow: 0 40px 100px rgba(0, 0, 0, 0.4);
+            max-width: 900px;
+            z-index: 10;
+        }
+
+        .online-cta h2 {
+            color: white;
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 15px;
+        }
+
+        .wa-btn-fem {
+            display: inline-flex;
+            align-items: center;
+            gap: 15px;
+            padding: 18px 50px;
+            background: linear-gradient(45deg, #ff1493, #b76e79);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 800;
+            font-size: 1.4rem;
+            transition: all 0.3s;
+            box-shadow: 0 10px 30px rgba(255, 20, 147, 0.3);
+        }
+
+        .wa-btn-fem:hover {
+            transform: scale(1.05) translateY(-5px);
+            box-shadow: 0 20px 40px rgba(255, 20, 147, 0.5);
+        }
+
+        .home-btn {
+            margin-top: 50px;
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s;
+        }
+
+        .home-btn:hover {
+            color: white;
+            transform: translateX(-10px);
+        }
+
+        @keyframes mesh-gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        @media (max-width: 768px) {
+            .fem-profile-card { width: 100%; }
+            .online-header h1 { font-size: 2.5rem; }
+        }
+    </style>
+</head>
+
+<body>
+    <header class="online-header">
+        <h1 data-aos="fade-down">قسم الأونلاين - فريق المبيعات</h1>
+        <div class="slogan" data-aos="zoom-in" data-aos-delay="200">
+            فريق مختص لخدمتكم وتلبية احتياجاتكم بلمسة من الرقي
+        </div>
+    </header>
+
+    <div class="sales-container">
+        <!-- Management & Supervision -->
+        <div class="sales-row">
+            <div class="fem-profile-card" data-aos="fade-up">
+                <div class="fem-icon-box"><i class="fas fa-crown"></i></div>
+                <h2 class="fem-name">هدير</h2>
+                <div class="fem-role">المسوولة عن القسم</div>
+            </div>
+            <div class="fem-profile-card" data-aos="fade-up" data-aos-delay="100">
+                <div class="fem-icon-box"><i class="fas fa-star"></i></div>
+                <h2 class="fem-name">جهيان</h2>
+                <div class="fem-role">المشرفة علي القسم</div>
+            </div>
+        </div>
+
+        <!-- Branch & General Management -->
+        <div class="sales-row">
+            <div class="fem-profile-card" data-aos="fade-up">
+                <div class="fem-icon-box"><i class="fas fa-user-tie"></i></div>
+                <h2 class="fem-name">ندي أيمن</h2>
+                <div class="fem-role">المسوولة عن جميع الفروع</div>
+            </div>
+            <div class="fem-profile-card" data-aos="fade-up" data-aos-delay="100">
+                <div class="fem-icon-box"><i class="fas fa-boxes"></i></div>
+                <h2 class="fem-name">أمال</h2>
+                <div class="fem-role">المسوولة عن بيع الجملة</div>
+            </div>
+        </div>
+
+        <!-- Screens & Interactive Specialists -->
+        <div class="sales-row">
+            <div class="fem-profile-card" data-aos="fade-up">
+                <div class="fem-icon-box"><i class="fas fa-tv"></i></div>
+                <h2 class="fem-name">اية ناصر</h2>
+                <div class="fem-role">بيبع الشاشات والبروجكترات</div>
+            </div>
+            <div class="fem-profile-card" data-aos="fade-up" data-aos-delay="100">
+                <div class="fem-icon-box"><i class="fas fa-chalkboard"></i></div>
+                <h2 class="fem-name">راندا خضر</h2>
+                <div class="fem-role">بيع الشاشات التفاعلية</div>
+            </div>
+            <div class="fem-profile-card" data-aos="fade-up" data-aos-delay="200">
+                <div class="fem-icon-box"><i class="fas fa-chalkboard-teacher"></i></div>
+                <h2 class="fem-name">روان</h2>
+                <div class="fem-role">بيع الشاشات التفاعلية</div>
+            </div>
+        </div>
+
+        <!-- Laptops & Marketplaces -->
+        <div class="sales-row">
+            <div class="fem-profile-card" data-aos="fade-up">
+                <div class="fem-icon-box"><i class="fas fa-laptop"></i></div>
+                <h2 class="fem-name">دنيا عماشة</h2>
+                <div class="fem-role">المسوولة عن بيع لابتوبات</div>
+            </div>
+            <div class="fem-profile-card" data-aos="fade-up" data-aos-delay="100">
+                <div class="fem-icon-box"><i class="fab fa-amazon"></i></div>
+                <h2 class="fem-name">زينب</h2>
+                <div class="fem-role">بيع الشاشات التفاعلية + أمازون</div>
+            </div>
+        </div>
+
+        <!-- Peripherals & Cashier -->
+        <div class="sales-row">
+            <div class="fem-profile-card" data-aos="fade-up">
+                <div class="fem-icon-box"><i class="fas fa-keyboard"></i></div>
+                <h2 class="fem-name">ريم</h2>
+                <div class="fem-role">بيع اكسسوار + PC</div>
+            </div>
+            <div class="fem-profile-card" data-aos="fade-up" data-aos-delay="100">
+                <div class="fem-icon-box"><i class="fas fa-cash-register"></i></div>
+                <h2 class="fem-name">ندي محسن</h2>
+                <div class="fem-role">بيع أجهزة الكاشير</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Contact CTA -->
+    <div class="online-cta" data-aos="zoom-in">
+        <h2>هل تود طلب منتج أو استشارة؟</h2>
+        <p>فريق المبيعات جاهز للرد على كافة استفساراتكم عبر الواتساب</p>
+        <a href="https://wa.me/201158986999" class="wa-btn-fem">
+            <i class="fab fa-whatsapp"></i> تواصل مباشر (01158986999)
+        </a>
+    </div>
+
+    <a href="index.html" class="home-btn">
+        <i class="fas fa-chevron-right"></i> العودة للرئيسية
+    </a>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script>
+        AOS.init({
+            duration: 1000,
+            once: true,
+            offset: 100
+        });
+    </script>
+</body>
+
+</html>

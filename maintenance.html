@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>فريق الصيانة الاحترافي - YAS CITY</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/jpeg" href="logo.jpeg">
+    <style>
+        body {
+            background: linear-gradient(-45deg, #1d4ed8, #3b82f6, #1e293b, #0f172a);
+            background-size: 400% 400%;
+            animation: mesh-gradient 15s ease infinite;
+            min-height: 100vh;
+            margin: 0;
+            padding: 40px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Tech Particles Background */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .particle {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            animation: particle-drift 20s infinite linear;
+        }
+
+        .maint-header {
+            text-align: center;
+            color: white;
+            margin-bottom: 40px;
+            z-index: 10;
+        }
+
+        .maint-header h1 {
+            font-size: 3.5rem;
+            font-weight: 900;
+            margin-bottom: 15px;
+            letter-spacing: -1px;
+            background: linear-gradient(135deg, #fff 0%, var(--accent-gold) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .slogan {
+            font-size: 1.5rem;
+            color: white;
+            font-weight: 500;
+            background: rgba(var(--accent-gold-rgb), 0.2);
+            padding: 12px 35px;
+            border-radius: 50px;
+            display: inline-block;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(var(--accent-gold-rgb), 0.5);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Stats Section */
+        .stats-container {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 60px;
+            width: 100%;
+            max-width: 1000px;
+            flex-wrap: wrap;
+        }
+
+        .stat-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 20px 40px;
+            border-radius: 25px;
+            text-align: center;
+            color: white;
+            min-width: 200px;
+            transition: transform 0.3s;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .stat-card h3 {
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: var(--accent-gold);
+            margin-bottom: 5px;
+        }
+
+        .stat-card p {
+            font-size: 1rem;
+            opacity: 0.8;
+            font-weight: 600;
+        }
+
+        .category-title {
+            width: 100%;
+            text-align: center;
+            margin: 60px 0 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 25px;
+            color: white;
+            font-size: 2.2rem;
+            font-weight: 700;
+            text-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .category-title i {
+            color: var(--accent-gold);
+            animation: icon-pulse 3s infinite ease-in-out;
+        }
+
+        .category-title::before,
+        .category-title::after {
+            content: '';
+            height: 3px;
+            flex-grow: 1;
+            background: linear-gradient(to right, transparent, var(--accent-gold), transparent);
+            max-width: 200px;
+            border-radius: 10px;
+        }
+
+        .team-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 30px;
+            max-width: 1400px;
+            width: 100%;
+        }
+
+        .team-row {
+            display: flex;
+            justify-content: center;
+            width: 100%;
+            gap: 35px;
+            flex-wrap: wrap;
+        }
+
+        .profile-card {
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(25px) saturate(180%);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 45px;
+            padding: 40px;
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4);
+            width: 420px;
+            text-align: center;
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            z-index: 1;
+        }
+
+        .profile-card:hover {
+            transform: translateY(-20px) scale(1.03);
+            border-color: var(--accent-gold);
+            background: rgba(255, 255, 255, 0.12);
+        }
+
+        .profile-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 45px;
+            padding: 2px;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.4), transparent, var(--accent-gold));
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            opacity: 0.5;
+        }
+
+        .profile-img,
+        .profile-placeholder {
+            width: 220px;
+            height: 220px;
+            border-radius: 50%;
+            border: 8px solid rgba(255, 255, 255, 0.9);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+            margin: 0 auto 30px;
+            display: block;
+            transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            object-fit: cover;
+        }
+
+        .profile-placeholder {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: white;
+            background: rgba(255, 255, 255, 0.08);
+            text-transform: uppercase;
+        }
+
+        .profile-card:hover .profile-img,
+        .profile-card:hover .profile-placeholder {
+            transform: scale(1.08) rotate(3deg);
+            border-color: var(--white);
+        }
+
+        .eng-name {
+            font-size: 1.8rem;
+            font-weight: 900;
+            color: white;
+            margin-bottom: 20px;
+            text-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .bio-info {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .bio-item {
+            font-size: 1.1rem;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 10px 20px;
+            border-radius: 15px;
+            color: rgba(255, 255, 255, 0.9);
+            font-weight: 500;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s;
+        }
+
+        .profile-card:hover .bio-item {
+            background: rgba(var(--accent-gold-rgb), 0.15);
+            border-color: rgba(var(--accent-gold-rgb), 0.3);
+            color: white;
+        }
+
+        .maint-cta {
+            margin-top: 100px;
+            text-align: center;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 50px 80px;
+            border-radius: 40px;
+            box-shadow: 0 40px 100px rgba(0, 0, 0, 0.5);
+            max-width: 900px;
+            z-index: 10;
+        }
+
+        .maint-cta h2 {
+            color: white;
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 15px;
+        }
+
+        .maint-cta p {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+        }
+
+        .cta-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 15px;
+            padding: 18px 50px;
+            background: #22c55e;
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 800;
+            font-size: 1.4rem;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 10px 30px rgba(34, 197, 94, 0.3);
+        }
+
+        .cta-btn:hover {
+            transform: scale(1.05) translateY(-5px);
+            background: #16a34a;
+            box-shadow: 0 20px 40px rgba(34, 197, 94, 0.5);
+        }
+
+        .home-btn {
+            margin-top: 50px;
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s;
+        }
+
+        .home-btn:hover {
+            color: white;
+            transform: translateX(-10px);
+        }
+
+        @media (max-width: 768px) {
+            .profile-card {
+                width: 100%;
+            }
+
+            .maint-header h1 {
+                font-size: 2.5rem;
+            }
+
+            .stats-container {
+                gap: 15px;
+            }
+
+            .stat-card {
+                min-width: 140px;
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+
+<body class="light-mode">
+    <!-- Background Particles -->
+    <div class="particles">
+        <div class="particle" style="width: 10px; height: 10px; left: 10%; animation-delay: 0s;"></div>
+        <div class="particle" style="width: 15px; height: 15px; left: 30%; animation-delay: 5s;"></div>
+        <div class="particle" style="width: 8px; height: 8px; left: 50%; animation-delay: 2s;"></div>
+        <div class="particle" style="width: 12px; height: 12px; left: 70%; animation-delay: 7s;"></div>
+        <div class="particle" style="width: 20px; height: 20px; left: 90%; animation-delay: 3s;"></div>
+    </div>
+
+    <header class="maint-header">
+        <h1 data-aos="fade-down">فريق الصيانة والتجديد</h1>
+        <div class="slogan" data-aos="zoom-in" data-aos-delay="200">
+            نحن نهتم بأدق التفاصيل ليعود جهازك كالجديد
+        </div>
+    </header>
+
+    <!-- Stats Section -->
+    <div class="stats-container" data-aos="fade-up" data-aos-delay="300">
+        <div class="stat-card">
+            <h3>+20,000</h3>
+            <p>حل مشكلة تقنية</p>
+        </div>
+        <div class="stat-card">
+            <h3>99%</h3>
+            <p>نسبة رضا العملاء</p>
+        </div>
+        <div class="stat-card">
+            <h3>+15</h3>
+            <p>سنة من الخبرة</p>
+        </div>
+    </div>
+
+    <div class="team-container">
+        <!-- Division 0: Labs Management -->
+        <div class="category-title" data-aos="fade-right">
+            <i class="fas fa-flask"></i> فريق الصيانةالشامل
+        </div>
+
+        <div class="team-row">
+
+            <div class="profile-card" data-aos="fade-up">
+                <div class="profile-placeholder">
+                    <i class="fas fa-user-tie"></i>
+                </div>
+                <h1 class="eng-name">هاني خضر</h1>
+                <div class="bio-info">
+                    <div class="bio-item">💼 مسوول القسم</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Division 1: Board Maintenance -->
+        <div class="category-title" data-aos="fade-right">
+            <i class="fas fa-microchip"></i> قسم صيانة البوردة
+        </div>
+        <div class="team-row">
+            <div class="profile-card" data-aos="flip-left">
+                <img src="WhatsApp Image 2026-04-12 at 2.43.55 PM.jpeg" alt="خالد مرعي هيكل" class="profile-img">
+                <h1 class="eng-name">خالد مرعي هيكل</h1>
+                <div class="bio-info">
+                    <div class="bio-item">🛠️ صيانة البورد والأعطال المعقدة</div>
+                    <div class="bio-item">🖥️ خبير في الهاردوير والصيانة الدقيقة</div>
+                </div>
+            </div>
+            <div class="profile-card" data-aos="flip-left" data-aos-delay="100">
+                <div class="profile-placeholder">
+                    <i class="fas fa-microchip"></i>
+                </div>
+                <h1 class="eng-name">محمد طارق</h1>
+                <div class="bio-info">
+                    <div class="bio-item">💼 متخصص صيانة بوردة</div>
+                    <div class="bio-item">🛠️ صيانة الأعطال المعقدة</div>
+                </div>
+            </div>
+          <div class="profile-card" data-aos="flip-left" data-aos-delay="200">
+    <img src="عمرو.jpeg" alt="عمرو عيد" class="profile-img">
+    <h1 class="eng-name">عمرو عيد</h1>
+                <div class="bio-info">
+                  <div class="bio-item">💼 متخصص صيانة بوردة</div>
+                    <div class="bio-item">🛠️ صيانة الأعطال المعقدة</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Division 2: Aesthetic Renovation -->
+        <div class="category-title" data-aos="fade-right">
+            <i class="fas fa-paint-brush"></i> وحدة تجديد المظهر
+        </div>
+        <div class="team-row">
+            <div class="profile-card" data-aos="fade-up" data-aos-delay="100">
+                <img src="WhatsApp Image 2026-04-12 at 2.45.05 PM.jpeg" alt="وليد ابراهيم ابو العيون"
+                    class="profile-img">
+                <h1 class="eng-name">وليد ابراهيم ابو العيون</h1>
+                <div class="bio-info">
+                    <div class="bio-item">🎨 متخصص تجديد ورش اللابات</div>
+                    <div class="bio-item">✨ إعادة الأجهزة لحالة الزيرو</div>
+                </div>
+            </div>
+            <div class="profile-card" data-aos="fade-up" data-aos-delay="200">
+                <img src="WhatsApp Image 2026-04-12 at 2.51.18 PM.jpeg" alt="محمد علي ابراهيم" class="profile-img">
+                <h1 class="eng-name">محمد علي ابراهيم</h1>
+                <div class="bio-info">
+                    <div class="bio-item">🎨 متخصص تجديد ورش اللابات</div>
+                    <div class="bio-item">💎 دقة واحترافية في الألوان والتشطيب</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Division 3: Hardware & Screens Support -->
+        <div class="category-title" data-aos="fade-right">
+            <i class="fas fa-tools"></i> دعم الهيكل والشاشات
+        </div>
+        <!-- Screens Sub-Team -->
+        <div class="team-row dual-row">
+            <div class="profile-card" data-aos="zoom-in" data-aos-delay="100">
+                <img src="الشيخ.jpeg" alt="نادر السيد الشرقاوي" class="profile-img">
+                <h1 class="eng-name">نادر السيد الشرقاوي</h1>
+                <div class="bio-info">
+                    <div class="bio-item">📺 متخصص في صيانة شاشات اللاب توب</div>
+                </div>
+            </div>
+            <div class="profile-card" data-aos="zoom-in" data-aos-delay="200">
+                <img src="كريم.jpeg" alt="كريم ياسر محمد هيكل" class="profile-img">
+                <h1 class="eng-name">كريم ياسر محمد هيكل</h1>
+                <div class="bio-info">
+                    <div class="bio-item">📺 صيانة شاشات اللاب توب</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Frames & Fractures Sub-Team -->
+        <div class="team-row dual-row">
+            <div class="profile-card" data-aos="zoom-in" data-aos-delay="300">
+                <img src="عبدالله.jpeg" alt="عبدالله محمد عطيه" class="profile-img">
+                <h1 class="eng-name">عبدالله محمد عطيه</h1>
+                <div class="bio-info">
+                    <div class="bio-item">🔧 متخصص في فن كسور الالكترونيات وتعديل وتصنيع</div>
+                </div>
+            </div>
+            <div class="profile-card" data-aos="zoom-in" data-aos-delay="400">
+                <img src="الدالي.jpeg" alt="عبد الرحمن الدالي" class="profile-img">
+                <h1 class="eng-name">عبد الرحمن الدالي</h1>
+                <div class="bio-info">
+                    <div class="bio-item">🛠️ متخصص في فن كسور الالكترونيات وتعديل وتصنيع</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Division 4: Operations Management -->
+        <div class="category-title" data-aos="fade-right">
+            <i class="fas fa-boxes"></i> إدارة العمليات اللوجستية
+        </div>
+        <div class="team-row">
+            <div class="profile-card" data-aos="fade-up">
+                <img src="حمدي.jpeg" alt="احمد حمدي السيد احمد" class="profile-img">
+                <h1 class="eng-name">احمد حمدي السيد احمد</h1>
+                <div class="bio-info">
+                    <div class="bio-item">📦 أمين المخازن</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Division 5: Data & Inventory -->
+        <div class="category-title" data-aos="fade-right">
+            <i class="fas fa-database"></i> إدارة البيانات والجرد
+        </div>
+        <div class="team-row">
+            <div class="profile-card" data-aos="fade-up">
+                <div class="profile-placeholder">
+                    <i class="fas fa-file-invoice"></i>
+                </div>
+                <h1 class="eng-name">احمد ماهر</h1>
+                <div class="bio-info">
+                    <div class="bio-item">💼 المسوول عن ادخال الداتا</div>
+                </div>
+            </div>
+            <div class="profile-card" data-aos="fade-up" data-aos-delay="100">
+                <div class="profile-placeholder">
+                    <i class="fas fa-clipboard-list"></i>
+                </div>
+                <h1 class="eng-name">احمد موسي</h1>
+                <div class="bio-info">
+                    <div class="bio-item">💼 مشرف الجرد</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Division 6: متخصصي الطاقة والبطاريات -->
+        <div class="category-title" data-aos="fade-right">
+            <i class="fas fa-battery-three-quarters"></i> متخصصي الطاقة والبطاريات
+        </div>
+        <div class="team-row">
+            <div class="profile-card" data-aos="fade-up">
+                <div class="profile-placeholder">
+                    <i class="fas fa-bolt"></i>
+                </div>
+                <h1 class="eng-name">احمد طه</h1>
+                <div class="bio-info">
+                    <div class="bio-item">💼 متخصص في تصليح البطاريات</div>
+                </div>
+            </div>
+            <div class="profile-card" data-aos="fade-up" data-aos-delay="100">
+                <div class="profile-placeholder">
+                    <i class="fas fa-plug"></i>
+                </div>
+                <h1 class="eng-name">احمد سلامه</h1>
+                <div class="bio-info">
+                    <div class="bio-item">💼 متخصص في تصليح البطاريات</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Division 7: قسم الاختبار وضمان الجودة -->
+        <div class="category-title" data-aos="fade-right">
+            <i class="fas fa-check-double"></i> قسم الاختبار وضمان الجودة
+        </div>
+
+        <!-- General Testing Group -->
+        <div class="team-row">
+            <div class="profile-card" data-aos="zoom-in">
+                <div class="profile-placeholder">
+                    <i class="fas fa-microscope"></i>
+                </div>
+                <h1 class="eng-name">ابراهيم رجب</h1>
+                <div class="bio-info">
+                    <div class="bio-item">💼 متخصص في تيست اللابات</div>
+                </div>
+            </div>
+            <div class="profile-card" data-aos="zoom-in" data-aos-delay="100">
+                <div class="profile-placeholder">
+                    <i class="fas fa-tasks"></i>
+                </div>
+                <h1 class="eng-name">عبدالله موسي</h1>
+                <div class="bio-info">
+                    <div class="bio-item">💼 متخصص في التفيم والتيست</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mac Specialists -->
+        <div class="team-row">
+            <div class="profile-card" data-aos="fade-up">
+                <div class="profile-placeholder">
+                    <i class="fab fa-apple"></i>
+                </div>
+                <h1 class="eng-name">ادم فاروق</h1>
+                <div class="bio-info">
+                    <div class="bio-item">💼 متخصص في تيست لابات ماك</div>
+                </div>
+            </div>
+            <div class="profile-card" data-aos="fade-up" data-aos-delay="100">
+                <div class="profile-placeholder">
+                    <i class="fab fa-apple"></i>
+                </div>
+                <h1 class="eng-name">عبد الفتاح</h1>
+                <div class="bio-info">
+                    <div class="bio-item">💼 متخصص في تيست لابات ماك</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Testing Team (Female) -->
+        <div class="team-row">
+            <div class="profile-card" data-aos="fade-up">
+                <div class="profile-placeholder">
+                    <i class="fas fa-user-check"></i>
+                </div>
+                <h1 class="eng-name">أسماء سيد أحمد</h1>
+                <div class="bio-info">
+                    <div class="bio-item">💼 متخصصة في تيست اللابات</div>
+                </div>
+            </div>
+            <div class="profile-card" data-aos="fade-up" data-aos-delay="100">
+                <div class="profile-placeholder">
+                    <i class="fas fa-user-check"></i>
+                </div>
+                <h1 class="eng-name">أم كلثوم رجب</h1>
+                <div class="bio-info">
+                    <div class="bio-item">💼 متخصصة في تيست اللابات</div>
+                </div>
+            </div>
+            <div class="profile-card" data-aos="fade-up" data-aos-delay="200">
+                <div class="profile-placeholder">
+                    <i class="fas fa-user-check"></i>
+                </div>
+                <h1 class="eng-name">نادية الورداني</h1>
+                <div class="bio-info">
+                    <div class="bio-item">💼 متخصصة في تيست اللابات</div>
+                </div>
+            </div>
+        </div>
+        <div class="team-row">
+            <div class="profile-card" data-aos="fade-up">
+                <div class="profile-placeholder">
+                    <i class="fas fa-user-check"></i>
+                </div>
+                <h1 class="eng-name">سهير رمزي</h1>
+                <div class="bio-info">
+                    <div class="bio-item">💼 متخصصة في تيست اللابات</div>
+                </div>
+            </div>
+            <div class="profile-card" data-aos="fade-up" data-aos-delay="100">
+                <div class="profile-placeholder">
+                    <i class="fas fa-user-check"></i>
+                </div>
+                <h1 class="eng-name">سلمى موافي</h1>
+                <div class="bio-info">
+                    <div class="bio-item">💼 متخصصة في تيست اللابات</div>
+                </div>
+            </div>
+            <div class="profile-card" data-aos="fade-up" data-aos-delay="200">
+                <div class="profile-placeholder">
+                    <i class="fas fa-user-check"></i>
+                </div>
+                <h1 class="eng-name">علياء خضر</h1>
+                <div class="bio-info">
+                    <div class="bio-item">💼 متخصصة في تيست اللابات</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Call Connection -->
+    <div class="maint-cta" data-aos="zoom-in">
+        <h2>هل لديك استفسار فني؟</h2>
+        <p>تواصل مباشرة مع قسم الصيانة للحصول على دعم فني متخصص</p>
+        <a href="https://wa.me/+201147800144" class="cta-btn">
+            <i class="fab fa-whatsapp"></i> تواصل عبر الواتساب
+        </a>
+    </div>
+
+    <a href="index.html" class="home-btn">
+        <i class="fas fa-chevron-right"></i> العودة للرئيسية
+    </a>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script>
+        AOS.init({
+            duration: 1000,
+            once: true,
+            offset: 100
+        });
+    </script>
+</body>
+
+</html>

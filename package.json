@@ -1,0 +1,14 @@
+{
+  "name": "yas-city",
+  "version": "1.0.0",
+  "description": "Premium Electronics & Maintenance Portal",
+  "main": "index.html",
+  "scripts": {
+    "start": "vercel dev"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.39.0",
+    "axios": "^1.6.2",
+    "dotenv": "^16.3.1"
+  }
+}
