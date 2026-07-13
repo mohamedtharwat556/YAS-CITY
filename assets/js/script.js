@@ -951,21 +951,3 @@ window.contactCompare = function() {
     const msg = encodeURIComponent(`مرحباً YAS CITY، أود الاستفسار عن أسعار الأجهزة التالية: (${d1}) و (${d2})`);
     window.open(`https://wa.me/201158986999?text=${msg}`, '_blank');
 };
-
-// Mobile Sidebar Functions
-window.toggleMobileMenu = function() {
-    const sidebar = document.getElementById('mobileSidebar');
-    const overlay = document.getElementById('sidebarOverlay');
-    
-    if (sidebar && overlay) {
-        sidebar.classList.toggle('active');
-        overlay.classList.toggle('active');
-        
-        // Prevent body scroll when sidebar is open
-        if (sidebar.classList.contains('active')) {
-            document.body.style.overflow = 'hidden';
-        } else {
-            document.body.style.overflow = '';
-        }
-    }
-};
