@@ -1,0 +1,1017 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>خدمة العملاء - YAS CITY</title>
+    <meta name="description" content="خدمة عملاء احترافية مع شات بوت ذكي ومساعدة فورية">
+    <link rel="stylesheet" href="assets/css/style.css?v=2.5">
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="icon" type="image/jpeg" href="assets/images/logo.jpeg">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Tajawal', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            min-height: 100vh;
+            color: #1a1a2e;
+            position: relative;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.2) 0%, transparent 50%),
+                radial-gradient(circle at 40% 40%, rgba(120, 200, 255, 0.15) 0%, transparent 50%);
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .back-button {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.95);
+            border: none;
+            border-radius: 50px;
+            padding: 15px 30px;
+            font-size: 1rem;
+            font-weight: 700;
+            color: #0f3460;
+            cursor: pointer;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+        }
+
+        .back-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(15, 52, 96, 0.4);
+            background: white;
+        }
+
+        .back-button i {
+            font-size: 1.2rem;
+        }
+
+        .hero-section {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            animation: rotate 20s linear infinite;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .hero-content {
+            max-width: 1200px;
+            width: 100%;
+            z-index: 1;
+        }
+
+        .hero-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .hero-header h1 {
+            font-size: 4rem;
+            font-weight: 900;
+            color: white;
+            margin-bottom: 20px;
+            text-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            animation: fadeInUp 1s ease;
+        }
+
+        .hero-header p {
+            font-size: 1.5rem;
+            color: rgba(255,255,255,0.9);
+            animation: fadeInUp 1s ease 0.2s both;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+
+        .feature-card {
+            background: rgba(255,255,255,0.95);
+            padding: 40px;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+            transition: transform 0.3s, box-shadow 0.3s;
+            animation: fadeInUp 1s ease 0.4s both;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 30px 60px rgba(0,0,0,0.3);
+        }
+
+        .feature-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #0f3460, #16213e);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 2rem;
+            color: #e94560;
+            box-shadow: 0 10px 30px rgba(15, 52, 96, 0.3);
+        }
+
+        .feature-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: #1a1a2e;
+        }
+
+        .feature-card p {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        .chatbot-section {
+            background: rgba(255,255,255,0.95);
+            border-radius: 30px;
+            padding: 40px;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.2);
+            animation: fadeInUp 1s ease 0.6s both;
+        }
+
+        .chatbot-header {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #eee;
+        }
+
+        .chatbot-avatar {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: white;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .chatbot-info h2 {
+            font-size: 1.8rem;
+            margin-bottom: 5px;
+            color: #1a1a2e;
+        }
+
+        .chatbot-info p {
+            color: #666;
+        }
+
+        .chatbot-status {
+            width: 15px;
+            height: 15px;
+            background: #00c853;
+            border-radius: 50%;
+            margin-left: auto;
+            animation: blink 1.5s infinite;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        .chat-messages {
+            height: 400px;
+            overflow-y: auto;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 15px;
+            margin-bottom: 20px;
+        }
+
+        .message {
+            display: flex;
+            margin-bottom: 20px;
+            animation: msgFadeIn 0.4s ease;
+        }
+
+        @keyframes msgFadeIn {
+            from { opacity: 0; transform: translateY(12px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .typing-indicator {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            padding: 15px 20px;
+            background: white;
+            border-radius: 20px;
+            border-bottom-right-radius: 5px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            width: fit-content;
+        }
+
+        .typing-indicator span {
+            width: 8px;
+            height: 8px;
+            background: #667eea;
+            border-radius: 50%;
+            animation: typingBounce 1.4s infinite ease-in-out;
+        }
+
+        .typing-indicator span:nth-child(2) { animation-delay: 0.2s; }
+        .typing-indicator span:nth-child(3) { animation-delay: 0.4s; }
+
+        @keyframes typingBounce {
+            0%, 60%, 100% { transform: translateY(0); opacity: 0.4; }
+            30% { transform: translateY(-8px); opacity: 1; }
+        }
+
+        .chat-messages::-webkit-scrollbar { width: 6px; }
+        .chat-messages::-webkit-scrollbar-thumb { background: #667eea; border-radius: 3px; }
+
+        .ticket-section {
+            margin-top: 60px;
+            background: rgba(255,255,255,0.95);
+            border-radius: 30px;
+            padding: 40px;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.2);
+            animation: fadeInUp 1s ease 0.7s both;
+        }
+
+        .ticket-section h2 {
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 10px;
+            color: #1a1a2e;
+        }
+
+        .ticket-section > p {
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
+        }
+
+        .ticket-form {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .ticket-form .full-width { grid-column: 1 / -1; }
+
+        .ticket-form input,
+        .ticket-form select,
+        .ticket-form textarea {
+            padding: 15px 20px;
+            border: 2px solid #eee;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-family: inherit;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+
+        .ticket-form input:focus,
+        .ticket-form select:focus,
+        .ticket-form textarea:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102,126,234,0.15);
+        }
+
+        .ticket-form textarea { resize: vertical; min-height: 120px; }
+
+        .ticket-submit {
+            grid-column: 1 / -1;
+            padding: 16px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .ticket-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(102,126,234,0.4);
+        }
+
+        .ticket-submit:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background: #1a1a2e;
+            color: white;
+            padding: 16px 30px;
+            border-radius: 50px;
+            font-weight: 600;
+            z-index: 9999;
+            opacity: 0;
+            transition: all 0.4s ease;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+        }
+
+        .toast.show {
+            transform: translateX(-50%) translateY(0);
+            opacity: 1;
+        }
+
+        .toast.success { background: linear-gradient(135deg, #10b981, #059669); }
+        .toast.error { background: linear-gradient(135deg, #ef4444, #dc2626); }
+
+        .message.bot {
+            justify-content: flex-start;
+        }
+
+        .message.user {
+            justify-content: flex-end;
+        }
+
+        .message-content {
+            max-width: 70%;
+            padding: 15px 20px;
+            border-radius: 20px;
+            line-height: 1.6;
+        }
+
+        .message.bot .message-content {
+            background: white;
+            color: #1a1a2e;
+            border-bottom-right-radius: 5px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .message.user .message-content {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border-bottom-left-radius: 5px;
+        }
+
+        .quick-replies {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .quick-reply {
+            background: rgba(102, 126, 234, 0.1);
+            border: 2px solid #667eea;
+            color: #667eea;
+            padding: 10px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .quick-reply:hover {
+            background: #667eea;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .chat-input {
+            display: flex;
+            gap: 15px;
+        }
+
+        .chat-input input {
+            flex: 1;
+            padding: 15px 25px;
+            border: 2px solid #eee;
+            border-radius: 30px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+
+        .chat-input input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .send-btn {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border: none;
+            border-radius: 50%;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        .send-btn:hover {
+            transform: scale(1.1);
+        }
+
+        .manager-section {
+            margin-top: 60px;
+            background: rgba(255,255,255,0.95);
+            border-radius: 30px;
+            padding: 40px;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.2);
+            animation: fadeInUp 1s ease 0.8s both;
+}
+
+        .manager-card {
+            display: flex;
+            align-items: center;
+            gap: 40px;
+        }
+
+        .manager-avatar {
+            width: 150px;
+            height: 150px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            color: white;
+            flex-shrink: 0;
+        }
+
+        .manager-info h2 {
+            font-size: 2rem;
+            margin-bottom: 10px;
+            color: #1a1a2e;
+        }
+
+        .manager-role {
+            font-size: 1.2rem;
+            color: #666;
+            margin-bottom: 20px;
+        }
+
+        .manager-contact {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .contact-btn {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 15px 30px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .contact-btn:first-child {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+        }
+
+        .contact-btn.whatsapp {
+            background: #25d366;
+            color: white;
+        }
+
+        .contact-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+
+        .faq-section {
+            margin-top: 60px;
+            background: rgba(255,255,255,0.95);
+            border-radius: 30px;
+            padding: 40px;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.2);
+            animation: fadeInUp 1s ease 1s both;
+        }
+
+        .faq-section h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 40px;
+            color: #1a1a2e;
+        }
+
+        .faq-item {
+            margin-bottom: 20px;
+            border: 2px solid #eee;
+            border-radius: 15px;
+            overflow: hidden;
+            transition: all 0.3s;
+        }
+
+        .faq-item:hover {
+            border-color: #667eea;
+        }
+
+        .faq-question {
+            padding: 20px 25px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: white;
+            transition: background 0.3s;
+        }
+
+        .faq-question:hover {
+            background: #f8f9fa;
+        }
+
+        .faq-question h3 {
+            font-size: 1.2rem;
+            color: #1a1a2e;
+        }
+
+        .faq-question i {
+            color: #667eea;
+            transition: transform 0.3s;
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s;
+            background: #f8f9fa;
+        }
+
+        .faq-answer.active {
+            max-height: 500px;
+        }
+
+        .faq-answer p {
+            padding: 20px 25px;
+            color: #666;
+            line-height: 1.8;
+        }
+
+        .quick-links-section {
+            margin-top: 60px;
+            background: rgba(255,255,255,0.95);
+            border-radius: 30px;
+            padding: 40px;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.2);
+            animation: fadeInUp 1s ease 1.2s both;
+        }
+
+        .quick-links-section h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 40px;
+            color: #1a1a2e;
+        }
+
+        .quick-links-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .quick-link-card {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-radius: 20px;
+            padding: 30px;
+            text-align: center;
+            text-decoration: none;
+            color: white;
+            transition: all 0.3s;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .quick-link-card i {
+            font-size: 2.5rem;
+        }
+
+        .quick-link-card span {
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        .quick-link-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(102, 126, 234, 0.4);
+        }
+
+        .suggestions-section {
+            margin-top: 60px;
+            background: rgba(255,255,255,0.95);
+            border-radius: 30px;
+            padding: 40px;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.2);
+            animation: fadeInUp 1s ease 1.4s both;
+        }
+
+        .suggestions-section h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 40px;
+            color: #1a1a2e;
+        }
+
+        .suggestions-list {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .suggestion-item {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            padding: 25px;
+            background: rgba(102, 126, 234, 0.05);
+            border-radius: 15px;
+            transition: all 0.3s;
+        }
+
+        .suggestion-item:hover {
+            background: rgba(102, 126, 234, 0.1);
+            transform: translateX(-5px);
+        }
+
+        .suggestion-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: white;
+            flex-shrink: 0;
+        }
+
+        .suggestion-content h3 {
+            font-size: 1.2rem;
+            margin-bottom: 8px;
+            color: #1a1a2e;
+        }
+
+        .suggestion-content p {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        @media (max-width: 768px) {
+            .hero-header h1 {
+                font-size: 2.5rem;
+            }
+
+            .manager-card {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .manager-contact {
+                justify-content: center;
+            }
+
+            .chat-messages {
+                height: 300px;
+            }
+
+            .back-button {
+                padding: 12px 20px;
+                font-size: 0.9rem;
+            }
+
+            .quick-links-grid {
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            }
+
+            .suggestion-item {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .ticket-form {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <a href="index.html" class="back-button">
+        <i class="fas fa-arrow-right"></i>
+        <span>العودة للرئيسية</span>
+    </a>
+    
+    <div class="hero-section">
+        <div class="hero-content">
+            <div class="hero-header">
+                <h1>خدمة العملاء الذكية 🤖</h1>
+                <p>مساعدة فورية على مدار الساعة مع شات بوت ذكي وفريق دعم متخصص</p>
+            </div>
+
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <h3>متاح 24/7</h3>
+                    <p>خدمة عملاء متاحة على مدار الساعة عبر الشات بوت الذكي</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <h3>شات بوت ذكي</h3>
+                    <p>مساعد افتراضي ذكي يجيب على استفساراتك فوراً</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-headset"></i>
+                    </div>
+                    <h3>دعم بشري</h3>
+                    <p>فريق دعم متخصص جاهز لمساعدتك في أي وقت</p>
+                </div>
+            </div>
+
+            <div class="chatbot-section">
+                <div class="chatbot-header">
+                    <div class="chatbot-avatar">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <div class="chatbot-info">
+                        <h2>مساعد YAS الذكي</h2>
+                        <p>متاح الآن • شات بوت ذكي</p>
+                    </div>
+                    <div class="chatbot-status"></div>
+                </div>
+
+                <div class="chat-messages" id="chat-messages">
+                    <div class="message bot">
+                        <div class="message-content">
+                            <p>مرحباً! 👋 أنا مساعد YAS الذكي. كيف يمكنني مساعدتك اليوم؟</p>
+                            <div class="quick-replies">
+                                <button class="quick-reply" onclick="sendQuickReply('مشاكل اللابتوب')">مشاكل اللابتوب</button>
+                                <button class="quick-reply" onclick="sendQuickReply('أسعار الصيانة')">أسعار الصيانة</button>
+                                <button class="quick-reply" onclick="sendQuickReply('شراء جهاز جديد')">شراء جهاز جديد</button>
+                                <button class="quick-reply" onclick="sendQuickReply('التواصل مع موظف')">التواصل مع موظف</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="chat-input">
+                    <input type="text" id="user-input" placeholder="اكتب رسالتك هنا..." onkeypress="handleKeyPress(event)" autocomplete="off">
+                    <button class="send-btn" onclick="sendMessage()" id="send-btn">
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Support Ticket Form -->
+            <div class="ticket-section">
+                <h2>📋 فتح تذكرة دعم</h2>
+                <p>لم تجد إجابة؟ أرسل تذكرة وسيتواصل معك فريقنا في أقرب وقت</p>
+                <form class="ticket-form" id="ticket-form" onsubmit="submitSupportTicket(event)">
+                    <input type="text" id="ticket-name" placeholder="الاسم الكامل *" required>
+                    <input type="tel" id="ticket-phone" placeholder="رقم الهاتف *" required>
+                    <select id="ticket-category" class="full-width" required>
+                        <option value="">اختر نوع المشكلة *</option>
+                        <option value="repair">صيانة جهاز</option>
+                        <option value="device_request">طلب شراء لابتوب</option>
+                        <option value="general">استفسار عام</option>
+                        <option value="complaint">شكوى</option>
+                    </select>
+                    <textarea id="ticket-message" class="full-width" placeholder="اشرح مشكلتك بالتفصيل..." required></textarea>
+                    <button type="submit" class="ticket-submit" id="ticket-submit-btn">
+                        <i class="fas fa-paper-plane"></i> إرسال التذكرة
+                    </button>
+                </form>
+            </div>
+
+            <div class="manager-section">
+                <div class="manager-card">
+                    <div class="manager-avatar">
+                        <img src="assets/images/726636270_26515531174787585_8784509038812228226_n.jpg" alt="أدم فاروق" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;">
+                    </div>
+                    <div class="manager-info">
+                        <h2>أدم فاروق</h2>
+                        <p class="manager-role">مسؤول خدمة العملاء</p>
+                        <div class="manager-contact">
+                            <a href="tel:01559684422" class="contact-btn">
+                                <i class="fas fa-phone"></i>
+                                <span>01559684422</span>
+                            </a>
+                            <a href="https://wa.me/201559684422" class="contact-btn whatsapp">
+                                <i class="fab fa-whatsapp"></i>
+                                <span>واتساب</span>
+                            </a>
+                        </div>
+                        <p style="margin-top: 15px; color: #666;">
+                            <i class="fas fa-clock"></i> متاح من الساعة 9 صباحاً حتى 9 مساءً
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-section">
+                <h2>الأسئلة الشائعة</h2>
+                <div class="faq-container">
+                    <div class="faq-item">
+                        <div class="faq-question" onclick="toggleFaq(this)">
+                            <h3>ما هي أوقات عمل خدمة العملاء؟</h3>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>خدمة العملاء متاحة على مدار الساعة عبر الشات بوت الذكي. للتواصل مع موظف بشري، نحن متاحون من الساعة 9 صباحاً حتى 9 مساءً.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question" onclick="toggleFaq(this)">
+                            <h3>كم تكلفة صيانة اللابتوب؟</h3>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>تعتمد تكلفة الصيانة على نوع المشكلة والقطع المطلوبة. يمكنك استخدام مركز YAS التقني الذكي للحصول على تقدير مجاني للتكلفة.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question" onclick="toggleFaq(this)">
+                            <h3>هل تقدمون ضمان على الصيانة؟</h3>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>نعم، نقدم ضمان على جميع خدمات الصيانة يتراوح بين 3-6 أشهر حسب نوع الخدمة والقطع المستخدمة.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question" onclick="toggleFaq(this)">
+                            <h3>كم تستغرق عملية الصيانة؟</h3>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>تتراوح مدة الصيانة بين 1-3 أيام حسب نوع المشكلة وتوفر القطع. سنخبرك بالمدة المقدرة عند استلام الجهاز.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quick Links Section -->
+            <div class="quick-links-section">
+                <h2>روابط سريعة</h2>
+                <div class="quick-links-grid">
+                    <a href="index.html#tech-counselor" class="quick-link-card">
+                        <i class="fas fa-brain"></i>
+                        <span>مركز YAS التقني الذكي</span>
+                    </a>
+                    <a href="index.html#pc-quiz" class="quick-link-card">
+                        <i class="fas fa-laptop"></i>
+                        <span>اختر جهازك المناسب</span>
+                    </a>
+                    <a href="index.html#estimator" class="quick-link-card">
+                        <i class="fas fa-calculator"></i>
+                        <span>مقدّر الإصلاح</span>
+                    </a>
+                    <a href="index.html#services" class="quick-link-card">
+                        <i class="fas fa-cogs"></i>
+                        <span>خدماتنا</span>
+                    </a>
+                    <a href="index.html#gallery" class="quick-link-card">
+                        <i class="fas fa-images"></i>
+                        <span>معرض الصور</span>
+                    </a>
+                    <a href="index.html#contact" class="quick-link-card">
+                        <i class="fas fa-envelope"></i>
+                        <span>تواصل معنا</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Suggestions Section -->
+            <div class="suggestions-section">
+                <h2>💡 اقتراحات لتحسين تجربتك</h2>
+                <div class="suggestions-list">
+                    <div class="suggestion-item">
+                        <div class="suggestion-icon">
+                            <i class="fas fa-lightbulb"></i>
+                        </div>
+                        <div class="suggestion-content">
+                            <h3>استخدم مركز YAS التقني الذكي</h3>
+                            <p>للحصول على تشخيص دقيق لمشاكل جهازك وتقدير تكلفة الصيانة</p>
+                        </div>
+                    </div>
+                    <div class="suggestion-item">
+                        <div class="suggestion-icon">
+                            <i class="fas fa-laptop"></i>
+                        </div>
+                        <div class="suggestion-content">
+                            <h3>استخدم أداة "اختر جهازك"</h3>
+                            <p>لمساعدتك في اختيار اللابتوب المناسب لاحتياجاتك وميزانيتك</p>
+                        </div>
+                    </div>
+                    <div class="suggestion-item">
+                        <div class="suggestion-icon">
+                            <i class="fas fa-headset"></i>
+                        </div>
+                        <div class="suggestion-content">
+                            <h3>تواصل مع أدم فاروق مباشرة</h3>
+                            <p>للحصول على مساعدة شخصية ومخصصة من مسؤول خدمة العملاء</p>
+                        </div>
+                    </div>
+                    <div class="suggestion-item">
+                        <div class="suggestion-icon">
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <div class="suggestion-content">
+                            <h3>استفد من ضمان الصيانة</h3>
+                            <p>نقدم ضمان على جميع خدمات الصيانة من 3-6 أشهر</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="toast" id="toast"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="config.js"></script>
+    <script src="assets/js/customer-service.js"></script>
+</body>
+</html>

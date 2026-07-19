@@ -1,0 +1,1400 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YAS CITY - شركة رائدة في حلول التكنولوجيا الذكية والصيانة الاحترافية</title>
+    <meta name="description" content="YAS CITY - شركة متخصصة في صيانة اللابتوب والهاردوير، بيع الأجهزة، والحلول التقنية الذكية. خبرة 15 عاماً في مجال التكنولوجيا.">
+    <meta name="keywords" content="صيانة لابتوب, صيانة كمبيوتر, بيع أجهزة, YAS CITY, دمياط, صيانة بوردة, تجديد أجهزة">
+    <meta name="author" content="YAS CITY">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://yas-city.vercel.app/">
+    <meta property="og:title" content="YAS CITY - حلول التكنولوجيا الذكية">
+    <meta property="og:description" content="شركة متخصصة في صيانة اللابتوب والهاردوير والحلول التقنية الذكية">
+    <meta property="og:image" content="https://yas-city.vercel.app/assets/images/logo.jpeg">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://yas-city.vercel.app/">
+    <meta property="twitter:title" content="YAS CITY - حلول التكنولوجيا الذكية">
+    <meta property="twitter:description" content="شركة متخصصة في صيانة اللابتوب والهاردوير والحلول التقنية الذكية">
+    <meta property="twitter:image" content="https://yas-city.vercel.app/assets/images/logo.jpeg">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://yas-city.vercel.app/">
+    
+    <!-- Schema.org Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "LocalBusiness",
+        "name": "YAS CITY",
+        "description": "شركة متخصصة في صيانة اللابتوب والهاردوير والحلول التقنية الذكية",
+        "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "دمياط - الزرقا - كفر المياسرة",
+            "addressLocality": "دمياط",
+            "addressCountry": "EG"
+        },
+        "telephone": "+201147800144",
+        "url": "https://yas-city.vercel.app/",
+        "image": "https://yas-city.vercel.app/assets/images/logo.jpeg",
+        "priceRange": "$$",
+        "openingHours": "Mo-Sa 09:00-21:00"
+    }
+    </script>
+    
+    <link rel="stylesheet" href="assets/css/style.css?v=2.5">
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="icon" type="image/jpeg" href="assets/images/logo.jpeg">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="config.js"></script>
+    <script src="assets/js/cms.js"></script>
+    <!-- 360 Viewer Library -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.css"/>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.js"></script>
+</head>
+
+<body class="light-mode">
+    <div id="progress-bar"></div>
+    <div class="custom-cursor-dot"></div>
+    <div class="custom-cursor-circle"></div>
+    <div class="night-stars" id="nightStars"></div>
+
+    <!-- Preloader -->
+    <div id="preloader" class="preloader">
+        <img src="assets/images/logo.jpeg" alt="YAS Loading" class="preloader-logo" loading="eager">
+        <div class="loader-spinner"></div>
+    </div>
+
+
+    <!-- Multi-action Floating Widget -->
+    <div class="floating-fab-container">
+        <div class="fab-actions" id="fabActions">
+            <a href="https://wa.me/201147800144" target="_blank" class="fab-action fab-whatsapp" aria-label="WhatsApp" data-tooltip="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+            <a href="https://www.facebook.com/yastechegypt?locale=ar_AR" target="_blank" class="fab-action fab-facebook" aria-label="Facebook" data-tooltip="Facebook"><i class="fab fa-facebook-f"></i></a>
+            <a href="tel:+201147800144" class="fab-action fab-phone" aria-label="Call" data-tooltip="Call"><i class="fas fa-phone"></i></a>
+            <a href="#contact" class="fab-action fab-map" aria-label="Location" data-tooltip="Location"><i class="fas fa-map-marker-alt"></i></a>
+        </div>
+        <button class="fab-main" id="fabMain">
+            <i class="fas fa-comment-dots" id="fabIcon"></i>
+        </button>
+    </div>
+
+
+
+    <!-- Header -->
+    <header class="header">
+        <nav class="navbar">
+            <div class="nav-container">
+                <div class="logo">
+                    <a href="#home">
+                        <img src="assets/images/logo.jpeg" alt="YAS Logo" style="height: 50px; display: block;" loading="eager">
+                    </a>
+                </div>
+                <div class="nav-controls-mobile-only hidden-desktop" style="display:none;"></div>
+                <div class="nav-actions">
+                    <ul class="nav-menu">
+                        <li class="nav-item"><a href="#home" class="nav-link" data-tr="nav_home">الرئيسية</a></li>
+                        <li class="nav-item"><a href="#about" class="nav-link" data-tr="nav_about">من نحن</a></li>
+                        <li class="nav-item"><a href="#services" class="nav-link" data-tr="nav_services">أقسامنا</a></li>
+                        <li class="nav-item"><a href="#estimator" class="nav-link">مقدّر الإصلاح</a></li>
+                        <li class="nav-item"><a href="#pc-quiz" class="nav-link">اختر جهازك</a></li>
+                        <li class="nav-item"><a href="#products" class="nav-link" data-tr="nav_products">منتجاتنا</a></li>
+                        <li class="nav-item"><a href="#team" class="nav-link">الفريق</a></li>
+                        <li class="nav-item"><a href="#gallery" class="nav-link" data-tr="nav_gallery">معرض الصور</a></li>
+                        <li class="nav-item"><a href="#tech-counselor" class="nav-link">المستشار التقني</a></li>
+                        <li class="nav-item"><a href="customer-service.html" class="nav-link">خدمة العملاء</a></li>
+                        <li class="nav-item"><a href="#contact" class="nav-link" data-tr="nav_contact">اتصل بنا</a></li>
+                    </ul>
+                </div>
+                
+                <div class="interface-controls">
+                        <button id="theme-toggle" class="control-btn" aria-label="Toggle Dark Mode"><i class="fas fa-moon"></i></button>
+                        
+                        <div id="user-area" class="user-control-area" style="display: none;">
+                            <span id="user-display-name" class="user-name-tag"></span>
+                            <button id="logout-btn" class="control-btn logout" aria-label="Logout" data-tr="logout_btn">
+                                <i class="fas fa-sign-out-alt"></i>
+                            </button>
+                        </div>
+                        <button id="login-btn" class="control-btn" aria-label="Login" data-tr="login_btn_nav">
+                            <i class="fas fa-user"></i>
+                        </button>
+                    </div>
+                    <div class="hamburger">
+                        <span class="bar"></span>
+                        <span class="bar"></span>
+                        <span class="bar"></span>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero premium-hero">
+        <div id="particles-js"></div>
+        <div class="hero-content" data-aos="fade-right">
+            <h1 class="hero-title">
+                <span data-tr="hero_title">مرحباً بك في شركة YAS</span><br>
+                <span class="typing-text"></span><span class="cursor">|</span>
+            </h1>
+            <p class="hero-subtitle" data-tr="hero_subtitle">التميز والابتكار في كل خطوة</p>
+            <div class="hero-btns">
+                <button class="cta-button" data-tr="hero_btn">اكتشف المزيد</button>
+                <button class="vr-btn" onclick="scrollToVrTour()"><i class="fas fa-vr-cardboard"></i> جولة 360 درجة</button>
+            </div>
+        </div>
+        <div class="hero-image glass-card-3d" data-aos="fade-left">
+            <div class="glass-card-inner">
+                <img src="assets/images/491938152_9602555346496637_754945076827487287_n.jpg" alt="فريق عمل YAS" class="main-image" loading="eager">
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about reveal-section">
+        <div class="container glass-card-3d">
+            <div class="glass-card-inner">
+                <h2 class="section-title" data-tr="about_title" data-aos="fade-up">من نحن</h2>
+                <div class="about-content">
+                    <div class="about-text" data-aos="fade-right">
+                        <p data-tr="about_p1">شركة YAS هي شركة رائدة في مجالها، ملتزمة بتقديم أفضل الخدمات والمنتجات
+                            لعملائنا. نؤمن بأهمية الجودة والابتكار في كل ما نقوم به.</p>
+                        <p data-tr="about_p2">مع فريق من المحترفين المتميزين وخبرة تمتد لسنوات، نسعى دائماً لتحقيق التميز
+                            وتجاوز توقعات عملائنا.</p>
+                    </div>
+                    <div class="about-image" data-aos="fade-left">
+                        <img src="assets/images/building.jpeg" alt="مقر شركة YAS" class="building-image" loading="lazy">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Counters Section -->
+    <section class="counters-section premium-counters">
+        <div class="container">
+            <div class="counters-grid">
+                <div class="counter-item glass-blur" data-aos="zoom-in" data-aos-delay="100">
+                    <div class="counter-icon"><i class="fas fa-briefcase"></i></div>
+                    <div class="counter-number" data-target="15">0</div>
+                    <p class="counter-title" data-tr="count_exp">سنوات خبرة</p>
+                </div>
+                <div class="counter-item glass-blur" data-aos="zoom-in" data-aos-delay="200">
+                    <div class="counter-icon"><i class="fas fa-check-circle"></i></div>
+                    <div class="counter-number" data-target="500">0</div>
+                    <p class="counter-title" data-tr="count_proj">مشروع مكتمل</p>
+                </div>
+                <div class="counter-item glass-blur" data-aos="zoom-in" data-aos-delay="300">
+                    <div class="counter-icon"><i class="fas fa-users"></i></div>
+                    <div class="counter-number" data-target="1200">0</div>
+                    <p class="counter-title" data-tr="count_client">عميل سعيد</p>
+                </div>
+                <div class="counter-item glass-blur" data-aos="zoom-in" data-aos-delay="400">
+                    <div class="counter-icon"><i class="fas fa-trophy"></i></div>
+                    <div class="counter-number" data-target="25">0</div>
+                    <p class="counter-title" data-tr="count_award">جائزة تميز</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Services Section -->
+    <section id="services" class="services">
+        <div class="container">
+            <h2 class="section-title" data-tr="services_title" data-aos="fade-up">أقسام الشركة</h2>
+            <div class="services-grid">
+                <div class="glass-card-3d" data-aos="fade-up" data-aos-delay="100">
+                    <a href="maintenance.html" class="service-card glass-card-inner highlight-maintenance">
+                        <div class="service-icon">🛠️</div>
+                        <h3 data-tr="srv_maint_title">قسم الصيانة</h3>
+                        <p data-tr="srv_maint_desc">نقدم خدمات صيانة شاملة ومتكاملة لضمان استمرارية وكفاءة عملك بأعلى المعايير</p>
+                        <div class="card-action-box">
+                            <span class="cta-mini-btn">دخول القسم واستكشاف الخدمات <i class="fas fa-arrow-left"></i></span>
+                        </div>
+                    </a>
+                </div>
+                <div class="glass-card-3d" data-aos="fade-up" data-aos-delay="200">
+                    <a href="online.html" class="service-card glass-card-inner highlight-online">
+                        <div class="service-icon">🌐</div>
+                        <h3 data-tr="srv_online_title">قسم الأونلاين</h3>
+                        <p data-tr="srv_online_desc">إدارة وتطوير تواجدك الرقمي وتقديم حلول متكاملة في التجارة الإلكترونية</p>
+                        <div class="card-action-box">
+                            <span class="cta-mini-btn">دخول القسم واستكشاف الخدمات <i class="fas fa-arrow-left"></i></span>
+                        </div>
+                    </a>
+                </div>
+                <div class="glass-card-3d" data-aos="fade-up" data-aos-delay="300">
+                    <div class="service-card glass-card-inner">
+                        <div class="service-icon">🛒</div>
+                        <h3 data-tr="srv_sales_title">قسم المبيعات</h3>
+                        <p data-tr="srv_sales_desc">توفير أفضل المنتجات والحلول مع فريق مبيعات متميز لتلبية جميع احتياجاتك
+                        </p>
+                        <span class="discover-more"><i class="fas fa-arrow-left"></i></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Interactive Hardware Lab (Option 2) -->
+    <section id="hardware-lab" class="hardware-lab">
+        <div class="container">
+            <h2 class="section-title" data-aos="fade-up">مختبر YAS للهاردوير التفاعلي</h2>
+            <div class="lab-container glass-card-3d" data-aos="zoom-in">
+                <div class="lab-inner">
+                    <div class="exploded-view">
+                        <!-- High-end exploded laptop image (using a premium tech graphic style) -->
+                        <div class="tech-graphic">
+                            <i class="fas fa-laptop-code main-icon"></i>
+                            <div class="hotspot" data-part="logic-board" style="top: 40%; left: 45%;">
+                                <div class="hotspot-pulse"></div>
+                                <div class="hotspot-label">البوردة الذكية</div>
+                            </div>
+                            <div class="hotspot" data-part="gpu" style="top: 55%; left: 35%;">
+                                <div class="hotspot-pulse"></div>
+                                <div class="hotspot-label">المعالج الرسومي</div>
+                            </div>
+                            <div class="hotspot" data-part="cooling" style="top: 30%; left: 60%;">
+                                <div class="hotspot-pulse"></div>
+                                <div class="hotspot-label">نظام التبريد</div>
+                            </div>
+                            <div class="hotspot" data-part="bios" style="top: 50%; left: 65%;">
+                                <div class="hotspot-pulse"></div>
+                                <div class="hotspot-label">شريحة البيوس</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="part-details glass-card" id="part-details-display">
+                        <h3><i class="fas fa-microchip"></i> استكشف هندسة اللاب توب</h3>
+                        <p>مرر الماوس فوق النقاط المضيئة لتكتشف كيف نقوم بصيانة أدق تفاصيل جهازك بمعايير عالمية.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Repair Estimator Section -->
+    <section id="estimator" class="estimator">
+        <div class="container">
+            <h2 class="section-title" data-aos="fade-up">مقدّر تكلفة الإصلاح الذكي</h2>
+            <div class="estimator-container glass-card-3d" data-aos="zoom-in">
+                    <!-- Progress Stepper -->
+                    <div class="estimator-stepper">
+                        <div class="step-indicator active" id="step-ind-1">1</div>
+                        <div class="step-line"></div>
+                        <div class="step-indicator" id="step-ind-2">2</div>
+                        <div class="step-line"></div>
+                        <div class="step-indicator" id="step-ind-3">3</div>
+                        <div class="step-line"></div>
+                        <div class="step-indicator" id="step-ind-4"><i class="fas fa-check"></i></div>
+                    </div>
+
+                    <!-- Step 1: Device Type -->
+                    <div class="estimator-step active" id="step-1">
+                        <h3 class="step-title"><i class="fas fa-laptop-medical"></i> خطوة 1: اختر نوع الجهاز</h3>
+                        <div class="selection-grid">
+                            <div class="selection-item" data-type="laptop" onclick="selectDevice('laptop')">
+                                <i class="fas fa-laptop"></i>
+                                <span>لاب توب</span>
+                            </div>
+                            <div class="selection-item" data-type="macbook" onclick="selectDevice('macbook')">
+                                <i class="fab fa-apple"></i>
+                                <span>ماك بوك</span>
+                            </div>
+                            <div class="selection-item" data-type="desktop" onclick="selectDevice('desktop')">
+                                <i class="fas fa-desktop"></i>
+                                <span>كمبيوتر مكتبي</span>
+                            </div>
+                            <div class="selection-item" data-type="all-in-one" onclick="selectDevice('all-in-one')">
+                                <i class="fas fa-tv"></i>
+                                <span>جهاز All-in-One</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Step 2: Brand (Dynamic) -->
+                    <div class="estimator-step" id="step-2">
+                        <h3 class="step-title"><i class="fas fa-microchip"></i> خطوة 2: اختر الماركة</h3>
+                        <div class="selection-grid" id="brand-grid">
+                            <!-- Brands will be injected by JS -->
+                        </div>
+                    </div>
+
+                    <!-- Step 3: Fault Type -->
+                    <div class="estimator-step" id="step-3">
+                        <h3 class="step-title"><i class="fas fa-tools"></i> خطوة 3: اختر نوع العطل</h3>
+                        <div class="selection-grid" id="fault-grid">
+                            <!-- Faults will be injected dynamically or kept static with more options -->
+                            <div class="selection-item" onclick="selectFault('screen', 800, 1500)">
+                                <i class="fas fa-tablet-alt"></i>
+                                <span>كسر شاشة</span>
+                            </div>
+                            <div class="selection-item" onclick="selectFault('battery', 400, 900)">
+                                <i class="fas fa-battery-half"></i>
+                                <span>بطارية / شحن</span>
+                            </div>
+                            <div class="selection-item" onclick="selectFault('board', 1000, 2500)">
+                                <i class="fas fa-project-diagram"></i>
+                                <span>صيانة بوردة</span>
+                            </div>
+                            <div class="selection-item" onclick="selectFault('software', 150, 450)">
+                                <i class="fas fa-code"></i>
+                                <span>سوفت وير / نسخة</span>
+                            </div>
+                            <div class="selection-item" onclick="selectFault('keyboard', 300, 700)">
+                                <i class="fas fa-keyboard"></i>
+                                <span>تغيير كيبورد</span>
+                            </div>
+                            <div class="selection-item" onclick="selectFault('upgrade', 500, 2000)">
+                                <i class="fas fa-rocket"></i>
+                                <span>تحديث (RAM/SSD)</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Analyzing Step -->
+                    <div class="estimator-step" id="step-analyzing">
+                        <div class="analyzing-container">
+                            <div class="scanning-loader">
+                                <div class="scan-line"></div>
+                                <i class="fas fa-microchip main-chip"></i>
+                            </div>
+                            <h3 class="analyzing-text">جاري تحليل بيانات العطل وتقدير التكلفة...</h3>
+                        </div>
+                    </div>
+
+                    <!-- Result Box -->
+                    <div id="estimator-result" class="result-box">
+                        <div class="result-header">
+                            <i class="fas fa-file-invoice-dollar"></i>
+                            <h3>التكلفة التقديرية للإصلاح</h3>
+                        </div>
+
+                        <!-- Quality Toggle -->
+                        <div class="quality-selector" id="quality-selector">
+                            <span class="q-label active" id="q-original" onclick="changeQuality('original')">قطع أصلية (Original)</span>
+                            <div class="q-toggle-bg" onclick="toggleQuality()">
+                                <div class="q-toggle-ball" id="q-ball"></div>
+                            </div>
+                            <span class="q-label" id="q-standard" onclick="changeQuality('standard')">قطع متوافقة (High Copy)</span>
+                        </div>
+
+                        <span class="price-range" id="price-display">...</span>
+
+                        <div class="meta-info">
+                            <div class="meta-item">
+                                <i class="fas fa-shield-alt"></i>
+                                <span id="res-warranty">الضمان: ---</span>
+                            </div>
+                            <div class="meta-item">
+                                <i class="fas fa-hourglass-half"></i>
+                                <span id="res-time">الوقت: ---</span>
+                            </div>
+                        </div>
+
+                        <!-- Expert Tip Card -->
+                        <div class="expert-tip-card" id="expert-tip">
+                            <i class="fas fa-lightbulb"></i>
+                            <div class="tip-content">
+                                <strong>نصيحة الخبير:</strong>
+                                <p id="tip-text">---</p>
+                            </div>
+                        </div>
+
+                        <div class="result-details">
+                            <p id="res-device-info">نوع الجهاز: ---</p>
+                            <p id="res-fault-info">العطل: ---</p>
+                        </div>
+                        <p class="price-hint">هذا السعر تقريبي وقد يختلف حسب حالة الجهاز الفعلية وقطع الغيار المطلوبة</p>
+
+                        <!-- Add-on Services -->
+                        <div class="extra-services" style="margin: 15px 0; background: rgba(0,0,0,0.2); padding: 15px; border-radius: 10px; border: 1px solid rgba(255, 255, 255, 0.1); text-align: right;">
+                            <h4 style="margin-top: 0; margin-bottom: 15px; color: var(--accent-gold); font-size: 1rem;"><i class="fas fa-plus-circle"></i> خدمات إضافية مميزة</h4>
+                            <label style="display: flex; align-items: center; cursor: pointer; margin-bottom: 15px; font-size: 0.95rem;">
+                                <input type="checkbox" id="urgent-repair" style="margin-left: 10px; transform: scale(1.2);" onchange="updateEstimatorTotal()">
+                                <span><i class="fas fa-bolt" style="color: #ff6b6b; margin-left:5px;"></i> صيانة عاجلة (تسليم في نفس اليوم - يضاف 20%)</span>
+                            </label>
+                            <label style="display: flex; align-items: center; cursor: pointer; font-size: 0.95rem;">
+                                <input type="checkbox" id="home-pickup" style="margin-left: 10px; transform: scale(1.2);" onchange="updateEstimatorTotal()">
+                                <span><i class="fas fa-motorcycle" style="color: #4cd137; margin-left:5px;"></i> استلام وتسليم من المنزل (يضاف 50 ج.م)</span>
+                            </label>
+                        </div>
+                        
+
+                        <div class="result-actions">
+                            <button class="cta-button" onclick="bookRepair()"><i class="fab fa-whatsapp"></i> احجز موعدك الآن</button>
+                            <button class="reset-btn-link" onclick="resetEstimator()">البدء من جديد</button>
+                        </div>
+
+                    </div>
+
+                    <!-- Navigation Controls -->
+                    <div class="estimator-nav" id="estimator-nav">
+                        <button class="nav-btn-back" id="btn-back" onclick="goBack()" style="visibility: hidden;">
+                            <i class="fas fa-arrow-right"></i> رجوع
+                        </button>
+                        <button class="nav-btn-reset" onclick="resetEstimator()">
+                            <i class="fas fa-sync-alt"></i> إعادة تعيين
+                        </button>
+                    </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- PC Matchmaker Section -->
+    <section id="pc-quiz" class="pc-quiz-section">
+        <div class="container">
+            <h2 class="section-title" data-aos="fade-up">اختر جهازك المثالي</h2>
+            <p class="quiz-intro text-center" data-aos="fade-up">أجب على 3 أسئلة سريعة وسنرشح لك أفضل جهاز يناسب احتياجاتك وميزانيتك</p>
+            
+            <div class="quiz-utility-actions" data-aos="fade-up">
+                <button class="util-btn active" onclick="switchQuizMode('quiz')"><i class="fas fa-magic"></i> رشح لي جهازاً</button>
+                <button class="util-btn" onclick="switchQuizMode('compare')"><i class="fas fa-balance-scale"></i> قارن بين جهازين</button>
+                <a href="#tech-counselor" class="util-btn suggest-check"><i class="fas fa-user-md"></i> فحص اللاب (Checkup)</a>
+            </div>
+
+            <div class="quiz-container glass-card-3d" data-aos="zoom-in" id="quiz-main-container">
+                <div class="glass-card-inner">
+                    <!-- Quiz Stepper -->
+                    <div class="quiz-stepper enhanced">
+                        <div class="q-step active" id="q-ind-1">1</div>
+                        <div class="q-line"></div>
+                        <div class="q-step" id="q-ind-2">2</div>
+                        <div class="q-line"></div>
+                        <div class="q-step" id="q-ind-3">3</div>
+                        <div class="q-line"></div>
+                        <div class="q-step" id="q-ind-4">4</div>
+                        <div class="q-line"></div>
+                        <div class="q-step" id="q-ind-5">5</div>
+                        <div class="q-line"></div>
+                        <div class="q-step" id="q-ind-6">6</div>
+                        <div class="q-line"></div>
+                        <div class="q-step" id="q-ind-7"><i class="fas fa-star"></i></div>
+                    </div>
+
+                    <!-- Step 1: Usage -->
+                    <div class="quiz-step active" id="q-step-1">
+                        <h3 class="step-title"><i class="fas fa-laptop-code"></i> ما هو هدفك الأساسي من الجهاز؟</h3>
+                        <div class="selection-grid enhanced">
+                            <div class="selection-item quiz-opt enhanced" onclick="selectQuizOption('usage', 'business')">
+                                <i class="fas fa-briefcase"></i>
+                                <span>أعمال ومكتب</span>
+                                <small>Excel, Word, Email</small>
+                            </div>
+                            <div class="selection-item quiz-opt enhanced" onclick="selectQuizOption('usage', 'gaming')">
+                                <i class="fas fa-gamepad"></i>
+                                <span>ألعاب وتقطيع</span>
+                                <small>Gaming, High Performance</small>
+                            </div>
+                            <div class="selection-item quiz-opt enhanced" onclick="selectQuizOption('usage', 'design')">
+                                <i class="fas fa-palette"></i>
+                                <span>جرافيك ومونتاج</span>
+                                <small>Photoshop, Premiere, 3D</small>
+                            </div>
+                            <div class="selection-item quiz-opt enhanced" onclick="selectQuizOption('usage', 'student')">
+                                <i class="fas fa-university"></i>
+                                <span>دراسة وتصفح</span>
+                                <small>Research, Browsing, Notes</small>
+                            </div>
+                            <div class="selection-item quiz-opt enhanced" onclick="selectQuizOption('usage', 'programming')">
+                                <i class="fas fa-code"></i>
+                                <span>برمجة وتطوير</span>
+                                <small>Coding, Development, Testing</small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Step 2: Budget -->
+                    <div class="quiz-step" id="q-step-2">
+                        <h3 class="step-title"><i class="fas fa-wallet"></i> ما هي ميزانيتك التقريبية؟</h3>
+                        <div class="selection-grid enhanced">
+                            <div class="selection-item quiz-opt enhanced" onclick="selectQuizOption('budget', 'economy')">
+                                <i class="fas fa-coins"></i>
+                                <span>اقتصادية (أقل من 15k)</span>
+                                <small>Best Value Options</small>
+                            </div>
+                            <div class="selection-item quiz-opt enhanced" onclick="selectQuizOption('budget', 'mid')">
+                                <i class="fas fa-money-bill-wave"></i>
+                                <span>متوسطة (15k - 30k)</span>
+                                <small>Balanced Performance</small>
+                            </div>
+                            <div class="selection-item quiz-opt enhanced" onclick="selectQuizOption('budget', 'premium')">
+                                <i class="fas fa-crown"></i>
+                                <span>احترافية (30k - 50k)</span>
+                                <small>High-End Features</small>
+                            </div>
+                            <div class="selection-item quiz-opt enhanced" onclick="selectQuizOption('budget', 'ultra')">
+                                <i class="fas fa-gem"></i>
+                                <span>فائقة (أكثر من 50k)</span>
+                                <small>Ultimate Performance</small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Step 3: Portability -->
+                    <div class="quiz-step" id="q-step-3">
+                        <h3 class="step-title"><i class="fas fa-running"></i> هل تتنقل بالجهاز كثيراً؟</h3>
+                        <div class="selection-grid enhanced">
+                            <div class="selection-item quiz-opt enhanced" onclick="selectQuizOption('portability', 'high')">
+                                <i class="fas fa-shuttle-van"></i>
+                                <span>نعم، دائماً معي</span>
+                                <small>Ultra-portable (13-14")</small>
+                            </div>
+                            <div class="selection-item quiz-opt enhanced" onclick="selectQuizOption('portability', 'mid')">
+                                <i class="fas fa-home"></i>
+                                <span>أحياناً، بين البيت والعمل</span>
+                                <small>Balanced (15-16")</small>
+                            </div>
+                            <div class="selection-item quiz-opt enhanced" onclick="selectQuizOption('portability', 'low')">
+                                <i class="fas fa-desktop"></i>
+                                <span>لا، ثابت في مكانه</span>
+                                <small>Desktop Replacement (17"+)</small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Step 4: Screen Size -->
+                    <div class="quiz-step" id="q-step-4">
+                        <h3 class="step-title"><i class="fas fa-desktop"></i> ما حجم الشاشة المفضل؟</h3>
+                        <div class="selection-grid enhanced">
+                            <div class="selection-item quiz-opt enhanced" onclick="selectQuizOption('screen', 'small')">
+                                <i class="fas fa-mobile-alt"></i>
+                                <span>صغيرة (13-14 بوصة)</span>
+                                <small>Portable & Light</small>
+                            </div>
+                            <div class="selection-item quiz-opt enhanced" onclick="selectQuizOption('screen', 'medium')">
+                                <i class="fas fa-laptop"></i>
+                                <span>متوسطة (15-16 بوصة)</span>
+                                <small>Balanced Size</small>
+                            </div>
+                            <div class="selection-item quiz-opt enhanced" onclick="selectQuizOption('screen', 'large')">
+                                <i class="fas fa-tv"></i>
+                                <span>كبيرة (17+ بوصة)</span>
+                                <small>Best for Gaming & Work</small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Step 5: Performance Priority -->
+                    <div class="quiz-step" id="q-step-5">
+                        <h3 class="step-title"><i class="fas fa-tachometer-alt"></i> ما الأولوية في الأداء؟</h3>
+                        <div class="selection-grid enhanced">
+                            <div class="selection-item quiz-opt enhanced" onclick="selectQuizOption('performance', 'speed')">
+                                <i class="fas fa-bolt"></i>
+                                <span>السرعة والاستجابة</span>
+                                <small>Fast Processing</small>
+                            </div>
+                            <div class="selection-item quiz-opt enhanced" onclick="selectQuizOption('performance', 'graphics')">
+                                <i class="fas fa-image"></i>
+                                <span>الرسوميات والشاشة</span>
+                                <small>High Quality Display</small>
+                            </div>
+                            <div class="selection-item quiz-opt enhanced" onclick="selectQuizOption('performance', 'battery')">
+                                <i class="fas fa-battery-full"></i>
+                                <span>عمر البطارية</span>
+                                <small>Long Lasting Battery</small>
+                            </div>
+                            <div class="selection-item quiz-opt enhanced" onclick="selectQuizOption('performance', 'storage')">
+                                <i class="fas fa-hdd"></i>
+                                <span>مساحة التخزين</span>
+                                <small>Large Storage Capacity</small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Step 6: Operating System -->
+                    <div class="quiz-step" id="q-step-6">
+                        <h3 class="step-title"><i class="fab fa-windows"></i> ما نظام التشغيل المفضل؟</h3>
+                        <div class="selection-grid enhanced">
+                            <div class="selection-item quiz-opt enhanced" onclick="selectQuizOption('os', 'windows')">
+                                <i class="fab fa-windows"></i>
+                                <span>Windows</span>
+                                <small>Most Compatible</small>
+                            </div>
+                            <div class="selection-item quiz-opt enhanced" onclick="selectQuizOption('os', 'mac')">
+                                <i class="fab fa-apple"></i>
+                                <span>macOS</span>
+                                <small>Apple Ecosystem</small>
+                            </div>
+                            <div class="selection-item quiz-opt enhanced" onclick="selectQuizOption('os', 'linux')">
+                                <i class="fab fa-linux"></i>
+                                <span>Linux</span>
+                                <small>For Developers</small>
+                            </div>
+                            <div class="selection-item quiz-opt enhanced" onclick="selectQuizOption('os', 'any')">
+                                <i class="fas fa-check-circle"></i>
+                                <span>لا يهم</span>
+                                <small>Open to Options</small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Analyzing Step -->
+                    <div class="quiz-step" id="q-step-analyzing">
+                        <div class="analyzing-container">
+                            <div class="brain-loader">
+                                <i class="fas fa-brain"></i>
+                                <div class="pulse-ring"></div>
+                            </div>
+                            <h3 class="analyzing-text">جاري البحث عن الجهاز المثالي لك...</h3>
+                        </div>
+                    </div>
+
+                    <!-- Result Card -->
+                    <div id="quiz-result" class="quiz-result-card">
+                        <div class="match-badge">جهازك المثالي هو:</div>
+                        <h2 id="match-name">اسم المجموعة</h2>
+                        
+                        <!-- Performance Scores Card -->
+                        <div class="match-scores">
+                            <div class="score-item">
+                                <span>الأداء (Power)</span>
+                                <div class="score-bar-bg"><div class="score-bar" id="score-power"></div></div>
+                            </div>
+                            <div class="score-item">
+                                <span>الألعاب (Gaming)</span>
+                                <div class="score-bar-bg"><div class="score-bar" id="score-gaming"></div></div>
+                            </div>
+                            <div class="score-item">
+                                <span>البطارية (Battery)</span>
+                                <div class="score-bar-bg"><div class="score-bar" id="score-battery"></div></div>
+                            </div>
+                        </div>
+
+                        <div class="match-image">
+                            <img id="match-img" src="" alt="Recommended Device" loading="lazy">
+                        </div>
+                        <div class="match-features">
+                            <ul id="match-specs">
+                                <!-- Specs list will be here -->
+                            </ul>
+                        </div>
+                        <div class="quiz-actions">
+                            <button class="cta-button" onclick="showContactForm()"><i class="fas fa-envelope"></i> اطلب هذا الجهاز</button>
+                            <button class="cta-button" onclick="contactMatch()"><i class="fab fa-whatsapp"></i> استفسر عبر واتساب</button>
+                            <button class="trade-in-btn" onclick="openTradeIn()"><i class="fas fa-sync-alt"></i> استبدل جهازك القديم ووفر</button>
+                            <button class="reset-btn-link" onclick="resetQuiz()">إعادة الاختبار</button>
+                        </div>
+
+                        <!-- Contact Form Modal -->
+                        <div id="contact-form-modal" class="quiz-contact-form" style="display: none;">
+                            <div class="form-header">
+                                <h3><i class="fas fa-user-plus"></i> أكمل طلبك</h3>
+                                <p>أدخل بياناتك وسنتواصل معك فوراً</p>
+                                <button class="close-form" onclick="hideContactForm()"><i class="fas fa-times"></i></button>
+                            </div>
+                            <form id="device-request-form" onsubmit="submitDeviceRequest(event)">
+                                <div class="form-group">
+                                    <label><i class="fas fa-user"></i> الاسم الكامل</label>
+                                    <input type="text" id="customer-name" required placeholder="أدخل اسمك الكامل">
+                                </div>
+                                <div class="form-group">
+                                    <label><i class="fas fa-phone"></i> رقم الهاتف</label>
+                                    <input type="tel" id="customer-phone" required placeholder="01xxxxxxxxx">
+                                </div>
+                                <div class="form-group">
+                                    <label><i class="fas fa-envelope"></i> البريد الإلكتروني (اختياري)</label>
+                                    <input type="email" id="customer-email" placeholder="example@email.com">
+                                </div>
+                                <div class="form-group">
+                                    <label><i class="fas fa-map-marker-alt"></i> العنوان (اختياري)</label>
+                                    <input type="text" id="customer-address" placeholder="المحافظة - المدينة">
+                                </div>
+                                <div class="form-group">
+                                    <label><i class="fas fa-comment"></i> ملاحظات إضافية</label>
+                                    <textarea id="customer-notes" rows="3" placeholder="أي تفاصيل إضافية تود إضافتها..."></textarea>
+                                </div>
+                                <div class="device-summary">
+                                    <h4>الجهاز المطلوب:</h4>
+                                    <p id="summary-device-name">---</p>
+                                    <p id="summary-device-specs">---</p>
+                                </div>
+                                <button type="submit" class="submit-btn">
+                                    <i class="fas fa-paper-plane"></i> إرسال الطلب
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+
+                    <!-- Navigation -->
+                    <div class="quiz-nav" id="quiz-nav">
+                        <button class="nav-btn-back" id="q-btn-back" onclick="goBackQuiz()" style="visibility: hidden;">
+                            <i class="fas fa-arrow-right"></i> رجوع
+                        </button>
+                        <button class="nav-btn-reset" onclick="resetQuiz()">
+                            <i class="fas fa-sync-alt"></i> إعادة تعيين
+                        </button>
+                    </div>
+
+                    <!-- Comparison View (New) -->
+                    <div id="compare-view" class="quiz-step" style="display: none;">
+                        <h3 class="step-title"><i class="fas fa-balance-scale"></i> قارن بين أي جهازين لابتوب في العالم</h3>
+                        <p class="step-subtitle">أدخل أسماء الأجهزة للحصول على مقارنة تفصيلية مع تحليل احترافي</p>
+                        
+                        <div class="compare-selector-grid ai-mode">
+                            <div class="compare-select-box">
+                                <label><i class="fas fa-laptop"></i> الجهاز الأول</label>
+                                <input type="text" id="compare-1-ai" placeholder="مثلاً: HP ProBook 450 G8" class="ai-input">
+                                <div class="device-suggestions" id="suggestions-1"></div>
+                            </div>
+                            <div class="vs-divider ai-pulse">
+                                <span>VS</span>
+                            </div>
+                            <div class="compare-select-box">
+                                <label><i class="fas fa-laptop"></i> الجهاز الثاني</label>
+                                <input type="text" id="compare-2-ai" placeholder="مثلاً: Dell Latitude 5420" class="ai-input">
+                                <div class="device-suggestions" id="suggestions-2"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="ai-loader-container" id="ai-comparison-loader" style="display: none;">
+                            <div class="ai-scanner"></div>
+                            <p>جاري تحليل المواصفات بالذكاء الاصطناعي...</p>
+                        </div>
+
+                        <div class="comparison-table-wrapper" id="comparison-result" style="display: none;">
+                            <div class="comparison-summary">
+                                <div class="winner-badge" id="winner-badge">
+                                    <i class="fas fa-trophy"></i>
+                                    <span id="winner-name">الأفضل للعمل</span>
+                                </div>
+                            </div>
+                            
+                            <table class="comparison-table" id="comparison-table">
+                                <thead>
+                                    <tr>
+                                        <th>المواصفات</th>
+                                        <th id="th-name-1" class="device-1-header">
+                                            <div class="device-header-content">
+                                                <span class="device-name">HP Engine</span>
+                                                <span class="device-score" id="score-1">8.5/10</span>
+                                            </div>
+                                        </th>
+                                        <th id="th-name-2" class="device-2-header">
+                                            <div class="device-header-content">
+                                                <span class="device-name">Dell Power</span>
+                                                <span class="device-score" id="score-2">9.0/10</span>
+                                            </div>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><i class="fas fa-microchip"></i> المعالج</td>
+                                        <td id="td-cpu-1"><span class="spec-value">Intel i5-11th</span><span class="spec-rating">⭐⭐⭐⭐</span></td>
+                                        <td id="td-cpu-2"><span class="spec-value">Intel i5-11th</span><span class="spec-rating">⭐⭐⭐⭐</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td><i class="fas fa-memory"></i> الرام</td>
+                                        <td id="td-ram-1"><span class="spec-value">8GB DDR4</span><span class="spec-rating">⭐⭐⭐</span></td>
+                                        <td id="td-ram-2"><span class="spec-value">8GB DDR4</span><span class="spec-rating">⭐⭐⭐</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td><i class="fas fa-hdd"></i> التخزين</td>
+                                        <td id="td-storage-1"><span class="spec-value">256GB SSD</span><span class="spec-rating">⭐⭐⭐</span></td>
+                                        <td id="td-storage-2"><span class="spec-value">512GB SSD</span><span class="spec-rating">⭐⭐⭐⭐</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td><i class="fas fa-desktop"></i> الشاشة</td>
+                                        <td id="td-screen-1"><span class="spec-value">15.6" FHD</span><span class="spec-rating">⭐⭐⭐⭐</span></td>
+                                        <td id="td-screen-2"><span class="spec-value">14" FHD</span><span class="spec-rating">⭐⭐⭐⭐</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td><i class="fas fa-gamepad"></i> الكرت الشاشة</td>
+                                        <td id="td-gpu-1"><span class="spec-value">Integrated</span><span class="spec-rating">⭐⭐</span></td>
+                                        <td id="td-gpu-2"><span class="spec-value">NVIDIA MX450</span><span class="spec-rating">⭐⭐⭐⭐</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td><i class="fas fa-battery-full"></i> البطارية</td>
+                                        <td id="td-battery-1"><span class="spec-value">3-cell 41Wh</span><span class="spec-rating">⭐⭐</span></td>
+                                        <td id="td-battery-2"><span class="spec-value">3-cell 52Wh</span><span class="spec-rating">⭐⭐⭐</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td><i class="fas fa-weight-hanging"></i> الوزن</td>
+                                        <td id="td-weight-1"><span class="spec-value">1.8 kg</span><span class="spec-rating">⭐⭐⭐</span></td>
+                                        <td id="td-weight-2"><span class="spec-value">1.3 kg</span><span class="spec-rating">⭐⭐⭐⭐⭐</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td><i class="fas fa-tag"></i> السعر المقدر</td>
+                                        <td id="td-price-1"><span class="spec-value price">EGP 15,000</span><span class="spec-rating value">قيمة عالية</span></td>
+                                        <td id="td-price-2"><span class="spec-value price">EGP 18,000</span><span class="spec-rating value">متوسط</span></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            
+                            <div class="comparison-verdict">
+                                <h4><i class="fas fa-lightbulb"></i> التوصية</h4>
+                                <p id="comparison-verdict-text">بناءً على التحليل، الجهاز الثاني (Dell Power) يقدم أداءً أفضل للعمل مع وزن أخف وسعة تخزين أكبر، مما يجعله الخيار الأنسب للمهام المكتبية والتنقل.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="compare-actions">
+                            <button class="cta-button ai-btn" onclick="startAIComparison()"><i class="fas fa-brain"></i> ابدأ التحليل الذكي</button>
+                            <button class="cta-button" onclick="contactCompare()"><i class="fab fa-whatsapp"></i> استفسر عن الأسعار</button>
+                            <button class="cta-button secondary" onclick="resetComparison()"><i class="fas fa-redo"></i> مقارنة جديدة</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Products Section -->
+    <section id="products" class="products">
+        <div class="container">
+            <h2 class="section-title" data-tr="products_title">منتجاتنا المميزة</h2>
+            <div class="products-grid" id="products-grid">
+                <!-- Products will be injected by JavaScript for easier management -->
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Team Section -->
+    <section id="team" class="team">
+        <div class="container">
+            <h2 class="section-title" data-tr="team_title">فريق العمل</h2>
+            <div class="team-grid">
+                <div class="team-card" data-tilt>
+                    <div class="team-img-wrapper">
+                        <img src="assets/images/1.jpg" alt="محمد ياسين" loading="lazy">
+                        <div class="team-social">
+                            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                            <a href="#"><i class="fab fa-twitter"></i></a>
+                        </div>
+                    </div>
+                    <div class="team-info">
+                        <h3 data-tr="team_1_name">محمد ياسين</h3>
+                        <p data-tr="team_1_role">المدير التنفيذي</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Gallery Section -->
+    <section id="gallery" class="gallery">
+        <div class="container">
+            <h2 class="section-title" data-tr="gallery_title">معرض الصور</h2>
+            <div class="gallery-grid">
+                <div class="gallery-item">
+                    <img src="assets/images/491938152_9602555346496637_754945076827487287_n.jpg" alt="فريق عمل YAS" loading="lazy">
+                    <div class="gallery-overlay">
+                        <h3 data-tr="gal_team_title">فريق العمل</h3>
+                        <p data-tr="gal_team_desc">فريق من المحترفين المتميزين</p>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="assets/images/building.jpeg" alt="مقر شركة YAS" loading="lazy">
+                    <div class="gallery-overlay">
+                        <h3 data-tr="gal_hq_title">المقر الرئيسي</h3>
+                        <p data-tr="gal_hq_desc">مقر حديث ومجهز بأحدث التقنيات</p>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="assets/images/WhatsApp Image 2026-04-07 at 9.47.33 AM.jpeg" alt="فريق العمل و الإدارة" loading="lazy">
+                    <div class="gallery-overlay">
+                        <h3>فريق العمل و الإدارة</h3>
+                        <p>جانب من فريق عملنا المميز</p>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="assets/images/WhatsApp Image 2026-04-07 at 9.48.21 AM (1).jpeg" alt="مقر الشركة الخارجي" loading="lazy">
+                    <div class="gallery-overlay">
+                        <h3>مقر الشركة الخارجي</h3>
+                        <p>نحرص على التميز في كل التفاصيل</p>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="assets/images/WhatsApp Image 2026-04-07 at 9.48.21 AM.jpeg" alt="قسم المخازن" loading="lazy">
+                    <div class="gallery-overlay">
+                        <h3>قسم المبيعات والمخازن</h3>
+                        <p>جاهزية تامة لتلبية كافة الطلبات</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+    <!-- Smart Tech Center (Merged Section) -->
+    <section id="tech-counselor" class="smart-tech-center-section">
+        <div class="container">
+            <div class="tech-center-hero" data-aos="fade-up">
+                <div class="tech-center-icon">
+                    <i class="fas fa-brain"></i>
+                </div>
+                <h2 class="section-title">مركز YAS التقني الذكي 🧠</h2>
+                <p class="section-subtitle">تشخيص احترافي، تحليل ذكي، وحلول فورية لأجهزتك</p>
+                <div class="tech-center-features">
+                    <div class="feature-badge">
+                        <i class="fas fa-bolt"></i>
+                        <span>تحليل فوري</span>
+                    </div>
+                    <div class="feature-badge">
+                        <i class="fas fa-shield-alt"></i>
+                        <span>دقة عالية</span>
+                    </div>
+                    <div class="feature-badge">
+                        <i class="fas fa-tools"></i>
+                        <span>حلول عملية</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="smart-center-wrapper glass-card-3d neon-glow" data-aos="zoom-in">
+                <!-- Main Tab Controls -->
+                <div class="smart-tabs">
+                    <button class="s-tab active" onclick="switchSmartTab('diagnosis')">
+                        <div class="tab-icon">
+                            <i class="fas fa-microchip"></i>
+                        </div>
+                        <div class="tab-content">
+                            <span class="tab-title">تشخيص ذكي</span>
+                            <span class="tab-desc">تحليل شامل لجهازك</span>
+                        </div>
+                    </button>
+                    <button class="s-tab" onclick="switchSmartTab('upgrade')">
+                        <div class="tab-icon">
+                            <i class="fas fa-rocket"></i>
+                        </div>
+                        <div class="tab-content">
+                            <span class="tab-title">مسار التحديث</span>
+                            <span class="tab-desc">خيارات تطوير الجهاز</span>
+                        </div>
+                    </button>
+                </div>
+
+                <div class="smart-content-box">
+                    
+                    <!-- Tab 1: AI Diagnosis (Upgraded with Speedometer) -->
+                    <div id="view-diagnosis" class="smart-view active">
+                        <div class="view-header">
+                            <div class="header-icon">
+                                <i class="fas fa-chart-line"></i>
+                            </div>
+                            <div class="header-text">
+                                <h3>لوحة التحكم الذكية</h3>
+                                <p>تحليل فني عميق لمكونات جهازك وأدائه الفعلي</p>
+                            </div>
+                        </div>
+                        
+                        <div class="diagnosis-unified-container">
+                            <!-- Step 1: Enhanced Input Cards Grid -->
+                            <div class="diagnosis-cards-container enhanced">
+                                <div class="diag-card enhanced">
+                                    <div class="card-icon-enhanced">
+                                        <i class="fas fa-microchip"></i>
+                                    </div>
+                                    <div class="card-content-enhanced">
+                                        <label>المعالج (CPU)</label>
+                                        <select id="scan-cpu" class="premium-select enhanced">
+                                            <option value="20" selected>Core i7/i9 (Gen 12-14)</option>
+                                            <option value="15">Core i5/i7 (Gen 11-13)</option>
+                                            <option value="12">Core i5/i7 (Gen 8-10)</option>
+                                            <option value="8">Core i3/i5 (Gen 5-7)</option>
+                                            <option value="20">Apple M2/M3</option>
+                                            <option value="18">Apple M1</option>
+                                            <option value="5">AMD Ryzen 5/7</option>
+                                            <option value="3">معالجات قديمة</option>
+                                        </select>
+                                        <div class="card-indicator"></div>
+                                    </div>
+                                </div>
+
+                                <div class="diag-card enhanced">
+                                    <div class="card-icon-enhanced">
+                                        <i class="fas fa-memory"></i>
+                                    </div>
+                                    <div class="card-content-enhanced">
+                                        <label>الرامات (RAM)</label>
+                                        <select id="scan-ram" class="premium-select enhanced">
+                                            <option value="32" selected>32 GB</option>
+                                            <option value="16">16 GB</option>
+                                            <option value="8">8 GB</option>
+                                            <option value="4">4 GB</option>
+                                            <option value="64">64 GB+</option>
+                                        </select>
+                                        <div class="card-indicator"></div>
+                                    </div>
+                                </div>
+
+                                <div class="diag-card enhanced">
+                                    <div class="card-icon-enhanced">
+                                        <i class="fas fa-hdd"></i>
+                                    </div>
+                                    <div class="card-content-enhanced">
+                                        <label>التخزين (Storage)</label>
+                                        <select id="scan-storage" class="premium-select enhanced">
+                                            <option value="nvme" selected>NVMe SSD (سريع)</option>
+                                            <option value="ssd">SATA SSD</option>
+                                            <option value="hdd">HDD</option>
+                                            <option value="hybrid">هجين (SSD + HDD)</option>
+                                        </select>
+                                        <div class="card-indicator"></div>
+                                    </div>
+                                </div>
+
+                                <div class="diag-card enhanced">
+                                    <div class="card-icon-enhanced">
+                                        <i class="fas fa-calendar-check"></i>
+                                    </div>
+                                    <div class="card-content-enhanced">
+                                        <label>العمر (سنوات)</label>
+                                        <input type="number" id="scan-age" value="3" min="0" max="15" class="premium-input enhanced">
+                                        <div class="card-indicator"></div>
+                                    </div>
+                                </div>
+
+                                <div class="diag-card enhanced">
+                                    <div class="card-icon-enhanced">
+                                        <i class="fas fa-desktop"></i>
+                                    </div>
+                                    <div class="card-content-enhanced">
+                                        <label>كارت الشاشة (GPU)</label>
+                                        <select id="scan-gpu" class="premium-select enhanced">
+                                            <option value="15" selected>RTX 40 Series / RX 7000</option>
+                                            <option value="12">RTX 30 Series / RX 6000</option>
+                                            <option value="8">GTX 16 Series / RX 5000</option>
+                                            <option value="5">كارت مدمج (Integrated)</option>
+                                            <option value="3">كارت قديم</option>
+                                        </select>
+                                        <div class="card-indicator"></div>
+                                    </div>
+                                </div>
+
+                                <div class="diag-card enhanced">
+                                    <div class="card-icon-enhanced">
+                                        <i class="fas fa-thermometer-half"></i>
+                                    </div>
+                                    <div class="card-content-enhanced">
+                                        <label>درجة الحرارة</label>
+                                        <select id="scan-temp" class="premium-select enhanced">
+                                            <option value="10" selected>عادية (40-60°C)</option>
+                                            <option value="7">مرتفعة قليلاً (60-75°C)</option>
+                                            <option value="4">مرتفعة (75-90°C)</option>
+                                            <option value="2">عالية جداً (90°C+)</option>
+                                        </select>
+                                        <div class="card-indicator"></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <button class="cta-button gold-btn enhanced w-100 mt-4 mb-4" onclick="runTechScan()">
+                                <i class="fas fa-bolt"></i> بدء التحليل العميق
+                            </button>
+
+                            <!-- Step 2: Enhanced Visualization & Result -->
+                            <div class="diagnosis-visual-compact enhanced">
+                                <div id="scan-overlay" class="scanning-overlay-horizontal enhanced">
+                                    <div class="status-wrap">
+                                        <div class="scan-status-text" id="scan-status">جاهز للتحليل</div>
+                                        <div class="progress-container-modern">
+                                            <div id="progress-bar-fill" class="progress-bar-fill"></div>
+                                        </div>
+                                        <div class="scan-steps" id="scan-steps">
+                                            <span class="step active">1</span>
+                                            <span class="step">2</span>
+                                            <span class="step">3</span>
+                                            <span class="step">4</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div id="scan-result" class="scan-result-card-modern enhanced" style="display: none;">
+                                    <div class="result-header enhanced">
+                                        <div class="score-badge enhanced">
+                                            <div class="score-circle">
+                                                <span id="v-score">0%</span>
+                                            </div>
+                                            <small>صحة الجهاز</small>
+                                        </div>
+                                        <div class="verdict-text enhanced">
+                                            <h4 id="v-verdict">--</h4>
+                                            <p id="v-advice"></p>
+                                        </div>
+                                    </div>
+
+                                    <!-- Performance Charts -->
+                                    <div class="performance-charts">
+                                        <div class="chart-item">
+                                            <div class="chart-label">المعالج</div>
+                                            <div class="chart-bar">
+                                                <div class="chart-fill" id="cpu-chart" style="width: 0%"></div>
+                                            </div>
+                                            <div class="chart-value" id="cpu-value">0%</div>
+                                        </div>
+                                        <div class="chart-item">
+                                            <div class="chart-label">الرامات</div>
+                                            <div class="chart-bar">
+                                                <div class="chart-fill" id="ram-chart" style="width: 0%"></div>
+                                            </div>
+                                            <div class="chart-value" id="ram-value">0%</div>
+                                        </div>
+                                        <div class="chart-item">
+                                            <div class="chart-label">التخزين</div>
+                                            <div class="chart-bar">
+                                                <div class="chart-fill" id="storage-chart" style="width: 0%"></div>
+                                            </div>
+                                            <div class="chart-value" id="storage-value">0%</div>
+                                        </div>
+                                        <div class="chart-item">
+                                            <div class="chart-label">كارت الشاشة</div>
+                                            <div class="chart-bar">
+                                                <div class="chart-fill" id="gpu-chart" style="width: 0%"></div>
+                                            </div>
+                                            <div class="chart-value" id="gpu-value">0%</div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Recommendations -->
+                                    <div class="recommendations-section">
+                                        <h4><i class="fas fa-lightbulb"></i> التوصيات</h4>
+                                        <ul id="recommendations-list"></ul>
+                                    </div>
+
+                                    <button class="whatsapp-btn-modern enhanced w-100 mt-3" onclick="contactCounselor('diagnosis')">
+                                        <i class="fab fa-whatsapp"></i> حجز صيانة وقائية
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tab 2: Upgrade Counselor -->
+                    <div id="view-upgrade" class="smart-view">
+                        <div class="view-header">
+                            <h3>مستشار التحديث (Performance Booster)</h3>
+                            <p>اكتشف أفضل القطع التي ستنقل جهازك لمستوى آخر من السرعة.</p>
+                        </div>
+                        <div class="input-grid-counselor">
+                            <div class="input-group">
+                                <label>نوع المعالج الحالي</label>
+                                <select id="up-cpu">
+                                    <option value="old">قديم (Core 2 Duo / Celeron)</option>
+                                    <option value="mid">متوسط (Core i3 / i5 جيل قديم)</option>
+                                    <option value="new" selected>حديث (Core i5 / i7 جيل 8+)</option>
+                                </select>
+                            </div>
+                            <div class="input-group">
+                                <label>حجم الرام الحالية</label>
+                                <select id="up-ram">
+                                    <option value="4">4 جيجا أو أقل</option>
+                                    <option value="8" selected>8 جيجا</option>
+                                    <option value="16">16 جيجا أو أكثر</option>
+                                </select>
+                            </div>
+                            <div class="input-group">
+                                <label>نوع الهارد الحالي</label>
+                                <select id="up-disk">
+                                    <option value="hdd" selected>هارد عادي (HDD)</option>
+                                    <option value="ssd">هارد سريع (SSD)</option>
+                                </select>
+                            </div>
+                        </div>
+                        <button class="cta-button w-100 mt-4" onclick="calculateUpgrade()">احسب تكلفة وأداء التحديث</button>
+                        
+                        <div id="upgrade-result" class="counselor-result-box mt-4" style="display: none;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <h2 class="section-title" data-tr="contact_title">اتصل بنا</h2>
+            <div class="contact-content">
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <h3 data-tr="con_address_title">📍 العنوان</h3>
+                        <p data-tr="con_address_val">دمياط - الزرقا - كفر المياسرة</p>
+                    </div>
+                    <div class="contact-item">
+                        <h3 data-tr="con_phone_title">📞 الهاتف</h3>
+                        <p dir="ltr" class="ltr-text">+20 11 47800144</p>
+                    </div>
+                    <div class="contact-item">
+                        <h3 data-tr="con_email_title">📧 الإيميل</h3>
+                        <p>info@yascity.com</p>
+                    </div>
+                </div>
+                <div class="contact-form">
+                    <form>
+                        <input type="text" id="name-input" placeholder="الاسم" data-tr-ph="form_name" required>
+                        <input type="email" id="email-input" placeholder="الإيميل" data-tr-ph="form_email" required>
+                        <textarea id="msg-input" placeholder="رسالتك" data-tr-ph="form_msg" rows="5"
+                            required></textarea>
+                        <button type="submit" class="submit-btn" data-tr="form_btn">إرسال</button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="map-wrapper">
+                <iframe
+                    src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d213.24789789267078!2d31.6355304!3d31.2216612!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14f9d89b9fa35a6f%3A0xb1fa8f0e3e7e638e!2sYAS%20CITY!5e0!3m2!1sar!2seg!4v1775918052376!5m2!1sar!2seg"
+                    width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy"
+                    referrerpolicy="no-referrer-when-downgrade">
+                </iframe>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- AI Tech Assistant Widget -->
+    <div id="ai-assistant-widget" class="ai-widget-container">
+        <div id="ai-chat-window" class="ai-chat-window">
+            <div class="ai-chat-header">
+                <div class="ai-status-dot"></div>
+                <span>المساعد التقني الذكي - YAS AI</span>
+                <button onclick="toggleAIChat()"><i class="fas fa-times"></i></button>
+            </div>
+            <div id="ai-chat-messages" class="ai-chat-messages">
+                <div class="message ai-msg">مرحباً! أنا مساعدك التقني من YAS. كيف يمكنني مساعدتك اليوم؟</div>
+            </div>
+            <!-- Quick Commands Area -->
+            <div class="ai-quick-commands">
+                <button onclick="sendAIQuery('تشخيص')">🛠️ تشخيص عطل</button>
+                <button onclick="triggerAIVision()">📷 فحص بصري (AI Vision)</button>
+                <button onclick="sendAIQuery('مقارنة')">📊 مساعدة في اختيار جهاز</button>
+                <button onclick="sendAIQuery('تحديث')">🚀 طلب تحديث سرعة</button>
+            </div>
+            <!-- Hidden File Input for AI Vision -->
+            <input type="file" id="ai-vision-input" style="display: none;" accept="image/*" onchange="processAIVision(event)">
+            <div class="ai-chat-input">
+                <input type="text" id="ai-user-query" placeholder="اسألني عن صيانة، تحديث، أو أجهزة...">
+                <button onclick="sendAIQuery()"><i class="fas fa-paper-plane"></i></button>
+            </div>
+        </div>
+        <button id="ai-trigger" class="ai-trigger-btn" onclick="toggleAIChat()">
+            <i class="fas fa-robot"></i>
+            <span class="ai-badge">AI</span>
+        </button>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <a href="#home">
+                        <img src="assets/images/logo.jpeg" alt="YAS Logo" style="height: 60px; display: block;" loading="lazy">
+                    </a>
+                    <p data-tr="footer_slogan">شركة رائدة في مجالها</p>
+                </div>
+                <div class="footer-links">
+                    <h3 data-tr="footer_links">روابط سريعة</h3>
+                    <ul>
+                        <li><a href="#home" data-tr="nav_home">الرئيسية</a></li>
+                        <li><a href="#about" data-tr="nav_about">من نحن</a></li>
+                        <li><a href="#services" data-tr="nav_services">أقسامنا</a></li>
+                        <li><a href="#contact" data-tr="nav_contact">اتصل بنا</a></li>
+                    </ul>
+                </div>
+                <div class="footer-social">
+                    <h3 data-tr="footer_follow">تابعنا</h3>
+                    <div class="social-links">
+                        <a href="https://www.facebook.com/yastechegypt?locale=ar_AR" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p data-tr="footer_copy">&copy; 2026 YAS CITY. جميع الحقوق محفوظة.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Login Modal -->
+    <div id="login-modal" class="modal">
+        <div class="modal-content glass-effect">
+            <span class="close-modal">&times;</span>
+            <div class="modal-tabs">
+                <button class="tab-btn active" data-tab="login" data-tr="tab_login">تسجيل الدخول</button>
+                <button class="tab-btn" data-tab="register" data-tr="tab_register">حساب جديد</button>
+            </div>
+
+            <!-- Login Form -->
+            <form id="login-form" class="auth-form active">
+                <h2 data-tr="login_title">مرحباً بعودتك</h2>
+                <div class="input-group">
+                    <i class="fas fa-envelope"></i>
+                    <input type="email" placeholder="البريد الإلكتروني" data-tr-ph="form_email" required>
+                </div>
+                <div class="input-group">
+                    <i class="fas fa-lock"></i>
+                    <input type="password" id="login-pass" placeholder="كلمة المرور" data-tr-ph="form_pass" required>
+                    <i class="fas fa-eye toggle-password" data-target="login-pass"></i>
+                </div>
+                <div class="form-options">
+                    <label class="remember-me">
+                        <input type="checkbox"> <span data-tr="form_remember">تذكرني</span>
+                    </label>
+                    <a href="#" class="forgot-pass" data-tr="form_forgot">نسيت كلمة المرور؟</a>
+                </div>
+                <button type="submit" class="auth-submit-btn" data-tr="login_btn">دخول</button>
+            </form>
+
+            <!-- Register Form -->
+            <form id="register-form" class="auth-form">
+                <h2 data-tr="register_title">إنشاء حساب جديد</h2>
+                <div class="input-group">
+                    <i class="fas fa-user"></i>
+                    <input type="text" placeholder="الاسم الكامل" data-tr-ph="form_name" required>
+                </div>
+                <div class="input-group">
+                    <i class="fas fa-envelope"></i>
+                    <input type="email" placeholder="البريد الإلكتروني" data-tr-ph="form_email" required>
+                </div>
+                <div class="input-group">
+                    <i class="fas fa-lock"></i>
+                    <input type="password" id="reg-pass" placeholder="كلمة المرور" data-tr-ph="form_pass" required>
+                    <i class="fas fa-eye toggle-password" data-target="reg-pass"></i>
+                </div>
+                <div class="input-group">
+                    <i class="fas fa-shield-alt"></i>
+                    <input type="password" id="reg-confirm-pass" placeholder="تأكيد كلمة المرور" data-tr-ph="form_confirm_pass" required>
+                    <i class="fas fa-eye toggle-password" data-target="reg-confirm-pass"></i>
+                </div>
+                <button type="submit" class="auth-submit-btn" data-tr="register_btn">إنشاء حساب</button>
+            </form>
+        </div>
+    </div>
+
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.0/vanilla-tilt.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script>
+        AOS.init({
+            duration: 1000,
+            once: true,
+            offset: 100
+        });
+    </script>
+    <script src="assets/js/script.js?v=2.1"></script>
+    <!-- Secret Easter Egg Game Overlay -->
+    <div id="game-overlay" class="game-overlay">
+        <!-- ... (existing game content) ... -->
+    </div>
+</body>
+
+</html>
