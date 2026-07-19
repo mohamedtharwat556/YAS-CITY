@@ -1,4 +1,4 @@
-const CACHE_NAME = 'yas-city-v3';
+const CACHE_NAME = 'yas-city-v4';
 const APP_SHELL = [
     '/',
     '/index.html',
@@ -9,10 +9,14 @@ const APP_SHELL = [
     '/config.js',
     '/assets/css/style.css',
     '/assets/js/script.js',
+    '/assets/js/inquiries.js',
+    '/assets/js/devices-db.js',
+    '/assets/js/trade-in.js',
     '/assets/js/cms.js',
     '/assets/js/pwa.js',
     '/assets/js/analytics.js',
     '/assets/js/customer-service.js',
+    '/assets/icons/icon-192.png',
     '/assets/images/logo.jpeg'
 ];
 

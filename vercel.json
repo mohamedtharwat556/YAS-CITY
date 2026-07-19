@@ -1,33 +1,35 @@
 {
   "version": 2,
-  "builds": [
-    {
-      "src": "api/**/*.js",
-      "use": "@vercel/node"
-    },
-    {
-      "src": "**/*",
-      "use": "@vercel/static"
-    }
-  ],
-  "routes": [
-    { "src": "/api/(.*)", "dest": "/api/$1" },
-    { "src": "/sitemap.xml", "dest": "/sitemap.xml" },
-    { "src": "/robots.txt", "dest": "/robots.txt" },
-    { "src": "/sw.js", "dest": "/sw.js", "headers": { "Service-Worker-Allowed": "/", "Cache-Control": "no-cache" } },
-    { "src": "/manifest.json", "dest": "/manifest.json" },
-    { "src": "/", "dest": "/index.html" },
-    { "src": "/maintenance", "dest": "/maintenance.html" },
-    { "src": "/customer-service", "dest": "/customer-service.html" },
-    { "src": "/online", "dest": "/online.html" },
-    { "src": "/login", "dest": "/login.html" },
-    { "src": "/dashboard", "dest": "/dashboard.html" }
+  "rewrites": [
+    { "source": "/maintenance", "destination": "/maintenance.html" },
+    { "source": "/customer-service", "destination": "/customer-service.html" },
+    { "source": "/online", "destination": "/online.html" },
+    { "source": "/login", "destination": "/login.html" },
+    { "source": "/dashboard", "destination": "/dashboard.html" },
+    { "source": "/seo/laptop-repair-damietta", "destination": "/seo/laptop-repair-damietta.html" },
+    { "source": "/seo/laptop-sales-damietta", "destination": "/seo/laptop-sales-damietta.html" },
+    { "source": "/seo/board-repair-damietta", "destination": "/seo/board-repair-damietta.html" }
   ],
   "headers": [
     {
       "source": "/assets/(.*)",
       "headers": [
         { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }
+      ]
+    },
+    {
+      "source": "/sw.js",
+      "headers": [
+        { "key": "Service-Worker-Allowed", "value": "/" },
+        { "key": "Cache-Control", "value": "no-cache" }
+      ]
+    },
+    {
+      "source": "/(.*)",
+      "headers": [
+        { "key": "X-Content-Type-Options", "value": "nosniff" },
+        { "key": "X-Frame-Options", "value": "SAMEORIGIN" },
+        { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" }
       ]
     }
   ]

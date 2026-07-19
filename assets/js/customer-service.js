@@ -323,16 +323,20 @@ async function submitSupportTicket(event) {
         status: 'new'
     };
 
-    try {
-        let inquiries = JSON.parse(localStorage.getItem('yas_inquiries') || '[]');
-        inquiries.unshift(ticketData);
-        localStorage.setItem('yas_inquiries', JSON.stringify(inquiries));
-    } catch(e) { console.error('Local storage error:', e); }
-
-    if (yasDb) {
+    if (window.saveInquiry) {
+        await window.saveInquiry(ticketData);
+    } else {
         try {
-            await yasDb.from('inquiries').insert([ticketData]);
-        } catch(e) { console.warn('Supabase save failed:', e); }
+            let inquiries = JSON.parse(localStorage.getItem('yas_inquiries') || '[]');
+            inquiries.unshift(ticketData);
+            localStorage.setItem('yas_inquiries', JSON.stringify(inquiries));
+        } catch (e) { console.error('Local storage error:', e); }
+
+        if (yasDb) {
+            try {
+                await yasDb.from('inquiries').insert([ticketData]);
+            } catch (e) { console.warn('Supabase save failed:', e); }
+        }
     }
 
     const ticketId = ticketData.id.toString().slice(-6);

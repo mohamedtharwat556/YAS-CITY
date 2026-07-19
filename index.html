@@ -49,11 +49,11 @@
     }
     </script>
     
-    <link rel="stylesheet" href="assets/css/style.css?v=2.5">
+    <link rel="stylesheet" href="assets/css/style.css?v=2.6">
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;900&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="icon" type="image/jpeg" href="assets/images/logo.jpeg">
+    <link rel="icon" type="image/png" href="assets/icons/icon-192.png">
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="config.js"></script>
     <script src="assets/js/cms.js"></script>
@@ -1216,6 +1216,16 @@
     </section>
 
 
+    <!-- Customer Reviews -->
+    <section id="reviews" class="reviews-section">
+        <div class="container">
+            <h2 class="section-title">آراء عملائنا</h2>
+            <p class="section-subtitle" style="text-align:center;margin-bottom:2rem;color:#64748b">ثقة آلاف العملاء في دمياط والزرقا</p>
+            <div class="reviews-grid" id="reviews-grid"></div>
+        </div>
+    </section>
+
+
     <!-- Contact Section -->
     <section id="contact" class="contact">
         <div class="container">
@@ -1391,9 +1401,82 @@
             offset: 100
         });
     </script>
-    <script src="assets/js/script.js?v=2.2"></script>
+    <script src="assets/js/inquiries.js?v=1.0"></script>
+    <script src="assets/js/devices-db.js?v=1.0"></script>
+    <script src="assets/js/trade-in.js?v=1.0"></script>
+    <script src="assets/js/script.js?v=2.3"></script>
     <script src="assets/js/pwa.js"></script>
     <script src="assets/js/analytics.js"></script>
+    <!-- Trade-in Modal -->
+    <div id="trade-in-modal" class="trade-in-modal" role="dialog" aria-labelledby="trade-in-title">
+        <div class="trade-in-dialog">
+            <button type="button" class="trade-in-close" onclick="closeTradeIn()" aria-label="إغلاق">&times;</button>
+            <h2 id="trade-in-title"><i class="fas fa-sync-alt"></i> استبدل جهازك (Trade-in)</h2>
+            <p class="trade-in-sub">احصل على تقدير أولي فوري — ثم أكّد السعر مع فريق المبيعات</p>
+            <form id="trade-in-form" onsubmit="submitTradeIn(event)">
+                <div class="trade-in-grid">
+                    <div class="form-group">
+                        <label>الاسم *</label>
+                        <input type="text" id="trade-name" required placeholder="اسمك الكامل">
+                    </div>
+                    <div class="form-group">
+                        <label>الهاتف *</label>
+                        <input type="tel" id="trade-phone" required placeholder="01xxxxxxxxx">
+                    </div>
+                    <div class="form-group">
+                        <label>نوع الجهاز</label>
+                        <select id="trade-device-type">
+                            <option value="laptop">لابتوب</option>
+                            <option value="macbook">ماك بوك</option>
+                            <option value="desktop">كمبيوتر مكتبي</option>
+                            <option value="tablet">تابلت</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>الماركة / الموديل *</label>
+                        <input type="text" id="trade-brand" required placeholder="مثلاً: HP ProBook 450 G7">
+                    </div>
+                    <div class="form-group">
+                        <label>حالة الجهاز</label>
+                        <select id="trade-condition">
+                            <option value="excellent">ممتاز — بدون خدوش</option>
+                            <option value="good" selected>جيد — استخدام عادي</option>
+                            <option value="fair">مقبول — بعض العيوب</option>
+                            <option value="poor">يحتاج إصلاح</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>عمر الجهاز (سنوات)</label>
+                        <select id="trade-age">
+                            <option value="1">أقل من سنة</option>
+                            <option value="2">1–2 سنة</option>
+                            <option value="3" selected>3–4 سنوات</option>
+                            <option value="5">5+ سنوات</option>
+                        </select>
+                    </div>
+                    <div class="form-group full-width">
+                        <label>صورة الجهاز (اختياري)</label>
+                        <input type="file" id="trade-photo" accept="image/*">
+                    </div>
+                    <div class="form-group full-width">
+                        <label>ملاحظات</label>
+                        <textarea id="trade-notes" rows="2" placeholder="أي تفاصيل عن العيوب أو الإكسسوارات..."></textarea>
+                    </div>
+                </div>
+                <div id="trade-estimate-result" class="trade-estimate-box" style="display:none">
+                    <i class="fas fa-calculator"></i>
+                    <span>التقدير الأولي: </span>
+                    <strong id="trade-estimate-amount">—</strong>
+                    <small>السعر النهائي بعد الفحص الفعلي</small>
+                </div>
+                <div class="trade-in-actions">
+                    <button type="button" class="cta-button secondary" onclick="previewTradeInEstimate()">احسب التقدير</button>
+                    <button type="submit" class="cta-button trade-in-submit"><i class="fab fa-whatsapp"></i> إرسال + واتساب</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
     <!-- Secret Easter Egg Game Overlay -->
     <div id="game-overlay" class="game-overlay">
         <!-- ... (existing game content) ... -->

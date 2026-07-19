@@ -106,6 +106,8 @@ npx serve .
 | `SUPABASE_URL` | رابط مشروع Supabase |
 | `SUPABASE_SERVICE_ROLE_KEY` | مفتاح Service Role (للـ API فقط) |
 | `GA_MEASUREMENT_ID` | معرف Google Analytics (مثل `G-XXXXXXXXXX`) |
+| `TELEGRAM_BOT_TOKEN` | توكن بوت Telegram للإشعارات الفورية |
+| `TELEGRAM_CHAT_ID` | معرف المحادثة/القناة في Telegram |
 | `SITE_URL` | (اختياري) رابط الموقع — الافتراضي `https://yas-city.vercel.app` |
 
 > **مهم:** لا تضع Service Role Key في `config.js` — فقط في Vercel.

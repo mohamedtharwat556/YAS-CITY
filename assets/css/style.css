@@ -6512,3 +6512,217 @@ html[dir="ltr"] .ai-verdict-box {
 .hologram-orb {
     filter: drop-shadow(0 0 20px cyan);
 }
+
+/* ===== Reviews Section ===== */
+.reviews-section {
+    padding: 80px 0;
+    background: linear-gradient(180deg, rgba(11, 184, 133, 0.04) 0%, transparent 100%);
+}
+
+.reviews-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 24px;
+}
+
+.review-card {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(11, 184, 133, 0.15);
+    border-radius: 20px;
+    padding: 28px;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+body.light-mode .review-card {
+    background: #fff;
+    border-color: rgba(11, 184, 133, 0.2);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+}
+
+.review-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 30px rgba(11, 184, 133, 0.12);
+}
+
+.review-stars {
+    color: #d4af37;
+    font-size: 1.1rem;
+    margin-bottom: 12px;
+    letter-spacing: 2px;
+}
+
+.review-text {
+    font-size: 1rem;
+    line-height: 1.8;
+    margin-bottom: 16px;
+    color: inherit;
+    opacity: 0.9;
+}
+
+.review-author strong {
+    display: block;
+    color: #0bb885;
+    font-size: 1rem;
+}
+
+.review-author span {
+    font-size: 0.85rem;
+    color: #64748b;
+}
+
+/* ===== Trade-in Modal ===== */
+.trade-in-modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.75);
+    z-index: 99999;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    backdrop-filter: blur(6px);
+}
+
+.trade-in-modal.active {
+    display: flex;
+}
+
+.trade-in-dialog {
+    background: #1e293b;
+    border: 1px solid rgba(11, 184, 133, 0.3);
+    border-radius: 24px;
+    padding: 32px;
+    max-width: 560px;
+    width: 100%;
+    max-height: 90vh;
+    overflow-y: auto;
+    position: relative;
+}
+
+body.light-mode .trade-in-dialog {
+    background: #fff;
+}
+
+.trade-in-close {
+    position: absolute;
+    top: 16px;
+    left: 16px;
+    background: none;
+    border: none;
+    font-size: 1.8rem;
+    color: #94a3b8;
+    cursor: pointer;
+    line-height: 1;
+}
+
+.trade-in-dialog h2 {
+    font-size: 1.4rem;
+    margin-bottom: 8px;
+    color: #0bb885;
+}
+
+.trade-in-sub {
+    color: #94a3b8;
+    margin-bottom: 24px;
+    font-size: 0.95rem;
+}
+
+.trade-in-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+}
+
+.trade-in-grid .full-width {
+    grid-column: 1 / -1;
+}
+
+.trade-in-grid label {
+    display: block;
+    margin-bottom: 6px;
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+.trade-in-grid input,
+.trade-in-grid select,
+.trade-in-grid textarea {
+    width: 100%;
+    padding: 12px 14px;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(0, 0, 0, 0.2);
+    color: inherit;
+    font-family: inherit;
+}
+
+body.light-mode .trade-in-grid input,
+body.light-mode .trade-in-grid select,
+body.light-mode .trade-in-grid textarea {
+    background: #f8fafc;
+    border-color: #e2e8f0;
+}
+
+.trade-estimate-box {
+    background: rgba(11, 184, 133, 0.12);
+    border: 1px solid rgba(11, 184, 133, 0.35);
+    border-radius: 14px;
+    padding: 16px;
+    margin: 20px 0;
+    text-align: center;
+}
+
+.trade-estimate-box strong {
+    color: #0bb885;
+    font-size: 1.2rem;
+    display: block;
+    margin: 6px 0;
+}
+
+.trade-estimate-box small {
+    color: #64748b;
+    font-size: 0.8rem;
+}
+
+.trade-in-actions {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.trade-in-submit {
+    background: #25D366 !important;
+    flex: 1;
+}
+
+.device-suggestions {
+    display: none;
+    margin-top: 8px;
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid rgba(11, 184, 133, 0.2);
+}
+
+.suggestion-item {
+    display: block;
+    width: 100%;
+    text-align: right;
+    padding: 10px 14px;
+    background: rgba(11, 184, 133, 0.08);
+    border: none;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    color: inherit;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 0.9rem;
+}
+
+.suggestion-item:hover {
+    background: rgba(11, 184, 133, 0.2);
+}
+
+@media (max-width: 600px) {
+    .trade-in-grid {
+        grid-template-columns: 1fr;
+    }
+}

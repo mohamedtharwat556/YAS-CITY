@@ -223,14 +223,31 @@
         .stat-label { color: #64748b; font-size: 0.9rem; margin-top: 5px; }
 
         /* Chart Section */
+        .charts-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 22px;
+            margin-bottom: 40px;
+        }
+
+        @media (max-width: 900px) {
+            .charts-row { grid-template-columns: 1fr; }
+        }
+
         .chart-container {
             background: rgba(30,41,59,0.4);
             border: 1px solid rgba(255,255,255,0.05);
             border-radius: 25px;
             padding: 20px;
-            margin-bottom: 40px;
             height: 300px;
             position: relative;
+        }
+
+        .chart-title {
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: #94a3b8;
+            margin-bottom: 10px;
         }
 
         /* Table area */
@@ -555,6 +572,11 @@
                 </div>
             </li>
             <li>
+                <div class="nav-link" onclick="switchSection('trade_in', this)">
+                    <i class="fas fa-sync-alt"></i> استبدال Trade-in
+                </div>
+            </li>
+            <li>
                 <div class="nav-link" onclick="switchSection('cms', this)">
                     <i class="fas fa-edit"></i> إدارة المحتوى
                 </div>
@@ -617,9 +639,16 @@
             </div>
         </section>
 
-        <!-- Analytics Chart -->
-        <div class="chart-container">
-            <canvas id="analyticsChart"></canvas>
+        <!-- Analytics Charts -->
+        <div class="charts-row">
+            <div class="chart-container">
+                <div class="chart-title">توزيع الطلبات حسب الحالة والقسم</div>
+                <canvas id="analyticsChart"></canvas>
+            </div>
+            <div class="chart-container">
+                <div class="chart-title">الطلبات خلال آخر 7 أيام</div>
+                <canvas id="weeklyChart"></canvas>
+            </div>
         </div>
 
         <!-- Inquiries Table -->
@@ -657,12 +686,15 @@
     <div class="modal" id="settingsModal">
         <div class="modal-content">
             <i class="fas fa-times modal-close" onclick="closeSettings()"></i>
-            <h3><i class="fab fa-whatsapp" style="color: #25D366;"></i> إعدادات واتساب</h3>
+            <h3><i class="fab fa-whatsapp" style="color: #25D366;"></i> إعدادات الإشعارات</h3>
             <p style="color: #64748b; font-size: 0.85rem; margin-bottom: 20px;">
-                قم بإدخال بيانات التحقق (API) لتتلقى رسالة واتساب فورية عند تسجيل أي عميل لطلب جديد بالموقع. (يدعم CallMeBot).
+                <strong>واتساب (CallMeBot):</strong> رسالة فورية عند طلب جديد.<br>
+                <strong>Telegram:</strong> للإشعارات من المتصفح — أو ضع <code>TELEGRAM_BOT_TOKEN</code> و <code>TELEGRAM_CHAT_ID</code> في Vercel للإشعارات من السيرفر.
             </p>
             <input type="text" id="wa_phone" placeholder="رقم المستلم (e.g. +201123456789)">
-            <input type="text" id="wa_apikey" placeholder="API Key / Token (e.g. 123456)">
+            <input type="text" id="wa_apikey" placeholder="CallMeBot API Key">
+            <input type="text" id="tg_token" placeholder="Telegram Bot Token (اختياري)">
+            <input type="text" id="tg_chat" placeholder="Telegram Chat ID (اختياري)">
             <button class="btn-primary" style="background: #25D366;" onclick="saveSettings()">حفظ الإعدادات</button>
         </div>
     </div>
@@ -726,6 +758,7 @@
         let allData = [];
         let currentFilter = 'all';
         let chartInstance = null;
+        let weeklyChartInstance = null;
 
         // ---- Fetch Data ----
         async function fetchData() {
@@ -778,13 +811,14 @@
 
             updateStats();
             renderChart();
+            renderWeeklyChart();
             renderTable();
         }
 
         function updateStats() {
             document.getElementById('count-all').innerText = allData.length;
             document.getElementById('count-repair').innerText = allData.filter(d => d.type === 'repair').length;
-            document.getElementById('count-sales').innerText = allData.filter(d => d.type === 'laptop_sale' || d.type === 'matchmaker').length;
+            document.getElementById('count-sales').innerText = allData.filter(d => d.type === 'laptop_sale' || d.type === 'matchmaker' || d.type === 'trade_in').length;
             document.getElementById('count-device').innerText = allData.filter(d => d.type === 'device_request').length;
         }
 
@@ -792,7 +826,7 @@
             currentFilter = filter;
             document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
             el.classList.add('active');
-            const titles = { all: 'كافة الطلبات', repair: '🛠️ قسم الصيانة', laptop_sale: '🛒 المبيعات', device_request: '💻 طلبات اختيار الأجهزة', cms: '📝 إدارة المحتوى' };
+            const titles = { all: 'كافة الطلبات', repair: '🛠️ قسم الصيانة', laptop_sale: '🛒 المبيعات', trade_in: '🔄 استبدال Trade-in', device_request: '💻 طلبات اختيار الأجهزة', cms: '📝 إدارة المحتوى' };
             document.getElementById('panel-title').innerText = titles[filter];
             
             if (filter === 'cms') {
@@ -853,6 +887,24 @@
                                     <input type="text" id="cms-contact-phone" placeholder="الهاتف" value="${content.contact.phone}">
                                     <input type="text" id="cms-contact-email" placeholder="الإيميل" value="${content.contact.email}">
                                     <button onclick="saveContactSection()" class="btn-primary">حفظ التغييرات</button>
+                                </div>
+                            </div>
+                            
+                            <div class="cms-section">
+                                <h3>⭐ آراء العملاء</h3>
+                                <div class="services-list">
+                                    ${(content.reviews || []).map((r, index) => `
+                                        <div class="service-item">
+                                            <input type="text" value="${r.name}" id="review-name-${index}" placeholder="الاسم">
+                                            <input type="text" value="${r.role || ''}" id="review-role-${index}" placeholder="الوصف (عميل صيانة...)">
+                                            <select id="review-rating-${index}">
+                                                ${[5,4,3,2,1].map(n => `<option value="${n}" ${r.rating===n?'selected':''}>${n} نجوم</option>`).join('')}
+                                            </select>
+                                            <textarea rows="2" id="review-text-${index}" placeholder="نص الرأي">${r.text}</textarea>
+                                            <button onclick="updateReview(${index})" class="btn-primary">تحديث</button>
+                                        </div>
+                                    `).join('')}
+                                    <button onclick="addNewReview()" class="btn-primary" style="margin-top: 15px;">+ إضافة رأي</button>
                                 </div>
                             </div>
                             
@@ -938,6 +990,31 @@
             alert(result.message);
         }
 
+        async function updateReview(index) {
+            const cms = window.yasCMS;
+            const reviews = [...(cms.content.reviews || [])];
+            reviews[index] = {
+                ...reviews[index],
+                name: document.getElementById(`review-name-${index}`).value,
+                role: document.getElementById(`review-role-${index}`).value,
+                rating: parseInt(document.getElementById(`review-rating-${index}`).value, 10),
+                text: document.getElementById(`review-text-${index}`).value
+            };
+            const result = await cms.updateReviews(reviews);
+            alert(result.message);
+        }
+
+        async function addNewReview() {
+            const name = prompt('اسم العميل:');
+            if (!name) return;
+            const text = prompt('نص الرأي:');
+            if (!text) return;
+            const cms = window.yasCMS;
+            const result = await cms.addReview({ name, text, role: 'عميل', rating: 5 });
+            alert(result.message);
+            if (result.success) showCMSPanel();
+        }
+
         // ---- Render Table with Status Flow ----
         function renderTable() {
             const tbody = document.getElementById('table-body');
@@ -945,6 +1022,7 @@
 
             if (currentFilter === 'repair') rows = allData.filter(d => d.type === 'repair');
             else if (currentFilter === 'laptop_sale') rows = allData.filter(d => d.type === 'laptop_sale' || d.type === 'matchmaker');
+            else if (currentFilter === 'trade_in') rows = allData.filter(d => d.type === 'trade_in');
             else if (currentFilter === 'device_request') rows = allData.filter(d => d.type === 'device_request');
 
             if (rows.length === 0) {
@@ -953,7 +1031,8 @@
             }
 
             tbody.innerHTML = rows.map(item => {
-                const isSales = item.type === 'laptop_sale' || item.type === 'matchmaker';
+                const isTradeIn = item.type === 'trade_in';
+                const isSales = item.type === 'laptop_sale' || item.type === 'matchmaker' || isTradeIn;
                 const isDevice = item.type === 'device_request';
                 const dt = new Date(item.created_at);
                 const date = isNaN(dt) ? '-' : dt.toLocaleDateString('ar-EG');
@@ -963,9 +1042,9 @@
                 if (isDevice && item.email) detail += ` | ${item.email}`;
                 if (isDevice && item.address) detail += ` | ${item.address}`;
                 
-                const typeClass = isDevice ? 'device' : (isSales ? 'sales' : 'maint');
-                const typeIcon = isDevice ? 'fa-laptop' : (isSales ? 'fa-shopping-bag' : 'fa-tools');
-                const typeLabel = isDevice ? 'طلب جهاز' : (isSales ? 'مبيعات' : 'صيانة');
+                const typeClass = isDevice ? 'device' : (isTradeIn ? 'sales' : (isSales ? 'sales' : 'maint'));
+                const typeIcon = isTradeIn ? 'fa-sync-alt' : (isDevice ? 'fa-laptop' : (isSales ? 'fa-shopping-bag' : 'fa-tools'));
+                const typeLabel = isTradeIn ? 'استبدال' : (isDevice ? 'طلب جهاز' : (isSales ? 'مبيعات' : 'صيانة'));
                 
                 // Fallback for old status
                 let st = item.status || 'new';
@@ -1016,28 +1095,25 @@
 
         // ---- Update Status Function ----
         async function updateStatus(id, newStatus) {
-            // Update UI/Local memory
             const idx = allData.findIndex(d => d.id == id);
-            if(idx > -1) allData[idx].status = newStatus;
-            
-            // Re-render select color & actions locally
+            if (idx > -1) allData[idx].status = newStatus;
+
             renderTable();
             renderChart();
+            renderWeeklyChart();
 
             try {
-                // Update LocalStorage
                 let localItems = JSON.parse(localStorage.getItem('yas_inquiries') || '[]');
                 const lIdx = localItems.findIndex(d => d.id == id);
-                if(lIdx > -1) {
+                if (lIdx > -1) {
                     localItems[lIdx].status = newStatus;
                     localStorage.setItem('yas_inquiries', JSON.stringify(localItems));
                 }
-                
-                // Update Supabase
-                if(db) {
+
+                if (db) {
                     await db.from('inquiries').update({ status: newStatus }).eq('id', id);
                 }
-            } catch(e) { console.error("Update err:", e); }
+            } catch (e) { console.error('Update err:', e); }
         }
 
         // ---- Delete Inquiry ----
@@ -1055,6 +1131,7 @@
             }
             updateStats();
             renderChart();
+            renderWeeklyChart();
             renderTable();
         }
 
@@ -1116,6 +1193,54 @@
             });
         }
 
+        function renderWeeklyChart() {
+            const ctx = document.getElementById('weeklyChart');
+            if (!ctx) return;
+
+            const days = [];
+            const counts = [];
+            for (let i = 6; i >= 0; i--) {
+                const d = new Date();
+                d.setDate(d.getDate() - i);
+                d.setHours(0, 0, 0, 0);
+                days.push(d.toLocaleDateString('ar-EG', { weekday: 'short', day: 'numeric' }));
+                const next = new Date(d);
+                next.setDate(next.getDate() + 1);
+                counts.push(allData.filter(item => {
+                    const t = new Date(item.created_at);
+                    return t >= d && t < next;
+                }).length);
+            }
+
+            if (weeklyChartInstance) weeklyChartInstance.destroy();
+
+            weeklyChartInstance = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: days,
+                    datasets: [{
+                        label: 'طلبات يومية',
+                        data: counts,
+                        borderColor: '#0bb885',
+                        backgroundColor: 'rgba(11, 184, 133, 0.15)',
+                        fill: true,
+                        tension: 0.35,
+                        pointRadius: 5,
+                        pointBackgroundColor: '#0bb885'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { display: false } },
+                    scales: {
+                        y: { beginAtZero: true, ticks: { color: '#94a3b8', stepSize: 1 }, grid: { color: 'rgba(255,255,255,0.05)' } },
+                        x: { ticks: { color: '#94a3b8', font: { family: 'Tajawal' } }, grid: { display: false } }
+                    }
+                }
+            });
+        }
+
         // ---- Export to CSV ----
         function exportToCSV() {
             if(allData.length === 0) return alert('لا يوجد بيانات لتصديرها');
@@ -1147,6 +1272,8 @@
         function openSettings() {
             document.getElementById('wa_apikey').value = localStorage.getItem('yas_wa_key') || '';
             document.getElementById('wa_phone').value = localStorage.getItem('yas_wa_phone') || '';
+            document.getElementById('tg_token').value = localStorage.getItem('yas_tg_token') || '';
+            document.getElementById('tg_chat').value = localStorage.getItem('yas_tg_chat') || '';
             document.getElementById('settingsModal').classList.add('active');
         }
         function closeSettings() {
@@ -1155,10 +1282,14 @@
         function saveSettings() {
             const key = document.getElementById('wa_apikey').value.trim();
             const phone = document.getElementById('wa_phone').value.trim();
+            const tgToken = document.getElementById('tg_token').value.trim();
+            const tgChat = document.getElementById('tg_chat').value.trim();
             localStorage.setItem('yas_wa_key', key);
             localStorage.setItem('yas_wa_phone', phone);
+            localStorage.setItem('yas_tg_token', tgToken);
+            localStorage.setItem('yas_tg_chat', tgChat);
             closeSettings();
-            alert('تم حفظ إعدادات واتساب بنجاح');
+            alert('تم حفظ إعدادات الإشعارات بنجاح');
         }
 
         // ---- Print Invoice Function ----

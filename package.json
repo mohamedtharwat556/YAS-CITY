@@ -1,14 +1,19 @@
 {
   "name": "yas-city",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Premium Electronics & Maintenance Portal",
   "main": "index.html",
   "scripts": {
-    "start": "vercel dev"
+    "start": "vercel dev",
+    "optimize-images": "node scripts/optimize-images.js",
+    "generate-icons": "node scripts/generate-icons.js"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.39.0",
     "axios": "^1.6.2",
     "dotenv": "^16.3.1"
+  },
+  "devDependencies": {
+    "sharp": "^0.33.5"
   }
 }

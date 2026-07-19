@@ -17,7 +17,8 @@ window.sendTelegramAlert = async function(data) {
     const chatId = localStorage.getItem('yas_tg_chat');
     if(!token || !chatId) return;
 
-    const typeLabel = data.type === 'repair' ? 'صيانة' : (data.type === 'device_request' ? 'طلب جهاز' : 'مبيعات');
+    const typeLabels = { repair: 'صيانة', device_request: 'طلب جهاز', trade_in: 'استبدال', ticket: 'تذكرة', contact: 'تواصل' };
+    const typeLabel = typeLabels[data.type] || 'مبيعات';
     const detail = data.fault || data.message || data.device_name || data.device_type || 'استفسار عام';
     const message = `🔔 *طلب جديد YAS CITY*\n` +
                 `👤 العميل: ${data.name || 'عميل'}\n` +
@@ -990,42 +991,126 @@ window.submitDeviceRequest = async function(event) {
     document.getElementById('device-request-form').reset();
 };
 
-window.openTradeIn = function() {
-    alert(currentLang === 'ar' ? 'خدمة الاستبدال متاحة قريباً! تواصل معنا لتقييم جهازك الحالي.' : 'Trade-in service coming soon! Contact us to appraise your current device.');
-};
+// openTradeIn → assets/js/trade-in.js
 
-// AI Comparison Logic
+function starsFromScore(score) {
+    const n = Math.min(5, Math.max(1, Math.round(score / 20)));
+    return '⭐'.repeat(n);
+}
+
+function fillCompareCell(id, value, score) {
+    const el = document.getElementById(id);
+    if (!el) return;
+    el.innerHTML = `<span class="spec-value">${value}</span><span class="spec-rating">${starsFromScore(score || 70)}</span>`;
+}
+
+function fillCompareHeader(id, device) {
+    const el = document.getElementById(id);
+    if (!el) return;
+    el.innerHTML = `<div class="device-header-content"><span class="device-name">${device.name}</span><span class="device-score">${device.score}/100</span></div>`;
+}
+
+// AI Comparison Logic (uses devices-db.js)
 window.startAIComparison = function() {
-    const d1 = document.getElementById('compare-1-ai').value.trim();
-    const d2 = document.getElementById('compare-2-ai').value.trim();
-    if(!d1 || !d2) return alert(currentLang === 'ar' ? 'يرجى إدخال أسماء الأجهزة للمقارنة' : 'Please enter device names to compare');
+    const d1Name = document.getElementById('compare-1-ai').value.trim();
+    const d2Name = document.getElementById('compare-2-ai').value.trim();
+    if (!d1Name || !d2Name) {
+        return alert(currentLang === 'ar' ? 'يرجى إدخال أسماء الأجهزة للمقارنة' : 'Please enter device names to compare');
+    }
 
     const loader = document.getElementById('ai-comparison-loader');
-    if(loader) loader.style.display = 'block';
+    const result = document.getElementById('comparison-result');
+    if (loader) loader.style.display = 'block';
+    if (result) result.style.display = 'none';
 
     setTimeout(() => {
-        if(loader) loader.style.display = 'none';
-        
-        // Mocking AI Data Update
-        if(document.getElementById('th-name-1')) document.getElementById('th-name-1').innerText = d1;
-        if(document.getElementById('th-name-2')) document.getElementById('th-name-2').innerText = d2;
-        
-        // Randomize some values for demo
-        const s1 = 60 + Math.floor(Math.random() * 35);
-        const s2 = 60 + Math.floor(Math.random() * 35);
-        
-        if(document.getElementById('lbl-score-1')) document.getElementById('lbl-score-1').innerText = s1 + '%';
-        if(document.getElementById('lbl-score-2')) document.getElementById('lbl-score-2').innerText = s2 + '%';
-        if(document.getElementById('bar-score-1')) document.getElementById('bar-score-1').style.width = s1 + '%';
-        if(document.getElementById('bar-score-2')) document.getElementById('bar-score-2').style.width = s2 + '%';
-        
+        if (loader) loader.style.display = 'none';
+
+        const cmp = window.compareDevices ? window.compareDevices(d1Name, d2Name) : null;
+        if (!cmp) return;
+
+        const { device1: dev1, device2: dev2, winner, verdict } = cmp;
+
+        fillCompareHeader('th-name-1', dev1);
+        fillCompareHeader('th-name-2', dev2);
+        fillCompareCell('td-cpu-1', dev1.cpu, dev1.score);
+        fillCompareCell('td-cpu-2', dev2.cpu, dev2.score);
+        fillCompareCell('td-ram-1', dev1.ram, dev1.score);
+        fillCompareCell('td-ram-2', dev2.ram, dev2.score);
+        fillCompareCell('td-storage-1', dev1.storage, dev1.score);
+        fillCompareCell('td-storage-2', dev2.storage, dev2.score);
+        fillCompareCell('td-gpu-1', dev1.gpu, dev1.score);
+        fillCompareCell('td-gpu-2', dev2.gpu, dev2.score);
+        fillCompareCell('td-battery-1', dev1.battery, dev1.score);
+        fillCompareCell('td-battery-2', dev2.battery, dev2.score);
+        fillCompareCell('td-weight-1', dev1.weight, dev1.score);
+        fillCompareCell('td-weight-2', dev2.weight, dev2.score);
+        fillCompareCell('td-price-1', `EGP ${dev1.price.toLocaleString('ar-EG')}`, dev1.score);
+        fillCompareCell('td-price-2', `EGP ${dev2.price.toLocaleString('ar-EG')}`, dev2.score);
+
+        const badge = document.getElementById('winner-name');
+        if (badge) badge.textContent = winner.name;
+        const verdictEl = document.getElementById('comparison-verdict-text');
+        if (verdictEl) verdictEl.textContent = verdict;
+
+        if (document.getElementById('score-1')) document.getElementById('score-1').textContent = dev1.score + '/100';
+        if (document.getElementById('score-2')) document.getElementById('score-2').textContent = dev2.score + '/100';
+        if (result) result.style.display = 'block';
+
+        if (window.saveInquiry) {
+            window.saveInquiry({
+                type: 'matchmaker',
+                name: 'زائر الموقع',
+                device_type: `${dev1.name} vs ${dev2.name}`,
+                message: verdict,
+                estimate: `فائز: ${winner.name}`
+            });
+        }
+
         showToast(currentLang === 'ar' ? 'تم تحليل الأجهزة بنجاح!' : 'Devices analyzed successfully!');
-    }, 3000);
+    }, 1500);
 };
 
+window.resetComparison = function() {
+    ['compare-1-ai', 'compare-2-ai'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.value = '';
+    });
+    const result = document.getElementById('comparison-result');
+    if (result) result.style.display = 'none';
+};
+
+// Device name autocomplete for comparison
+function initDeviceSuggestions() {
+    [['compare-1-ai', 'suggestions-1'], ['compare-2-ai', 'suggestions-2']].forEach(([inputId, boxId]) => {
+        const input = document.getElementById(inputId);
+        const box = document.getElementById(boxId);
+        if (!input || !box) return;
+
+        input.addEventListener('input', () => {
+            const list = window.searchDeviceSuggestions ? window.searchDeviceSuggestions(input.value, 5) : [];
+            if (!list.length) { box.innerHTML = ''; box.style.display = 'none'; return; }
+            box.innerHTML = list.map(d =>
+                `<button type="button" class="suggestion-item">${d.name}</button>`
+            ).join('');
+            box.style.display = 'block';
+            box.querySelectorAll('.suggestion-item').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    input.value = btn.textContent;
+                    box.innerHTML = '';
+                    box.style.display = 'none';
+                });
+            });
+        });
+    });
+}
+
+document.addEventListener('DOMContentLoaded', initDeviceSuggestions);
+
 window.contactCompare = function() {
-    const d1 = document.getElementById('th-name-1').innerText;
-    const d2 = document.getElementById('th-name-2').innerText;
-    const msg = encodeURIComponent(`مرحباً YAS CITY، أود الاستفسار عن أسعار الأجهزة التالية: (${d1}) و (${d2})`);
-    window.open(`https://wa.me/201158986999?text=${msg}`, '_blank');
+    const d1 = document.getElementById('compare-1-ai')?.value.trim() || 'جهاز 1';
+    const d2 = document.getElementById('compare-2-ai')?.value.trim() || 'جهاز 2';
+    const msg = `مرحباً YAS CITY، أود الاستفسار عن أسعار الأجهزة التالية: (${d1}) و (${d2})`;
+    if (window.openWhatsApp) window.openWhatsApp('201158986999', msg);
+    else window.open(`https://wa.me/201158986999?text=${encodeURIComponent(msg)}`, '_blank');
 };

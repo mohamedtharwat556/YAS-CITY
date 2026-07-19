@@ -57,7 +57,13 @@ class YASCMS {
             social: {
                 facebook: 'https://www.facebook.com/yastechegypt?locale=ar_AR',
                 whatsapp: 'https://wa.me/201147800144'
-            }
+            },
+            reviews: [
+                { id: 1, name: 'أحمد محمود', role: 'عميل صيانة', rating: 5, text: 'أصلحوا بوردة اللابتوب اللي محد قدر يصلحها. شغل محترف وضمان حقيقي.' },
+                { id: 2, name: 'سارة علي', role: 'عميلة مبيعات', rating: 5, text: 'اشتريت MacBook مستعمل بحالة ممتازة بسعر مناسب. فريق المبيعات متعاون جداً.' },
+                { id: 3, name: 'محمد حسن', role: 'عميل صيانة', rating: 5, text: 'أسرع مركز صيانة في دمياط. فحص مجاني وتوضيح كامل قبل أي إصلاح.' },
+                { id: 4, name: 'نور الدين', role: 'عميل أونلاين', rating: 4, text: 'خدمة العملاء سريعة والرد على الواتساب فوري. أنصح بيهم.' }
+            ]
         };
     }
 
@@ -142,6 +148,17 @@ class YASCMS {
         return this.saveContent(this.content);
     }
 
+    updateReviews(reviews) {
+        this.content.reviews = reviews;
+        return this.saveContent(this.content);
+    }
+
+    addReview(review) {
+        if (!this.content.reviews) this.content.reviews = [];
+        this.content.reviews.push({ id: Date.now(), ...review });
+        return this.saveContent(this.content);
+    }
+
     // Export content as JSON
     exportContent() {
         return JSON.stringify(this.content, null, 2);
@@ -176,4 +193,25 @@ document.addEventListener('DOMContentLoaded', () => {
     if (heroSubtitle && cms.content.hero.subtitle) {
         heroSubtitle.textContent = cms.content.hero.subtitle;
     }
+
+    renderReviews(cms.content.reviews);
 });
+
+function renderReviews(reviews) {
+    const grid = document.getElementById('reviews-grid');
+    if (!grid || !reviews || !reviews.length) return;
+
+    grid.innerHTML = reviews.map(r => {
+        const stars = '★'.repeat(r.rating || 5) + '☆'.repeat(5 - (r.rating || 5));
+        return `<article class="review-card" data-aos="fade-up">
+            <div class="review-stars" aria-label="${r.rating} من 5">${stars}</div>
+            <p class="review-text">"${r.text}"</p>
+            <div class="review-author">
+                <strong>${r.name}</strong>
+                <span>${r.role || 'عميل'}</span>
+            </div>
+        </article>`;
+    }).join('');
+}
+
+window.renderReviews = renderReviews;
