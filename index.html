@@ -49,7 +49,7 @@
     }
     </script>
     
-    <link rel="stylesheet" href="assets/css/style.css?v=2.6">
+    <link rel="stylesheet" href="assets/css/style.css?v=2.7">
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;900&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -684,7 +684,7 @@
                         <div class="quiz-actions">
                             <button class="cta-button" onclick="showContactForm()"><i class="fas fa-envelope"></i> اطلب هذا الجهاز</button>
                             <button class="cta-button" onclick="contactMatch()"><i class="fab fa-whatsapp"></i> استفسر عبر واتساب</button>
-                            <button class="trade-in-btn" onclick="openTradeIn()"><i class="fas fa-sync-alt"></i> استبدل جهازك القديم ووفر</button>
+                            <button type="button" class="trade-in-btn" onclick="openTradeIn()"><i class="fas fa-sync-alt"></i> استبدل جهازك القديم</button>
                             <button class="reset-btn-link" onclick="resetQuiz()">إعادة الاختبار</button>
                         </div>
 
@@ -855,6 +855,14 @@
     <section id="products" class="products">
         <div class="container">
             <h2 class="section-title" data-tr="products_title">منتجاتنا المميزة</h2>
+            <div class="trade-in-banner" onclick="openTradeIn()" role="button" tabindex="0" onkeydown="if(event.key==='Enter')openTradeIn()">
+                <div class="trade-in-banner-icon"><i class="fas fa-sync-alt"></i></div>
+                <div class="trade-in-banner-text">
+                    <strong>استبدل جهازك القديم</strong>
+                    <span>تقدير أولي فوري خلال دقيقة — خصم على الجهاز الجديد</span>
+                </div>
+                <span class="trade-in-banner-cta">ابدأ الآن <i class="fas fa-arrow-left"></i></span>
+            </div>
             <div class="products-grid" id="products-grid">
                 <!-- Products will be injected by JavaScript for easier management -->
             </div>
@@ -1403,50 +1411,61 @@
     </script>
     <script src="assets/js/inquiries.js?v=1.0"></script>
     <script src="assets/js/devices-db.js?v=1.0"></script>
-    <script src="assets/js/trade-in.js?v=1.0"></script>
+    <script src="assets/js/trade-in.js?v=1.2"></script>
     <script src="assets/js/script.js?v=2.3"></script>
     <script src="assets/js/pwa.js"></script>
     <script src="assets/js/analytics.js"></script>
     <!-- Trade-in Modal -->
-    <div id="trade-in-modal" class="trade-in-modal" role="dialog" aria-labelledby="trade-in-title">
+    <div id="trade-in-modal" class="trade-in-modal" role="dialog" aria-labelledby="trade-in-title" aria-hidden="true">
         <div class="trade-in-dialog">
-            <button type="button" class="trade-in-close" onclick="closeTradeIn()" aria-label="إغلاق">&times;</button>
-            <h2 id="trade-in-title"><i class="fas fa-sync-alt"></i> استبدل جهازك (Trade-in)</h2>
-            <p class="trade-in-sub">احصل على تقدير أولي فوري — ثم أكّد السعر مع فريق المبيعات</p>
+            <div class="trade-in-header">
+                <div class="trade-in-header-text">
+                    <h2 id="trade-in-title"><i class="fas fa-sync-alt"></i> استبدل جهازك القديم</h2>
+                    <p>تقدير أولي فوري — تأكيد السعر النهائي مع فريق المبيعات</p>
+                </div>
+                <button type="button" class="trade-in-close" onclick="closeTradeIn()" aria-label="إغلاق"><i class="fas fa-times"></i></button>
+            </div>
+
+            <div class="trade-in-progress">
+                <div class="trade-in-progress-bar"><span id="trade-progress-fill"></span></div>
+                <div class="trade-in-steps-labels">
+                    <span class="trade-step-label active" data-step="1">١. بيانات الجهاز</span>
+                    <span class="trade-step-label" data-step="2">٢. التواصل والإرسال</span>
+                </div>
+            </div>
+
             <form id="trade-in-form" onsubmit="submitTradeIn(event)">
-                <div class="trade-in-grid">
-                    <div class="form-group">
-                        <label>الاسم *</label>
-                        <input type="text" id="trade-name" required placeholder="اسمك الكامل">
+                <input type="hidden" id="trade-device-type" value="laptop">
+                <input type="hidden" id="trade-condition" value="good">
+
+                <div id="trade-step-1" class="trade-in-step active">
+                    <div class="trade-in-field">
+                        <label><i class="fas fa-laptop"></i> نوع الجهاز</label>
+                        <div class="trade-chip-group" id="trade-type-chips">
+                            <button type="button" class="trade-chip active" data-value="laptop"><i class="fas fa-laptop"></i> لابتوب</button>
+                            <button type="button" class="trade-chip" data-value="macbook"><i class="fab fa-apple"></i> ماك</button>
+                            <button type="button" class="trade-chip" data-value="desktop"><i class="fas fa-desktop"></i> مكتبي</button>
+                            <button type="button" class="trade-chip" data-value="tablet"><i class="fas fa-tablet-alt"></i> تابلت</button>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label>الهاتف *</label>
-                        <input type="tel" id="trade-phone" required placeholder="01xxxxxxxxx">
-                    </div>
-                    <div class="form-group">
-                        <label>نوع الجهاز</label>
-                        <select id="trade-device-type">
-                            <option value="laptop">لابتوب</option>
-                            <option value="macbook">ماك بوك</option>
-                            <option value="desktop">كمبيوتر مكتبي</option>
-                            <option value="tablet">تابلت</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label>الماركة / الموديل *</label>
+
+                    <div class="trade-in-field">
+                        <label for="trade-brand"><i class="fas fa-tag"></i> الماركة / الموديل *</label>
                         <input type="text" id="trade-brand" required placeholder="مثلاً: HP ProBook 450 G7">
                     </div>
-                    <div class="form-group">
-                        <label>حالة الجهاز</label>
-                        <select id="trade-condition">
-                            <option value="excellent">ممتاز — بدون خدوش</option>
-                            <option value="good" selected>جيد — استخدام عادي</option>
-                            <option value="fair">مقبول — بعض العيوب</option>
-                            <option value="poor">يحتاج إصلاح</option>
-                        </select>
+
+                    <div class="trade-in-field">
+                        <label><i class="fas fa-star"></i> حالة الجهاز</label>
+                        <div class="trade-chip-group trade-chip-group-wrap" id="trade-condition-chips">
+                            <button type="button" class="trade-chip" data-value="excellent">ممتاز</button>
+                            <button type="button" class="trade-chip active" data-value="good">جيد</button>
+                            <button type="button" class="trade-chip" data-value="fair">مقبول</button>
+                            <button type="button" class="trade-chip" data-value="poor">يحتاج إصلاح</button>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label>عمر الجهاز (سنوات)</label>
+
+                    <div class="trade-in-field">
+                        <label for="trade-age"><i class="fas fa-calendar-alt"></i> عمر الجهاز</label>
                         <select id="trade-age">
                             <option value="1">أقل من سنة</option>
                             <option value="2">1–2 سنة</option>
@@ -1454,24 +1473,58 @@
                             <option value="5">5+ سنوات</option>
                         </select>
                     </div>
-                    <div class="form-group full-width">
-                        <label>صورة الجهاز (اختياري)</label>
-                        <input type="file" id="trade-photo" accept="image/*">
+
+                    <div id="trade-estimate-result" class="trade-estimate-box">
+                        <div class="trade-estimate-icon"><i class="fas fa-coins"></i></div>
+                        <span class="trade-estimate-label">التقدير الأولي</span>
+                        <strong id="trade-estimate-amount">—</strong>
+                        <small>السعر النهائي يُحدد بعد الفحص في الفرع</small>
                     </div>
-                    <div class="form-group full-width">
-                        <label>ملاحظات</label>
-                        <textarea id="trade-notes" rows="2" placeholder="أي تفاصيل عن العيوب أو الإكسسوارات..."></textarea>
+
+                    <button type="button" class="trade-in-next-btn" onclick="goTradeInStep(2)">
+                        التالي — بيانات التواصل <i class="fas fa-arrow-left"></i>
+                    </button>
+                </div>
+
+                <div id="trade-step-2" class="trade-in-step">
+                    <div class="trade-in-grid">
+                        <div class="trade-in-field">
+                            <label for="trade-name"><i class="fas fa-user"></i> الاسم *</label>
+                            <input type="text" id="trade-name" required placeholder="اسمك الكامل">
+                        </div>
+                        <div class="trade-in-field">
+                            <label for="trade-phone"><i class="fas fa-phone"></i> الهاتف *</label>
+                            <input type="tel" id="trade-phone" required placeholder="01xxxxxxxxx">
+                        </div>
                     </div>
-                </div>
-                <div id="trade-estimate-result" class="trade-estimate-box" style="display:none">
-                    <i class="fas fa-calculator"></i>
-                    <span>التقدير الأولي: </span>
-                    <strong id="trade-estimate-amount">—</strong>
-                    <small>السعر النهائي بعد الفحص الفعلي</small>
-                </div>
-                <div class="trade-in-actions">
-                    <button type="button" class="cta-button secondary" onclick="previewTradeInEstimate()">احسب التقدير</button>
-                    <button type="submit" class="cta-button trade-in-submit"><i class="fab fa-whatsapp"></i> إرسال + واتساب</button>
+
+                    <div class="trade-in-field">
+                        <label><i class="fas fa-camera"></i> صورة الجهاز (اختياري)</label>
+                        <label class="trade-upload-zone" for="trade-photo">
+                            <input type="file" id="trade-photo" accept="image/*" hidden>
+                            <i class="fas fa-cloud-upload-alt"></i>
+                            <span id="trade-photo-label">اسحب صورة أو اضغط للاختيار</span>
+                        </label>
+                    </div>
+
+                    <div class="trade-in-field">
+                        <label for="trade-notes"><i class="fas fa-comment-alt"></i> ملاحظات</label>
+                        <textarea id="trade-notes" rows="3" placeholder="عيوب، إكسسوارات، أو أي تفاصيل تساعد في التقييم..."></textarea>
+                    </div>
+
+                    <div class="trade-estimate-box trade-estimate-box-compact">
+                        <span class="trade-estimate-label">تقديرك الحالي</span>
+                        <strong id="trade-estimate-amount-step2">—</strong>
+                    </div>
+
+                    <div class="trade-in-actions">
+                        <button type="button" class="trade-in-back-btn" onclick="goTradeInStep(1)">
+                            <i class="fas fa-arrow-right"></i> رجوع
+                        </button>
+                        <button type="submit" class="trade-in-submit">
+                            <i class="fab fa-whatsapp"></i> أرسل الطلب عبر واتساب
+                        </button>
+                    </div>
                 </div>
             </form>
         </div>
