@@ -1275,37 +1275,6 @@
     </section>
 
 
-    <!-- AI Tech Assistant Widget -->
-    <div id="ai-assistant-widget" class="ai-widget-container">
-        <div id="ai-chat-window" class="ai-chat-window">
-            <div class="ai-chat-header">
-                <div class="ai-status-dot"></div>
-                <span>المساعد التقني الذكي - YAS AI</span>
-                <button onclick="toggleAIChat()"><i class="fas fa-times"></i></button>
-            </div>
-            <div id="ai-chat-messages" class="ai-chat-messages">
-                <div class="message ai-msg">مرحباً! أنا مساعدك التقني من YAS. كيف يمكنني مساعدتك اليوم؟</div>
-            </div>
-            <!-- Quick Commands Area -->
-            <div class="ai-quick-commands">
-                <button onclick="sendAIQuery('تشخيص')">🛠️ تشخيص عطل</button>
-                <button onclick="triggerAIVision()">📷 فحص بصري (AI Vision)</button>
-                <button onclick="sendAIQuery('مقارنة')">📊 مساعدة في اختيار جهاز</button>
-                <button onclick="sendAIQuery('تحديث')">🚀 طلب تحديث سرعة</button>
-            </div>
-            <!-- Hidden File Input for AI Vision -->
-            <input type="file" id="ai-vision-input" style="display: none;" accept="image/*" onchange="processAIVision(event)">
-            <div class="ai-chat-input">
-                <input type="text" id="ai-user-query" placeholder="اسألني عن صيانة، تحديث، أو أجهزة...">
-                <button onclick="sendAIQuery()"><i class="fas fa-paper-plane"></i></button>
-            </div>
-        </div>
-        <button id="ai-trigger" class="ai-trigger-btn" onclick="toggleAIChat()">
-            <i class="fas fa-robot"></i>
-            <span class="ai-badge">AI</span>
-        </button>
-    </div>
-
     <!-- Footer -->
     <footer class="footer">
         <div class="container">
