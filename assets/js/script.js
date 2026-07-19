@@ -528,32 +528,6 @@ window.bookRepair = async function () {
     window.open(`https://wa.me/201147800144?text=${msg}`, '_blank');
 };
 
-// AI Assistant
-let diagState = null;
-window.toggleAIChat = () => { const chat = document.getElementById('ai-chat-window'); if (chat) chat.classList.toggle('active'); };
-window.sendAIQuery = (queryOverride) => {
-    const input = document.getElementById('ai-user-query');
-    const query = (queryOverride || (input ? input.value : '')).trim();
-    if (!query) return;
-    addChatMessage(query, 'user-msg'); if (input) input.value = '';
-    setTimeout(() => {
-        let response = `أهلاً بك! بخصوص "${query}" ، يمكننا مساعدتك. تواصل معنا عبر الواتساب: 01158986999.`;
-        if (typeof processAIQuery === 'function') response = processAIQuery(query.toLowerCase());
-        addChatMessage(response, 'ai-msg');
-    }, 800);
-};
-function processAIQuery(q) {
-    if (q.includes('تشخيص')) { diagState = 'start'; return 'حسناً، فلنبدأ تشخيص العطل. هل الجهاز يعمل (يفتح شاشة) أم متوقف تماماً عن العمل؟'; }
-    if (diagState === 'start') { if (q.includes('يعمل') || q.includes('شاشة')) { diagState = 'working'; return 'جيد. هل المشكلة في بطء الجهاز أم أن هناك رسائل خطأ تظهر لك؟'; } else { diagState = 'dead'; return 'في هذه الحالة، قد تكون المشكلة في دائرة الباور أو البطارية. تواصل مع فني الصيانة: <br><a href="https://wa.me/201147800144" target="_blank" style="color:var(--accent-gold); font-weight:bold;">01147800144</a>'; } }
-    if (q.includes('صيانة') || q.includes('عطل')) return 'نحن متميزون في صيانة البوردة والشاشات. تواصل معنا: 01147800144';
-    return 'أهلاً بك! أنا مساعد YAS الذكي. يمكنك طلب "تشخيص" عطل أو الاستفسار عن "صيانة" (01147800144).';
-}
-window.addChatMessage = function(text, className) {
-    const msgContainer = document.getElementById('ai-chat-messages'); if (!msgContainer) return;
-    const msgDiv = document.createElement('div'); msgDiv.className = `message ${className}`; msgDiv.innerHTML = text;
-    msgContainer.appendChild(msgDiv); msgContainer.scrollTop = msgContainer.scrollHeight;
-};
-
 // 360 Virtual Tour
 const vrScenes = {
     "scene1": { "title": "بوابة شركة YAS", "type": "equirectangular", "panorama": "assets/images/vr1.jpeg", "autoLoad": true, "hfov": 110, "pitch": -3, "yaw": 117 },
