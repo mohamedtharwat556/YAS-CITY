@@ -555,9 +555,9 @@ window.addChatMessage = function(text, className) {
 
 // 360 Virtual Tour
 const vrScenes = {
-    "scene1": { "title": "بوابة شركة YAS", "type": "equirectangular", "panorama": "vr1.jpeg", "autoLoad": true, "hfov": 110, "pitch": -3, "yaw": 117 },
-    "scene2": { "title": "الرواق الداخلي", "type": "equirectangular", "panorama": "vr2.jpeg", "autoLoad": true },
-    "scene3": { "title": "مركز الصيانة", "type": "equirectangular", "panorama": "vr3.jpeg", "autoLoad": true }
+    "scene1": { "title": "بوابة شركة YAS", "type": "equirectangular", "panorama": "assets/images/vr1.jpeg", "autoLoad": true, "hfov": 110, "pitch": -3, "yaw": 117 },
+    "scene2": { "title": "الرواق الداخلي", "type": "equirectangular", "panorama": "assets/images/vr2.jpeg", "autoLoad": true },
+    "scene3": { "title": "مركز الصيانة", "type": "equirectangular", "panorama": "assets/images/vr3.jpeg", "autoLoad": true }
 };
 
 window.runTechScan = function() {

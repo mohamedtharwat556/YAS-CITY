@@ -1,60 +1,79 @@
-const CACHE_NAME = 'yas-city-v1';
-const ASSETS = [
+const CACHE_NAME = 'yas-city-v3';
+const APP_SHELL = [
     '/',
     '/index.html',
-    '/style.css',
-    '/script.js',
-    '/logo.jpeg',
-    '/config.js'
+    '/maintenance.html',
+    '/customer-service.html',
+    '/online.html',
+    '/manifest.json',
+    '/config.js',
+    '/assets/css/style.css',
+    '/assets/js/script.js',
+    '/assets/js/cms.js',
+    '/assets/js/pwa.js',
+    '/assets/js/analytics.js',
+    '/assets/js/customer-service.js',
+    '/assets/images/logo.jpeg'
 ];
 
+const NETWORK_FIRST = ['/api/'];
+
 self.addEventListener('install', (event) => {
+    self.skipWaiting();
     event.waitUntil(
-        caches.open(CACHE_NAME)
-            .then(cache => {
-                console.log('Caching app shell');
-                return Promise.all(
-                    ASSETS.map(url => {
-                        return cache.add(url).catch(err => console.log('Failed to cache:', url, err));
-                    })
-                );
-            })
+        caches.open(CACHE_NAME).then((cache) =>
+            Promise.all(
+                APP_SHELL.map((url) =>
+                    cache.add(url).catch((err) => console.warn('Cache skip:', url, err))
+                )
+            )
+        )
     );
 });
 
 self.addEventListener('activate', (event) => {
     event.waitUntil(
-        caches.keys().then(keys => {
-            return Promise.all(
-                keys.filter(key => key !== CACHE_NAME).map(key => caches.delete(key))
-            );
-        })
+        caches.keys().then((keys) =>
+            Promise.all(keys.filter((key) => key !== CACHE_NAME).map((key) => caches.delete(key)))
+        ).then(() => self.clients.claim())
     );
 });
 
 self.addEventListener('fetch', (event) => {
     if (event.request.method !== 'GET') return;
-    
-    // API calls to supabase or google apis shouldn't be heavily cached offline, but we do standard network-first or cache-first. Here, simple cache-first for assets.
-    if(event.request.url.includes('supabase.co') || event.request.url.includes('googleapis.com')) {
-         event.respondWith(fetch(event.request));
-         return;
+
+    const url = event.request.url;
+
+    if (
+        url.includes('supabase.co') ||
+        url.includes('googleapis.com') ||
+        url.includes('googletagmanager.com') ||
+        url.includes('google-analytics.com') ||
+        url.includes('cdn.jsdelivr.net') ||
+        url.includes('cdnjs.cloudflare.com')
+    ) {
+        event.respondWith(fetch(event.request));
+        return;
+    }
+
+    if (NETWORK_FIRST.some((prefix) => url.includes(prefix))) {
+        event.respondWith(
+            fetch(event.request).catch(() => caches.match(event.request))
+        );
+        return;
     }
 
     event.respondWith(
-        caches.match(event.request).then(cachedResponse => {
-            return cachedResponse || fetch(event.request).then(response => {
-                // Ignore caching for non-http requests like chrome-extension://
-                if (!event.request.url.startsWith('http')) return response;
-                
-                let responseClone = response.clone();
-                caches.open(CACHE_NAME).then(cache => {
-                    cache.put(event.request, responseClone);
-                });
+        caches.match(event.request).then((cached) => {
+            if (cached) return cached;
+            return fetch(event.request).then((response) => {
+                if (!event.request.url.startsWith('http') || response.status !== 200) {
+                    return response;
+                }
+                const clone = response.clone();
+                caches.open(CACHE_NAME).then((cache) => cache.put(event.request, clone));
                 return response;
             });
-        }).catch(() => {
-            console.log('Offline and asset not in cache:', event.request.url);
         })
     );
 });
