@@ -5880,10 +5880,10 @@ body.light-mode .review-card {
     margin-bottom: 30px;
     position: relative;
     box-shadow: 0 0 30px rgba(212, 175, 55, 0.3);
-    animation: pulse 2s ease-in-out infinite;
+    animation: pulse-glow 2s ease-in-out infinite;
 }
 
-@keyframes pulse {
+@keyframes pulse-glow {
     0%, 100% { box-shadow: 0 0 30px rgba(212, 175, 55, 0.3); }
     50% { box-shadow: 0 0 50px rgba(212, 175, 55, 0.5); }
 }
@@ -5906,5 +5906,4 @@ body.light-mode .review-card {
 .feature-card p strong {
     color: var(--accent-gold);
     font-weight: 700;
-}
 }
