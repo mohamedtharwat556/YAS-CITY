@@ -104,7 +104,9 @@
                     <ul class="nav-menu">
                         <li class="nav-item"><a href="#home" class="nav-link" data-tr="nav_home">الرئيسية</a></li>
                         <li class="nav-item"><a href="#about" class="nav-link" data-tr="nav_about">من نحن</a></li>
-                        <li class="nav-item"><a href="#estimator" class="nav-link">مقدّر الإصلاح</a></li>
+                        <li class="nav-item"><a href="#products" class="nav-link" data-tr="nav_products">منتجاتنا</a></li>
+                        <li class="nav-item"><a href="#team" class="nav-link" data-tr="nav_team">الفريق</a></li>
+                        <li class="nav-item"><a href="#gallery" class="nav-link" data-tr="nav_gallery">معرض الصور</a></li>
                         <li class="nav-item"><a href="#contact" class="nav-link" data-tr="nav_contact">اتصل بنا</a></li>
                     </ul>
                 </div>
@@ -201,169 +203,120 @@
         </div>
     </section>
 
-    <!-- Repair Estimator Section -->
-    <section id="estimator" class="estimator">
+    <!-- Products Section -->
+    <section id="products" class="products">
         <div class="container">
-            <h2 class="section-title" data-aos="fade-up">مقدّر تكلفة الإصلاح الذكي</h2>
-            <div class="estimator-container glass-card-3d" data-aos="zoom-in">
-                    <!-- Progress Stepper -->
-                    <div class="estimator-stepper">
-                        <div class="step-indicator active" id="step-ind-1">1</div>
-                        <div class="step-line"></div>
-                        <div class="step-indicator" id="step-ind-2">2</div>
-                        <div class="step-line"></div>
-                        <div class="step-indicator" id="step-ind-3">3</div>
-                        <div class="step-line"></div>
-                        <div class="step-indicator" id="step-ind-4"><i class="fas fa-check"></i></div>
+            <h2 class="section-title" data-aos="fade-up" data-tr="products_title">منتجاتنا</h2>
+            <div class="products-grid" data-aos="zoom-in">
+                <div class="product-card glass-card-3d">
+                    <div class="product-image">
+                        <img src="assets/images/laptop1.png" alt="لابتوب" loading="lazy">
                     </div>
-
-                    <!-- Step 1: Device Type -->
-                    <div class="estimator-step active" id="step-1">
-                        <h3 class="step-title"><i class="fas fa-laptop-medical"></i> خطوة 1: اختر نوع الجهاز</h3>
-                        <div class="selection-grid">
-                            <div class="selection-item" data-type="laptop" onclick="selectDevice('laptop')">
-                                <i class="fas fa-laptop"></i>
-                                <span>لاب توب</span>
-                            </div>
-                            <div class="selection-item" data-type="macbook" onclick="selectDevice('macbook')">
-                                <i class="fab fa-apple"></i>
-                                <span>ماك بوك</span>
-                            </div>
-                            <div class="selection-item" data-type="desktop" onclick="selectDevice('desktop')">
-                                <i class="fas fa-desktop"></i>
-                                <span>كمبيوتر مكتبي</span>
-                            </div>
-                            <div class="selection-item" data-type="all-in-one" onclick="selectDevice('all-in-one')">
-                                <i class="fas fa-tv"></i>
-                                <span>جهاز All-in-One</span>
-                            </div>
-                        </div>
+                    <div class="product-info">
+                        <h3>لابتوبات متنوعة</h3>
+                        <p>أحدث اللابتوبات بأفضل الأسعار</p>
+                        <button class="cta-button">عرض التفاصيل</button>
                     </div>
-
-                    <!-- Step 2: Brand (Dynamic) -->
-                    <div class="estimator-step" id="step-2">
-                        <h3 class="step-title"><i class="fas fa-microchip"></i> خطوة 2: اختر الماركة</h3>
-                        <div class="selection-grid" id="brand-grid">
-                            <!-- Brands will be injected by JS -->
-                        </div>
+                </div>
+                <div class="product-card glass-card-3d">
+                    <div class="product-image">
+                        <img src="assets/images/accessories.png" alt="إكسسوارات" loading="lazy">
                     </div>
+                    <div class="product-info">
+                        <h3>إكسسوارات</h3>
+                        <p>جميع الإكسسوارات اللازمة</p>
+                        <button class="cta-button">عرض التفاصيل</button>
+                    </div>
+                </div>
+                <div class="product-card glass-card-3d">
+                    <div class="product-image">
+                        <img src="assets/images/parts.png" alt="قطع غيار" loading="lazy">
+                    </div>
+                    <div class="product-info">
+                        <h3>قطع غيار</h3>
+                        <p>قطع غيار أصلية ومتوافقة</p>
+                        <button class="cta-button">عرض التفاصيل</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-                    <!-- Step 3: Fault Type -->
-                    <div class="estimator-step" id="step-3">
-                        <h3 class="step-title"><i class="fas fa-tools"></i> خطوة 3: اختر نوع العطل</h3>
-                        <div class="selection-grid" id="fault-grid">
-                            <!-- Faults will be injected dynamically or kept static with more options -->
-                            <div class="selection-item" onclick="selectFault('screen', 800, 1500)">
-                                <i class="fas fa-tablet-alt"></i>
-                                <span>كسر شاشة</span>
-                            </div>
-                            <div class="selection-item" onclick="selectFault('battery', 400, 900)">
-                                <i class="fas fa-battery-half"></i>
-                                <span>بطارية / شحن</span>
-                            </div>
-                            <div class="selection-item" onclick="selectFault('board', 1000, 2500)">
-                                <i class="fas fa-project-diagram"></i>
-                                <span>صيانة بوردة</span>
-                            </div>
-                            <div class="selection-item" onclick="selectFault('software', 150, 450)">
-                                <i class="fas fa-code"></i>
-                                <span>سوفت وير / نسخة</span>
-                            </div>
-                            <div class="selection-item" onclick="selectFault('keyboard', 300, 700)">
-                                <i class="fas fa-keyboard"></i>
-                                <span>تغيير كيبورد</span>
-                            </div>
-                            <div class="selection-item" onclick="selectFault('upgrade', 500, 2000)">
-                                <i class="fas fa-rocket"></i>
-                                <span>تحديث (RAM/SSD)</span>
-                            </div>
+    <!-- Team Section -->
+    <section id="team" class="team">
+        <div class="container">
+            <h2 class="section-title" data-aos="fade-up" data-tr="team_title">فريقنا</h2>
+            <div class="team-grid" data-aos="zoom-in">
+                <div class="team-card glass-card-3d">
+                    <div class="team-image">
+                        <img src="assets/images/team-main.jpg" alt="عضو الفريق" loading="lazy">
+                    </div>
+                    <div class="team-info">
+                        <h3>محمد ثروت</h3>
+                        <p>المدير العام</p>
+                        <div class="social-links">
+                            <a href="#"><i class="fab fa-linkedin"></i></a>
+                            <a href="#"><i class="fab fa-twitter"></i></a>
                         </div>
                     </div>
-
-                    <!-- Analyzing Step -->
-                    <div class="estimator-step" id="step-analyzing">
-                        <div class="analyzing-container">
-                            <div class="scanning-loader">
-                                <div class="scan-line"></div>
-                                <i class="fas fa-microchip main-chip"></i>
-                            </div>
-                            <h3 class="analyzing-text">جاري تحليل بيانات العطل وتقدير التكلفة...</h3>
+                </div>
+                <div class="team-card glass-card-3d">
+                    <div class="team-image">
+                        <img src="assets/images/team2.jpg" alt="عضو الفريق" loading="lazy">
+                    </div>
+                    <div class="team-info">
+                        <h3>أحمد علي</h3>
+                        <p>فني صيانة</p>
+                        <div class="social-links">
+                            <a href="#"><i class="fab fa-linkedin"></i></a>
+                            <a href="#"><i class="fab fa-twitter"></i></a>
                         </div>
                     </div>
-
-                    <!-- Result Box -->
-                    <div id="estimator-result" class="result-box">
-                        <div class="result-header">
-                            <i class="fas fa-file-invoice-dollar"></i>
-                            <h3>التكلفة التقديرية للإصلاح</h3>
-                        </div>
-
-                        <!-- Quality Toggle -->
-                        <div class="quality-selector" id="quality-selector">
-                            <span class="q-label active" id="q-original" onclick="changeQuality('original')">قطع أصلية (Original)</span>
-                            <div class="q-toggle-bg" onclick="toggleQuality()">
-                                <div class="q-toggle-ball" id="q-ball"></div>
-                            </div>
-                            <span class="q-label" id="q-standard" onclick="changeQuality('standard')">قطع متوافقة (High Copy)</span>
-                        </div>
-
-                        <span class="price-range" id="price-display">...</span>
-
-                        <div class="meta-info">
-                            <div class="meta-item">
-                                <i class="fas fa-shield-alt"></i>
-                                <span id="res-warranty">الضمان: ---</span>
-                            </div>
-                            <div class="meta-item">
-                                <i class="fas fa-hourglass-half"></i>
-                                <span id="res-time">الوقت: ---</span>
-                            </div>
-                        </div>
-
-                        <!-- Expert Tip Card -->
-                        <div class="expert-tip-card" id="expert-tip">
-                            <i class="fas fa-lightbulb"></i>
-                            <div class="tip-content">
-                                <strong>نصيحة الخبير:</strong>
-                                <p id="tip-text">---</p>
-                            </div>
-                        </div>
-
-                        <div class="result-details">
-                            <p id="res-device-info">نوع الجهاز: ---</p>
-                            <p id="res-fault-info">العطل: ---</p>
-                        </div>
-                        <p class="price-hint">هذا السعر تقريبي وقد يختلف حسب حالة الجهاز الفعلية وقطع الغيار المطلوبة</p>
-
-                        <!-- Add-on Services -->
-                        <div class="extra-services" style="margin: 15px 0; background: rgba(0,0,0,0.2); padding: 15px; border-radius: 10px; border: 1px solid rgba(255, 255, 255, 0.1); text-align: right;">
-                            <h4 style="margin-top: 0; margin-bottom: 15px; color: var(--accent-gold); font-size: 1rem;"><i class="fas fa-plus-circle"></i> خدمات إضافية مميزة</h4>
-                            <label style="display: flex; align-items: center; cursor: pointer; margin-bottom: 15px; font-size: 0.95rem;">
-                                <input type="checkbox" id="urgent-repair" style="margin-left: 10px; transform: scale(1.2);" onchange="updateEstimatorTotal()">
-                                <span><i class="fas fa-bolt" style="color: #ff6b6b; margin-left:5px;"></i> صيانة عاجلة (تسليم في نفس اليوم - يضاف 20%)</span>
-                            </label>
-                            <label style="display: flex; align-items: center; cursor: pointer; font-size: 0.95rem;">
-                                <input type="checkbox" id="home-pickup" style="margin-left: 10px; transform: scale(1.2);" onchange="updateEstimatorTotal()">
-                                <span><i class="fas fa-motorcycle" style="color: #4cd137; margin-left:5px;"></i> استلام وتسليم من المنزل (يضاف 50 ج.م)</span>
-                            </label>
-                        </div>
-                        
-
-                        <div class="result-actions">
-                            <button class="cta-button" onclick="bookRepair()"><i class="fab fa-whatsapp"></i> احجز موعدك الآن</button>
-                            <button class="reset-btn-link" onclick="resetEstimator()">البدء من جديد</button>
-                        </div>
-
+                </div>
+                <div class="team-card glass-card-3d">
+                    <div class="team-image">
+                        <img src="assets/images/team3.jpg" alt="عضو الفريق" loading="lazy">
                     </div>
+                    <div class="team-info">
+                        <h3>سارة محمد</h3>
+                        <p>خدمة العملاء</p>
+                        <div class="social-links">
+                            <a href="#"><i class="fab fa-linkedin"></i></a>
+                            <a href="#"><i class="fab fa-twitter"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-                    <!-- Navigation Controls -->
-                    <div class="estimator-nav" id="estimator-nav">
-                        <button class="nav-btn-back" id="btn-back" onclick="goBack()" style="visibility: hidden;">
-                            <i class="fas fa-arrow-right"></i> رجوع
-                        </button>
-                        <button class="nav-btn-reset" onclick="resetEstimator()">
-                            <i class="fas fa-sync-alt"></i> إعادة تعيين
-                        </button>
+    <!-- Gallery Section -->
+    <section id="gallery" class="gallery">
+        <div class="container">
+            <h2 class="section-title" data-aos="fade-up" data-tr="gallery_title">معرض الصور</h2>
+            <div class="gallery-grid" data-aos="zoom-in">
+                <div class="gallery-item">
+                    <img src="assets/images/gallery1.jpg" alt="صورة 1" loading="lazy">
+                    <div class="gallery-overlay">
+                        <h3>مقر الشركة</h3>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="assets/images/gallery2.jpg" alt="صورة 2" loading="lazy">
+                    <div class="gallery-overlay">
+                        <h3>قسم الصيانة</h3>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="assets/images/gallery3.jpg" alt="صورة 3" loading="lazy">
+                    <div class="gallery-overlay">
+                        <h3>فريق العمل</h3>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="assets/images/gallery4.jpg" alt="صورة 4" loading="lazy">
+                    <div class="gallery-overlay">
+                        <h3>منتجاتنا</h3>
                     </div>
                 </div>
             </div>
