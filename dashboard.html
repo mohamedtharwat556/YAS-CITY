@@ -557,16 +557,6 @@
                 </div>
             </li>
             <li>
-                <div class="nav-link" onclick="switchSection('repair', this)">
-                    <i class="fas fa-tools"></i> قسم الصيانة
-                </div>
-            </li>
-            <li>
-                <div class="nav-link" onclick="switchSection('laptop_sale', this)">
-                    <i class="fas fa-shopping-cart"></i> مبيعات الأجهزة
-                </div>
-            </li>
-            <li>
                 <div class="nav-link" onclick="switchSection('device_request', this)">
                     <i class="fas fa-laptop"></i> طلبات اختيار الأجهزة
                 </div>
@@ -812,8 +802,6 @@
 
         function updateStats() {
             document.getElementById('count-all').innerText = allData.length;
-            document.getElementById('count-repair').innerText = allData.filter(d => d.type === 'repair').length;
-            document.getElementById('count-sales').innerText = allData.filter(d => d.type === 'laptop_sale' || d.type === 'matchmaker').length;
             document.getElementById('count-device').innerText = allData.filter(d => d.type === 'device_request').length;
         }
 
@@ -821,7 +809,7 @@
             currentFilter = filter;
             document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
             el.classList.add('active');
-            const titles = { all: 'كافة الطلبات', repair: '🛠️ قسم الصيانة', laptop_sale: '🛒 المبيعات', device_request: '💻 طلبات اختيار الأجهزة', cms: '📝 إدارة المحتوى' };
+            const titles = { all: 'كافة الطلبات', device_request: '💻 طلبات اختيار الأجهزة', cms: '📝 إدارة المحتوى' };
             document.getElementById('panel-title').innerText = titles[filter];
             
             if (filter === 'cms') {
@@ -1015,9 +1003,7 @@
             const tbody = document.getElementById('table-body');
             let rows = allData;
 
-            if (currentFilter === 'repair') rows = allData.filter(d => d.type === 'repair');
-            else if (currentFilter === 'laptop_sale') rows = allData.filter(d => d.type === 'laptop_sale' || d.type === 'matchmaker');
-            else if (currentFilter === 'device_request') rows = allData.filter(d => d.type === 'device_request');
+            if (currentFilter === 'device_request') rows = allData.filter(d => d.type === 'device_request');
 
             if (rows.length === 0) {
                 tbody.innerHTML = `<tr><td colspan="6"><div class="empty-msg"><i class="fas fa-inbox"></i> لا توجد طلبات</div></td></tr>`;
@@ -1025,7 +1011,6 @@
             }
 
             tbody.innerHTML = rows.map(item => {
-                const isSales = item.type === 'laptop_sale' || item.type === 'matchmaker';
                 const isDevice = item.type === 'device_request';
                 const dt = new Date(item.created_at);
                 const date = isNaN(dt) ? '-' : dt.toLocaleDateString('ar-EG');
@@ -1035,9 +1020,9 @@
                 if (isDevice && item.email) detail += ` | ${item.email}`;
                 if (isDevice && item.address) detail += ` | ${item.address}`;
                 
-                const typeClass = isDevice ? 'device' : (isSales ? 'sales' : 'maint');
-                const typeIcon = isDevice ? 'fa-laptop' : (isSales ? 'fa-shopping-bag' : 'fa-tools');
-                const typeLabel = isDevice ? 'طلب جهاز' : (isSales ? 'مبيعات' : 'صيانة');
+                const typeClass = isDevice ? 'device' : 'maint';
+                const typeIcon = isDevice ? 'fa-laptop' : 'fa-tools';
+                const typeLabel = isDevice ? 'طلب جهاز' : 'استفسار عام';
                 
                 // Fallback for old status
                 let st = item.status || 'new';
