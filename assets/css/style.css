@@ -5907,3 +5907,18 @@ body.light-mode .review-card {
     color: var(--accent-gold);
     font-weight: 700;
 }
+
+.feature-video-wrapper {
+    margin-top: 25px;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    border: 2px solid rgba(212, 175, 55, 0.3);
+}
+
+.feature-video {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 15px;
+}
