@@ -5914,6 +5914,9 @@ body.light-mode .review-card {
     overflow: hidden;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
     border: 2px solid rgba(212, 175, 55, 0.3);
+    max-width: 400px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .feature-video {
@@ -5921,4 +5924,49 @@ body.light-mode .review-card {
     height: auto;
     display: block;
     border-radius: 15px;
+    max-height: 250px;
+}
+
+.cta-section {
+    padding: 80px 0;
+    background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+}
+
+.cta-content {
+    text-align: center;
+    padding: 60px 40px;
+    background: linear-gradient(135deg, rgba(212, 175, 55, 0.1) 0%, rgba(59, 130, 246, 0.1) 100%);
+    border: 2px solid rgba(212, 175, 55, 0.3);
+    border-radius: 30px;
+}
+
+.cta-content h2 {
+    color: var(--accent-gold);
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+    font-weight: 800;
+}
+
+.cta-content p {
+    color: #e2e8f0;
+    font-size: 1.2rem;
+    margin-bottom: 30px;
+}
+
+.cta-button {
+    display: inline-block;
+    padding: 15px 40px;
+    background: linear-gradient(135deg, var(--accent-gold) 0%, #b8860b 100%);
+    color: #0f172a;
+    text-decoration: none;
+    border-radius: 50px;
+    font-weight: 700;
+    font-size: 1.1rem;
+    transition: all 0.3s ease;
+    box-shadow: 0 10px 30px rgba(212, 175, 55, 0.3);
+}
+
+.cta-button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 15px 40px rgba(212, 175, 55, 0.5);
 }
