@@ -44,8 +44,8 @@ const translations = {
     ar: {
         nav_home: 'الرئيسية', nav_about: 'من نحن', nav_services: 'أقسامنا',
         nav_gallery: 'معرض الصور', nav_products: 'منتجاتنا', nav_contact: 'اتصل بنا',
-        nav_estimator: 'مقدّر الإصلاح', nav_quiz: 'اختر جهازك',
-        nav_team: 'الفريق', nav_counselor: 'المستشار التقني',
+        nav_estimator: 'مقدّر الإصلاح',
+        nav_team: 'الفريق',
         hero_title: 'مرحباً بك في شركة YAS',
         hero_subtitle: 'التميز والابتكار في كل خطوة',
         hero_btn: 'اكتشف المزيد',
@@ -84,8 +84,8 @@ const translations = {
     en: {
         nav_home: 'Home', nav_about: 'About', nav_services: 'Services',
         nav_gallery: 'Gallery', nav_products: 'Products', nav_contact: 'Contact',
-        nav_estimator: 'Repair Estimator', nav_quiz: 'Find Your Device',
-        nav_team: 'Team', nav_counselor: 'Tech Advisor',
+        nav_estimator: 'Repair Estimator',
+        nav_team: 'Team',
         hero_title: 'Welcome to YAS Company',
         hero_subtitle: 'Excellence & Innovation in Every Step',
         hero_btn: 'Discover More',
@@ -710,7 +710,7 @@ window.calculateUpgrade = function() {
 window.contactCounselor = function(type) {
     let msg = "";
     if (type === 'diagnosis') {
-        const score = document.getElementById('v-score').innerText;
+        const score = document.getElementById('v-score')?.innerText || 'غير محدد';
         msg = `مرحباً YAS CITY، قمت بعمل فحص لجهازي وحصلت على تقييم (${score}). أود حجز موعد صيانة.`;
     } else {
         msg = `مرحباً YAS CITY، أود الاستفسار عن باقات تحديث اللابتوب (RAM/SSD) المتوفرة لديكم.`;
@@ -718,252 +718,6 @@ window.contactCounselor = function(type) {
     window.open(`https://wa.me/201147800144?text=${encodeURIComponent(msg)}`, '_blank');
 };
 
-
-// PC Matchmaker Quiz Logic
-let quizSelected = { usage: '', budget: '', portability: '' };
-let quizHistory = ['q-step-1'];
-
-window.switchQuizMode = function(mode) {
-    const stepper = document.querySelector('.quiz-stepper');
-    const nav = document.getElementById('quiz-nav');
-    const compareView = document.getElementById('compare-view');
-    const tabs = document.querySelectorAll('.util-btn');
-    
-    tabs.forEach(t => t.classList.remove('active'));
-    
-    if (mode === 'quiz') {
-        if(stepper) stepper.style.display = 'flex';
-        if(nav) nav.style.display = 'flex';
-        if(tabs[0]) tabs[0].classList.add('active');
-        goToQuizStep('q-step-1');
-    } else {
-        if(stepper) stepper.style.display = 'none';
-        if(nav) nav.style.display = 'none';
-        if(tabs[1]) tabs[1].classList.add('active');
-        goToQuizStep('compare-view');
-    }
-};
-
-window.selectQuizOption = function(key, value) {
-    quizSelected[key] = value;
-    const currentStepId = quizHistory[quizHistory.length - 1];
-    const stepNum = parseInt(currentStepId.split('-').pop());
-
-    if (stepNum < 6) {
-        goToQuizStep(`q-step-${stepNum + 1}`);
-    } else {
-        goToQuizStep('q-step-analyzing');
-        setTimeout(() => showQuizResult(), 2500);
-    }
-};
-
-function goToQuizStep(stepId) {
-    document.querySelectorAll('.quiz-step, .quiz-result-card').forEach(s => {
-        s.classList.remove('active');
-        s.style.display = 'none';
-    });
-    const target = document.getElementById(stepId);
-    if (target) {
-        target.style.display = 'block';
-        setTimeout(() => target.classList.add('active'), 10);
-        if (stepId.startsWith('q-step-') && stepId !== 'q-step-analyzing') quizHistory.push(stepId);
-    }
-    updateQuizStepper(stepId);
-}
-
-function updateQuizStepper(stepId) {
-    const stepMap = { 'q-step-1': 1, 'q-step-2': 2, 'q-step-3': 3, 'q-step-4': 4, 'q-step-5': 5, 'q-step-6': 6, 'q-step-analyzing': 7, 'quiz-result': 7 };
-    const num = stepMap[stepId] || 1;
-    document.querySelectorAll('.q-step').forEach((ind, idx) => {
-        ind.classList.toggle('active', idx + 1 === num);
-        ind.classList.toggle('completed', idx + 1 < num);
-    });
-    const nav = document.getElementById('quiz-nav');
-    if (nav) nav.style.display = (stepId === 'quiz-result' || stepId === 'q-step-analyzing') ? 'none' : 'flex';
-    const backBtn = document.getElementById('q-btn-back');
-    if (backBtn) backBtn.style.visibility = (stepId === 'q-step-1') ? 'hidden' : 'visible';
-}
-
-window.goBackQuiz = function() {
-    if (quizHistory.length > 1) {
-        quizHistory.pop();
-        goToQuizStep(quizHistory.pop());
-    }
-};
-
-window.resetQuiz = function() {
-    quizSelected = { usage: '', budget: '', portability: '' };
-    quizHistory = [];
-    goToQuizStep('q-step-1');
-};
-
-function showQuizResult() {
-    const recommendations = {
-        // Student + Economy + High Portability
-        'student_economy_high': { name: 'Dell Latitude 7480', power: 65, gaming: 30, battery: 85, img: 'laptop1.png', specs: ['Core i5-7th Gen', '8GB RAM', '256GB SSD', 'Ultra Portable'] },
-        // Student + Economy + Mid Portability
-        'student_economy_mid': { name: 'HP ProBook 450 G7', power: 70, gaming: 35, battery: 80, img: 'laptop2.png', specs: ['Core i5-10th Gen', '8GB RAM', '512GB SSD', '15.6" FHD'] },
-        // Student + Economy + Low Portability
-        'student_economy_low': { name: 'Lenovo ThinkPad E15', power: 72, gaming: 38, battery: 78, img: 'laptop3.png', specs: ['Core i5-11th Gen', '8GB RAM', '512GB SSD', '15.6" IPS'] },
-        
-        // Gaming + Premium + Low Portability
-        'gaming_premium_low': { name: 'HP Victus 15', power: 95, gaming: 92, battery: 60, img: 'laptop2.png', specs: ['Core i7-12th Gen', '16GB RAM', 'RTX 3050', '144Hz Screen'] },
-        // Gaming + Premium + Mid Portability
-        'gaming_premium_mid': { name: 'ASUS ROG Strix G15', power: 98, gaming: 95, battery: 55, img: 'laptop1.png', specs: ['Ryzen 7 5800H', '16GB RAM', 'RTX 3060', '165Hz Screen'] },
-        // Gaming + Ultra + Low Portability
-        'gaming_ultra_low': { name: 'Alienware m15 R7', power: 100, gaming: 98, battery: 50, img: 'laptop3.png', specs: ['Core i9-12th Gen', '32GB RAM', 'RTX 3080', '240Hz OLED'] },
-        
-        // Business + Mid + High Portability
-        'business_mid_high': { name: 'Dell Latitude 7420', power: 88, gaming: 55, battery: 90, img: 'laptop3.png', specs: ['Core i7-11th Gen', '16GB RAM', 'Iris Xe Graphics', 'Long Battery'] },
-        // Business + Premium + High Portability
-        'business_premium_high': { name: 'MacBook Pro 14"', power: 92, gaming: 60, battery: 95, img: 'laptop1.png', specs: ['M2 Pro Chip', '16GB RAM', '512GB SSD', 'Liquid Retina XDR'] },
-        // Business + Premium + Mid Portability
-        'business_premium_mid': { name: 'ThinkPad X1 Carbon', power: 90, gaming: 45, battery: 92, img: 'laptop2.png', specs: ['Core i7-12th Gen', '16GB RAM', '1TB SSD', 'Carbon Fiber'] },
-        
-        // Design + Premium + Mid Portability
-        'design_premium_mid': { name: 'MacBook Pro 16"', power: 98, gaming: 65, battery: 88, img: 'laptop1.png', specs: ['M2 Max Chip', '32GB RAM', '1TB SSD', '16.2" Liquid Retina'] },
-        // Design + Ultra + Low Portability
-        'design_ultra_low': { name: 'MSI Creator Z17', power: 100, gaming: 85, battery: 70, img: 'laptop3.png', specs: ['Core i9-13th Gen', '64GB RAM', 'RTX 4080', '17.3" 4K Touch'] },
-        
-        // Programming + Mid + High Portability
-        'programming_mid_high': { name: 'MacBook Air M2', power: 85, gaming: 40, battery: 95, img: 'laptop2.png', specs: ['M2 Chip', '16GB RAM', '512GB SSD', '13.6" Liquid Retina'] },
-        // Programming + Premium + Mid Portability
-        'programming_premium_mid': { name: 'Framework Laptop 16"', power: 92, gaming: 70, battery: 75, img: 'laptop1.png', specs: ['Ryzen 7 7840HS', '32GB RAM', '1TB SSD', 'Upgradeable'] },
-        
-        // Default fallback
-        'default': { name: 'HP EliteBook 840 G6', power: 75, gaming: 40, battery: 80, img: 'laptop1.png', specs: ['Core i5-8th Gen', '16GB RAM', '512GB SSD', 'Metal Body'] }
-    };
-
-    // Create recommendation key based on all selected parameters
-    const key = `${quizSelected.usage}_${quizSelected.budget}_${quizSelected.portability}`;
-    let match = recommendations[key];
-    
-    // If no exact match, try partial matches
-    if (!match) {
-        const partialKey = `${quizSelected.usage}_${quizSelected.budget}`;
-        match = recommendations[partialKey + '_mid'] || recommendations[partialKey + '_high'] || recommendations[partialKey + '_low'];
-    }
-    
-    // Final fallback
-    if (!match) {
-        match = recommendations['default'];
-    }
-
-    // Adjust scores based on additional preferences
-    let adjustedPower = match.power;
-    let adjustedGaming = match.gaming;
-    let adjustedBattery = match.battery;
-    
-    if (quizSelected.performance === 'speed') {
-        adjustedPower = Math.min(match.power + 10, 100);
-    } else if (quizSelected.performance === 'battery') {
-        adjustedBattery = Math.min(match.battery + 10, 100);
-    } else if (quizSelected.performance === 'graphics') {
-        adjustedGaming = Math.min(match.gaming + 10, 100);
-    }
-    
-    // OS preference adjustment
-    if (quizSelected.os === 'mac' && !match.name.includes('Mac')) {
-        // Suggest MacBook if user prefers macOS
-        match = recommendations['business_premium_high'];
-    } else if (quizSelected.os === 'linux' && match.name.includes('Mac')) {
-        // Suggest Linux-compatible alternative
-        match = recommendations['programming_premium_mid'];
-    }
-
-    if(document.getElementById('match-name')) document.getElementById('match-name').innerText = match.name;
-    if(document.getElementById('score-power')) document.getElementById('score-power').style.width = adjustedPower + '%';
-    if(document.getElementById('score-gaming')) document.getElementById('score-gaming').style.width = adjustedGaming + '%';
-    if(document.getElementById('score-battery')) document.getElementById('score-battery').style.width = adjustedBattery + '%';
-    if(document.getElementById('match-img')) document.getElementById('match-img').src = 'assets/images/' + match.img;
-    if(document.getElementById('match-specs')) {
-        document.getElementById('match-specs').innerHTML = match.specs.map(s => `<li><i class="fas fa-check"></i> ${s}</li>`).join('');
-    }
-
-    goToQuizStep('quiz-result');
-}
-
-window.contactMatch = function() {
-    const name = document.getElementById('match-name').innerText;
-    const msg = encodeURIComponent(`مرحباً YAS CITY، قمت بعمل اختبار الجهاز المثالي وظهر لي جهاز (${name}). هل هو متوفر حالياً؟`);
-    window.open(`https://wa.me/201158986999?text=${msg}`, '_blank');
-};
-
-// Device Request Form Functions
-window.showContactForm = function() {
-    const form = document.getElementById('contact-form-modal');
-    const deviceName = document.getElementById('match-name').innerText;
-    const deviceSpecs = document.getElementById('match-specs').innerText;
-    
-    document.getElementById('summary-device-name').innerText = deviceName;
-    document.getElementById('summary-device-specs').innerText = deviceSpecs;
-    form.style.display = 'block';
-};
-
-window.hideContactForm = function() {
-    document.getElementById('contact-form-modal').style.display = 'none';
-};
-
-window.submitDeviceRequest = async function(event) {
-    event.preventDefault();
-    
-    const name = document.getElementById('customer-name').value;
-    const phone = document.getElementById('customer-phone').value;
-    const email = document.getElementById('customer-email').value;
-    const address = document.getElementById('customer-address').value;
-    const notes = document.getElementById('customer-notes').value;
-    const deviceName = document.getElementById('match-name').innerText;
-    const deviceSpecs = document.getElementById('match-specs').innerText;
-    
-    const requestData = {
-        id: Date.now(),
-        type: 'device_request',
-        name: name,
-        phone: phone,
-        email: email,
-        address: address,
-        notes: notes,
-        device_name: deviceName,
-        device_type: deviceName,
-        device_specs: deviceSpecs,
-        quiz_answers: quizSelected,
-        created_at: new Date().toISOString(),
-        status: 'new'
-    };
-    
-    // Save to localStorage
-    try {
-        let inquiries = JSON.parse(localStorage.getItem('yas_inquiries') || '[]');
-        inquiries.unshift(requestData);
-        localStorage.setItem('yas_inquiries', JSON.stringify(inquiries));
-    } catch(e) {
-        console.error('Local storage error:', e);
-    }
-    
-    // Try to save to Supabase
-    if (window.yasDb) {
-        try {
-            const { data, error } = await window.yasDb.from('inquiries').insert([requestData]);
-            if (error) throw error;
-        } catch(e) {
-            console.warn('Supabase save failed, using local storage:', e);
-        }
-    }
-    
-    // Send notification
-    window.sendTelegramAlert({
-        name: name,
-        phone: phone,
-        type: 'device_request',
-        device_name: deviceName,
-        message: `طلب جهاز: ${deviceName} - ${notes || 'لا توجد ملاحظات'}`
-    });
-    
-    // Show success message
-    alert('تم إرسال طلبك بنجاح! سنتواصل معك قريباً.');
-    hideContactForm();
-    document.getElementById('device-request-form').reset();
-};
 
 // openTradeIn → assets/js/trade-in.js
 
