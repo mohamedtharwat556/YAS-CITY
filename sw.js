@@ -11,7 +11,6 @@ const APP_SHELL = [
     '/assets/js/script.js',
     '/assets/js/inquiries.js',
     '/assets/js/devices-db.js',
-    '/assets/js/trade-in.js',
     '/assets/js/cms.js',
     '/assets/js/pwa.js',
     '/assets/js/analytics.js',
