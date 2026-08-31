@@ -5992,6 +5992,16 @@ body.light-mode .review-card {
     transform: scale(1.1);
 }
 
+.feature-image-link {
+    display: inline-block;
+    text-decoration: none;
+    transition: transform 0.3s ease;
+}
+
+.feature-image-link:hover {
+    transform: scale(1.1);
+}
+
 .videos-section {
     padding: 80px 0;
     background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
